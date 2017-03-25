@@ -12,6 +12,7 @@
         android:src="@mipmap/ic_launcher"
         android:horizontalSpacing="0dp"
         android:verticalSpacing="0dp"
+        android:adjustViewBounds="true"
 
         />
 </RelativeLayout>
