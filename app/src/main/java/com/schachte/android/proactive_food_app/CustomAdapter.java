@@ -1,6 +1,7 @@
 package com.schachte.android.proactive_food_app;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter{
@@ -17,7 +22,8 @@ public class CustomAdapter extends BaseAdapter{
     Context context;
     int [] imageId;
     int [] hoverId;
-    // ArrayList<HashMap<String, Integer>> categoryData= new ArrayList<>();
+
+    public final String TAG = this.getClass().getSimpleName();
 
     ArrayList<CategoryData> categoryData = new ArrayList<>();
 
@@ -57,6 +63,35 @@ public class CustomAdapter extends BaseAdapter{
         ImageView os_img;
         Boolean selection = false;
         String name;
+    }
+
+    /**
+     *
+     */
+    public void setChecked(String StringifiedArray){
+        JSONArray array = null;
+        ArrayList<String> strings = new ArrayList<>();
+        try {
+            array = new JSONArray(StringifiedArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Loop through strings in the json array;
+        for(int i = 0; i < array.length(); i++){
+            try {
+                strings.add(i, (String) array.get(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.d(TAG, "Printing list from loaded from preferences, after loading to string array.");
+        for(String data : strings){
+            new Holder().name
+            Log.d(TAG, data);
+        }
+
     }
 
     public ArrayList<CategoryData> getSelectedCategories() {
