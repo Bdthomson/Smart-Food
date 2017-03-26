@@ -88,7 +88,7 @@ public class CustomAdapter extends BaseAdapter{
 
         Log.d(TAG, "Printing list from loaded from preferences, after loading to string array.");
         for(String data : strings){
-            new Holder().name
+            // new Holder().name
             Log.d(TAG, data);
         }
 
