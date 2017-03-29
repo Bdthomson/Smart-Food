@@ -1,6 +1,7 @@
 package com.schachte.android.proactive_food_app;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,7 +10,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class CustomAdapter extends BaseAdapter{
 
@@ -17,17 +23,20 @@ public class CustomAdapter extends BaseAdapter{
     Context context;
     int [] imageId;
     int [] hoverId;
-    // ArrayList<HashMap<String, Integer>> categoryData= new ArrayList<>();
+    public final String TAG = this.getClass().getSimpleName();
+    ArrayList<String> checked = new ArrayList<>();
+    // ArrayList<HashMap<String, Integer>> customAdapter= new ArrayList<>();
 
     ArrayList<CategoryData> categoryData = new ArrayList<>();
 
     private static LayoutInflater inflater=null;
-    public CustomAdapter(MainActivity mainActivity, String[] osNameList, int[] osImages, int[] osImagesHover) {
+    public CustomAdapter(MainActivity mainActivity, String[] osNameList, int[] osImages, int[] osImagesHover, ArrayList<String> checked) {
         // TODO Auto-generated constructor stub
         result=osNameList;
         context=mainActivity;
         imageId=osImages;
         hoverId=osImagesHover;
+        this.checked=checked;
         inflater = ( LayoutInflater )context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -73,6 +82,13 @@ public class CustomAdapter extends BaseAdapter{
         holder.os_img =(ImageView) rowView.findViewById(R.id.os_images);
         holder.os_img.setImageResource(imageId[position]);
         holder.name = result[position];
+        // holder.selection = checked.contains(holder.name);
+        holder.selection = checked.contains(holder.name);
+
+        if (checked.contains(holder.name)) {
+            holder.os_img.setImageResource(hoverId[position]);
+            categoryData.add(new CategoryData(holder.name, position));
+        }
 
         rowView.setOnClickListener(new OnClickListener() {
 
@@ -84,9 +100,7 @@ public class CustomAdapter extends BaseAdapter{
                 if (!holder.selection) {
                     holder.selection = true;
                     holder.os_img.setImageResource(hoverId[position]);
-
                     categoryData.add(new CategoryData(holder.name, position));
-
 
                 } else {
                     holder.selection = false;
