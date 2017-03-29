@@ -2,6 +2,7 @@ package com.schachte.android.proactive_food_app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -155,6 +156,10 @@ public class MainActivity extends Activity {
 
                 // Commit the changes.
                 editor.commit();
+
+                // Send to next activity
+                startActivity(new Intent(MainActivity.this, Preferences.class));
+
 
             }
         });
