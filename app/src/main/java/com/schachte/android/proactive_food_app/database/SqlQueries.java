@@ -7,8 +7,14 @@ package com.schachte.android.proactive_food_app.database;
 public final class SqlQueries {
 
     /*
-     * COLUMN name constants
+     *  Name constants
      */
+
+    /* Tables */
+    public static final String FOOD_TABLE_NAME = "food";
+    public static final String RECIPE_TABLE_NAME = "recipes";
+
+    /* Columns */
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
     public static final String KEY_QUANTITY = "quantity";
@@ -16,7 +22,7 @@ public final class SqlQueries {
     /*
      * SELECT queries
      */
-
+    public static final String SELECT_ALL_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME;
 
 
     /*
@@ -32,7 +38,6 @@ public final class SqlQueries {
     /*
      * CREATE table queries
      */
-    public static final String FOOD_TABLE_NAME = "food";
     public static final String CREATE_FOOD_TABLE =  "CREATE TABLE "
             + FOOD_TABLE_NAME + "("
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -46,3 +51,4 @@ public final class SqlQueries {
 
 
 }
+
