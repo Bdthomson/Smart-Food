@@ -24,17 +24,19 @@ public class CustomAdapter extends BaseAdapter{
     int [] imageId;
     int [] hoverId;
     public final String TAG = this.getClass().getSimpleName();
+    ArrayList<String> checked = new ArrayList<>();
     // ArrayList<HashMap<String, Integer>> customAdapter= new ArrayList<>();
 
     ArrayList<CategoryData> categoryData = new ArrayList<>();
 
     private static LayoutInflater inflater=null;
-    public CustomAdapter(MainActivity mainActivity, String[] osNameList, int[] osImages, int[] osImagesHover) {
+    public CustomAdapter(MainActivity mainActivity, String[] osNameList, int[] osImages, int[] osImagesHover, ArrayList<String> checked) {
         // TODO Auto-generated constructor stub
         result=osNameList;
         context=mainActivity;
         imageId=osImages;
         hoverId=osImagesHover;
+        this.checked=checked;
         inflater = ( LayoutInflater )context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -66,61 +68,6 @@ public class CustomAdapter extends BaseAdapter{
         String name;
     }
 
-    /**
-     * Given a stringified JSON array, this sets imageViews to checked.
-     * @param stringifiedArray The stringified JSON Array of Categories that are checked.
-     */
-    public void setChecked(String stringifiedArray){
-        JSONArray array = null;
-        ArrayList<String> strings = new ArrayList<>();
-        try {
-            array = new JSONArray(stringifiedArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Loop through strings in the json array;
-        for(int i = 0; i < array.length(); i++){
-            try {
-                strings.add(i, (String) array.get(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        Log.d(TAG, "Printing list from loaded from preferences, after loading to string array.");
-        for(String data : strings){
-            Log.d(TAG, data);
-        }
-
-        // Check each imageView and check if names are found in data list.
-
-        // If an item is not found in list of strings, remove it to category data.
-
-        boolean found = false;
-
-        // For each imageView
-        for(CategoryData d : categoryData){
-
-            // For each checked category
-            for(String s : strings){
-
-                // If that category is found, set found to true.
-                if (d.catName.compareTo(s) == 0){
-                    found = true;
-                    break;
-                }
-            }
-
-            // If the category was not found in the preferences, remove it from checked.
-            if(!found){
-                categoryData.remove(d);
-            }
-
-            found = false;
-        }
-    }
-
     public ArrayList<CategoryData> getSelectedCategories() {
         return this.categoryData;
     }
@@ -135,6 +82,13 @@ public class CustomAdapter extends BaseAdapter{
         holder.os_img =(ImageView) rowView.findViewById(R.id.os_images);
         holder.os_img.setImageResource(imageId[position]);
         holder.name = result[position];
+        // holder.selection = checked.contains(holder.name);
+        holder.selection = checked.contains(holder.name);
+
+        if (checked.contains(holder.name)) {
+            holder.os_img.setImageResource(hoverId[position]);
+            categoryData.add(new CategoryData(holder.name, position));
+        }
 
         rowView.setOnClickListener(new OnClickListener() {
 
@@ -146,9 +100,7 @@ public class CustomAdapter extends BaseAdapter{
                 if (!holder.selection) {
                     holder.selection = true;
                     holder.os_img.setImageResource(hoverId[position]);
-
                     categoryData.add(new CategoryData(holder.name, position));
-
 
                 } else {
                     holder.selection = false;

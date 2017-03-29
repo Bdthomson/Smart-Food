@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -71,6 +72,27 @@ public class MainActivity extends Activity {
 
     };
 
+    public ArrayList<String> jsonToList(String JSON){
+        JSONArray array = null;
+        ArrayList<String> strings = new ArrayList<>();
+        try {
+            array = new JSONArray(JSON);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Loop through strings in the json array;
+        for(int i = 0; i < array.length(); i++){
+            try {
+                strings.add(i, (String) array.get(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return strings;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -78,23 +100,20 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get GridView
-        gridview = (GridView) findViewById(R.id.customgrid);
-
-        // Create a custom adapter, setting all values in it's constructor.
-        customAdapter = new CustomAdapter(this, osNameList, osImages, osImagesHover);
-
-        // Set the adapter for the gridView
-        gridview.setAdapter(customAdapter);
-
         // Restore preferences on activity load.
         SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
 
         // Load Stringified JSON Array (default value is []) from shared preferences.
-        String checkedArray = settings.getString("c1", "[]");
+        ArrayList<String> checked = jsonToList(settings.getString("c1", "[]"));
 
-        // Set selected values for categories.
-        customAdapter.setChecked(checkedArray);
+        // Get GridView
+        gridview = (GridView) findViewById(R.id.customgrid);
+
+        // Create a custom adapter, setting all values in it's constructor.
+        customAdapter = new CustomAdapter(this, osNameList, osImages, osImagesHover, checked);
+
+        // Set the adapter for the gridView
+        gridview.setAdapter(customAdapter);
 
         // Button Listeners
         registerButtonListeners();
