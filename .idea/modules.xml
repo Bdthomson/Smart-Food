@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Proactive_Food_app.iml" filepath="$PROJECT_DIR$/Proactive_Food_app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/proactive_food_app.iml" filepath="$PROJECT_DIR$/proactive_food_app.iml" />
     </modules>
   </component>
 </project>

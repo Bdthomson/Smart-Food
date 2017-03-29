@@ -26,45 +26,49 @@ public class MainActivity extends Activity {
     public final String TAG = this.getClass().getSimpleName();
 
 
+    //The number of food categories need to match with the images that are saved in the code below
     public static String[] osNameList = {
             "American Food",
-            "Caribbean Food"
-            // "Chinese Food",
-            // "French Food",
-            // "German Food",
-            // "Greek Food",
-            // "Indian Food",
-            // "Italian Food",
-            // "Japanese Food",
-            // "Mexican Food",
-            // "Thai Food"
+            "Caribbean Food",
+            "Chinese Food",
+            "French Food",
+            "German Food",
+            "Greek Food",
+            "Indian Food",
+            "Italian Food",
+            "Japanese Food",
+            "Mexican Food",
+            "Thai Food"
+
     };
     public static int[] osImages = {
-            R.mipmap.america,
-            R.mipmap.caribbean
-            // R.mipmap.chinese,
-            // R.mipmap.french,
-            // R.mipmap.german,
-            // R.mipmap.greece,
-            // R.mipmap.indian,
-            // R.mipmap.italian,
-            // R.mipmap.japanese,
-            // R.mipmap.mexican,
-            // R.mipmap.thai
+            R.mipmap.am,
+            R.mipmap.caribbean,
+            R.mipmap.ch,
+            R.mipmap.french,
+            R.mipmap.german,
+            R.mipmap.greece,
+            R.mipmap.indian,
+            R.mipmap.italian,
+            R.mipmap.japenese,
+            R.mipmap.mexican,
+            R.mipmap.thai
+
     };
 
     public static int[] osImagesHover = {
-            R.mipmap.american_hover,
-            R.mipmap.caribbean_hover
-            // R.mipmap.chinese_hover,
-            // R.mipmap.french_hover,
-            // R.mipmap.german_hover,
-            // R.mipmap.greece_hover,
-            // R.mipmap.indian_hover,
-            // R.mipmap.italian_hover,
-            // R.mipmap.japanese_hover,
-            // R.mipmap.mexican_hover,
-            // R.mipmap.thai
+            R.mipmap.am_hover,
+            R.mipmap.caribbean_hover,
+            R.mipmap.ch_hover,
+            R.mipmap.french_hover,
+            R.mipmap.german_hover,
+            R.mipmap.greece_hover,
+            R.mipmap.indian_hover,
+            R.mipmap.italian_hover,
+            R.mipmap.japense_hover,
+            R.mipmap.mexican_hover,
+            R.mipmap.thai_hover
+
     };
 
     @Override
@@ -88,9 +92,6 @@ public class MainActivity extends Activity {
 
         // Load Stringified JSON Array (default value is []) from shared preferences.
         String checkedArray = settings.getString("c1", "[]");
-
-        // Set selected values for categories.
-        categoryData.setChecked(checkedArray);
 
         // Button Listeners
         registerButtonListeners();
