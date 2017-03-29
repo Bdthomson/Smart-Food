@@ -113,8 +113,8 @@ public class CustomAdapter extends BaseAdapter{
             }
 
             // If the category was not found in the preferences, remove it from checked.
-            if(found){
-                categoryData.add(d);
+            if(!found){
+                categoryData.remove(d);
             }
 
             found = false;
