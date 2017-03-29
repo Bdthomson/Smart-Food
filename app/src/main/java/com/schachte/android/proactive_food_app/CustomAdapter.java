@@ -1,6 +1,7 @@
 package com.schachte.android.proactive_food_app;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,7 +10,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class CustomAdapter extends BaseAdapter{
 
@@ -17,7 +23,8 @@ public class CustomAdapter extends BaseAdapter{
     Context context;
     int [] imageId;
     int [] hoverId;
-    // ArrayList<HashMap<String, Integer>> categoryData= new ArrayList<>();
+    public final String TAG = this.getClass().getSimpleName();
+    // ArrayList<HashMap<String, Integer>> customAdapter= new ArrayList<>();
 
     ArrayList<CategoryData> categoryData = new ArrayList<>();
 
@@ -57,6 +64,61 @@ public class CustomAdapter extends BaseAdapter{
         ImageView os_img;
         Boolean selection = false;
         String name;
+    }
+
+    /**
+     * Given a stringified JSON array, this sets imageViews to checked.
+     * @param stringifiedArray The stringified JSON Array of Categories that are checked.
+     */
+    public void setChecked(String stringifiedArray){
+        JSONArray array = null;
+        ArrayList<String> strings = new ArrayList<>();
+        try {
+            array = new JSONArray(stringifiedArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Loop through strings in the json array;
+        for(int i = 0; i < array.length(); i++){
+            try {
+                strings.add(i, (String) array.get(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.d(TAG, "Printing list from loaded from preferences, after loading to string array.");
+        for(String data : strings){
+            Log.d(TAG, data);
+        }
+
+        // Check each imageView and check if names are found in data list.
+
+        // If an item is not found in list of strings, remove it to category data.
+
+        boolean found = false;
+
+        // For each imageView
+        for(CategoryData d : categoryData){
+
+            // For each checked category
+            for(String s : strings){
+
+                // If that category is found, set found to true.
+                if (d.catName.compareTo(s) == 0){
+                    found = true;
+                    break;
+                }
+            }
+
+            // If the category was not found in the preferences, remove it from checked.
+            if(found){
+                categoryData.add(d);
+            }
+
+            found = false;
+        }
     }
 
     public ArrayList<CategoryData> getSelectedCategories() {

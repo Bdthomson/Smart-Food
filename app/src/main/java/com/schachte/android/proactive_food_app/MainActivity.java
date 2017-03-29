@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
 
     ArrayList<CategoryData> selectedCategories;
 
-    public CustomAdapter categoryData;
+    public CustomAdapter customAdapter;
 
     public Button saveButton;
 
@@ -82,16 +82,19 @@ public class MainActivity extends Activity {
         gridview = (GridView) findViewById(R.id.customgrid);
 
         // Create a custom adapter, setting all values in it's constructor.
-        categoryData = new CustomAdapter(this, osNameList, osImages, osImagesHover);
+        customAdapter = new CustomAdapter(this, osNameList, osImages, osImagesHover);
 
         // Set the adapter for the gridView
-        gridview.setAdapter(categoryData);
+        gridview.setAdapter(customAdapter);
 
         // Restore preferences on activity load.
         SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
 
         // Load Stringified JSON Array (default value is []) from shared preferences.
         String checkedArray = settings.getString("c1", "[]");
+
+        // Set selected values for categories.
+        customAdapter.setChecked(checkedArray);
 
         // Button Listeners
         registerButtonListeners();
@@ -106,7 +109,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 // Get selected categories.
-                selectedCategories = categoryData.getSelectedCategories();
+                selectedCategories = customAdapter.getSelectedCategories();
 
                 // // Print them out.
                 for (CategoryData data : selectedCategories) {
