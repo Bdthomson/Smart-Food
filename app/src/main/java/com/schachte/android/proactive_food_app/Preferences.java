@@ -67,11 +67,13 @@ public class Preferences extends AppCompatActivity {
 
                 editor.putString("gender", radiovalue);
 
-                // Commit the changes.
-                editor.commit();
 
                 SeekBar activityLevel = (SeekBar) findViewById(R.id.activity_level_seekbar);
                 editor.putInt("activity_level", activityLevel.getProgress());
+
+                // Commit the changes.
+                editor.commit();
+
 
                 Intent i = new Intent(Preferences.this, Home.class);
                 finish();  //Kill the activity from which you will go to next activity
