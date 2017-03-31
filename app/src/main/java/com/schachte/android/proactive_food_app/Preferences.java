@@ -74,10 +74,11 @@ public class Preferences extends AppCompatActivity {
                 // Commit the changes.
                 editor.commit();
 
-
-                Intent i = new Intent(Preferences.this, Home.class);
                 finish();  //Kill the activity from which you will go to next activity
-                startActivity(i);
+
+                // Intent i = new Intent(Preferences.this, Home.class);
+                // finish();  //Kill the activity from which you will go to next activity
+                // startActivity(i);
             }
         });
     }
