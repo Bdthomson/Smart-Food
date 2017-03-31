@@ -20,7 +20,7 @@
     <Button
         android:stateListAnimator="@null"
         android:text=""
-        android:id="@+id/make_me_food"
+        android:id="@+id/ingredients_button"
         android:layout_width="300dp"
         android:layout_height="88.67dp"
         android:background="@drawable/make_me_ingredients"
@@ -31,7 +31,7 @@
     <com.github.clans.fab.FloatingActionMenu
         android:src="@drawable/fabtn_cog"
         android:id="@+id/fab_cog"
-        android:layout_width="700dp"
+        android:layout_width="1000dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="0dp"
         android:layout_marginLeft="130dp"
@@ -41,7 +41,8 @@
         fab:menu_colorPressed="#2980b9"
         fab:menu_colorRipple="#2980b9"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true">
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fab_profile"
@@ -70,12 +71,11 @@
         android:text=""
         android:id="@+id/add_ingredients_btn"
         android:layout_width="300dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="21dp"
         android:layout_height="88.67dp"
-        android:layout_below="@+id/make_me_food"
-        android:layout_alignStart="@+id/make_me_food"
         android:background="@drawable/make"
-        />
+        android:layout_below="@+id/ingredients_button"
+        android:layout_alignStart="@+id/ingredients_button"/>
 
 
 </RelativeLayout>

@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.schachte.android.proactive_food_app">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />,kkkkkkkkkkkkkk
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +23,8 @@
         <activity android:name=".Preferences">
         </activity>
         <activity android:name=".Category">
+        </activity>
+        <activity android:name=".Ingredients">
         </activity>
     </application>
 

@@ -89,12 +89,14 @@ public class Category extends Activity {
             e.printStackTrace();
         }
 
-        // Loop through strings in the json array;
-        for(int i = 0; i < array.length(); i++){
-            try {
-                strings.add(i, (String) array.get(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
+        if (array != null) {
+            // Loop through strings in the json array;
+            for (int i = 0; i < array.length(); i++) {
+                try {
+                    strings.add(i, (String) array.get(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

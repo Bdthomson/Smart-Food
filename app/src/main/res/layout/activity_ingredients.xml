@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_ingredients2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.schachte.android.proactive_food_app.Ingredients"
+    android:background="@drawable/take_photo_bg"
+    >
+
+    <Button
+        android:stateListAnimator="@null"
+        android:text=""
+        android:id="@+id/manual_button"
+        android:layout_width="400dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="100dp"
+        android:background="@drawable/manualbtn"
+        android:layout_below="@+id/barcode_button"
+        android:layout_alignParentStart="true"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/take_photo_header"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <Button
+        android:stateListAnimator="@null"
+        android:text=""
+        android:id="@+id/barcode_button"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:background="@drawable/barcode"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/manual_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:id="@+id/barcodeID"/>
+
+
+</RelativeLayout>

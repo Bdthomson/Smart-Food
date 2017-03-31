@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -16,6 +17,7 @@ public class Home extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
     FloatingActionButton cuisineBtn;
     FloatingActionButton profileBtn;
+    Button ingredientsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class Home extends AppCompatActivity {
         // The save button loads the selected choices from UI and saves them to shared preferences.
         cuisineBtn = (FloatingActionButton) findViewById(R.id.fab_cuisine);
         profileBtn = (FloatingActionButton) findViewById(R.id.fab_profile);
+        ingredientsBtn = (Button) findViewById(R.id.ingredients_button);
 
         cuisineBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -49,6 +52,13 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
             // Send to next activity
             startActivity(new Intent(Home.this, Preferences.class));
+            }
+        });
+
+        ingredientsBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            // Send to next activity
+            startActivity(new Intent(Home.this, Ingredients.class));
             }
         });
     }
