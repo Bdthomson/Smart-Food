@@ -15,7 +15,9 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
+import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
+
+public class Category extends Activity {
 
     GridView gridview;
 
@@ -73,6 +75,11 @@ public class MainActivity extends Activity {
 
     };
 
+    /**
+     * Converts a json object to a string arraylist to process cuisine values
+     * @param JSON
+     * @return
+     */
     public ArrayList<String> jsonToList(String JSON){
         JSONArray array = null;
         ArrayList<String> strings = new ArrayList<>();
@@ -101,11 +108,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Restore preferences on activity load.
-        SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-
         // Load Stringified JSON Array (default value is []) from shared preferences.
-        ArrayList<String> checked = jsonToList(settings.getString("c1", "[]"));
+        ArrayList<String> checked = jsonToList(getInstance().getPreference("c1"));
 
         // Get GridView
         gridview = (GridView) findViewById(R.id.customgrid);
@@ -128,39 +132,20 @@ public class MainActivity extends Activity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                // Get selected categories.
-                selectedCategories = customAdapter.getSelectedCategories();
+            // Get selected categories.
+            selectedCategories = customAdapter.getSelectedCategories();
 
-                // // Print them out.
-                for (CategoryData data : selectedCategories) {
-                    Log.d(TAG, data.catName);
-                }
+            // Store the selected values.
+            JSONArray array = new JSONArray();
 
-                // We need an Editor object to make preference changes.
-                // All objects are from android.context.Context
-                SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = settings.edit();
+            //Store any new values
+            for (CategoryData data : selectedCategories) {
+                array.put(data.catName);
+            }
 
-
-                // Store the selected values.
-                JSONArray array = new JSONArray();
-
-                // // Print them out.
-                for (CategoryData data : selectedCategories) {
-                    array.put(data.catName);
-                }
-
-                Log.d(TAG, array.toString());
-                editor.putString("c1", array.toString());
-
-
-                // Commit the changes.
-                editor.commit();
-
-                // Send to next activity
-                startActivity(new Intent(MainActivity.this, Preferences.class));
-
-
+            //Write any newly selected or deselected values
+            getInstance().writePreference("c1", array.toString());
+            finish();
             }
         });
     }

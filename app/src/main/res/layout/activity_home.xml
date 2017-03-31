@@ -1,14 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_home"
     android:layout_width="match_parent"
+    android:clickable="true"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.schachte.android.proactive_food_app.Home">
+
+
+    <Button
+        android:stateListAnimator="@null"
+        android:text=""
+        android:id="@+id/make_me_food"
+        android:layout_width="300dp"
+        android:layout_height="88.67dp"
+        android:background="@drawable/make_me_ingredients"
+        android:layout_marginTop="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:src="@drawable/fabtn_cog"
+        android:id="@+id/fab_cog"
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="130dp"
+        fab:menu_animationDelayPerItem="0"
+        fab:menu_shadowColor="#444"
+        fab:menu_colorNormal="#3498db"
+        fab:menu_colorPressed="#2980b9"
+        fab:menu_colorRipple="#2980b9"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fabtn_prefs"
+        fab:fab_label="Profile Settings"
+        fab:fab_colorNormal="#8BC34A"
+        fab:fab_colorPressed="#CDDC39"
+         />
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_cuisine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fabtn_cuisine"
+        fab:fab_label="Cuisine Preferences"
+        fab:fab_colorNormal="#FF9800"
+        fab:fab_colorPressed="#FFC107"
+        />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+    <Button
+        android:stateListAnimator="@null"
+        android:text=""
+        android:id="@+id/add_ingredients_btn"
+        android:layout_width="300dp"
+        android:layout_marginTop="28dp"
+        android:layout_height="88.67dp"
+        android:layout_below="@+id/make_me_food"
+        android:layout_alignStart="@+id/make_me_food"
+        android:background="@drawable/make"
+        />
+
 
 </RelativeLayout>
