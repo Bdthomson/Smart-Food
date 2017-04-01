@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -16,17 +18,26 @@ public class Home extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
     FloatingActionButton cuisineBtn;
     FloatingActionButton profileBtn;
+    Button ingredientsBtn;
+    Button pantryBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        setFabMenu();
-        registerButtonListeners();
 
         //Instantiate the singleton class for managing user-prefs onload
         getInstance().Initialize(getApplicationContext());
 
+        //Load the categories screen if the setup is not yet complete
+        if (!getInstance().getPreferenceBool("setupComplete")) {
+            Intent go = new Intent(this, Category.class);
+            finish();
+            startActivity(go);
+        } else {
+            setContentView(R.layout.activity_home);
+            setFabMenu();
+            registerButtonListeners();
+        }
     }
 
     /**
@@ -37,6 +48,8 @@ public class Home extends AppCompatActivity {
         // The save button loads the selected choices from UI and saves them to shared preferences.
         cuisineBtn = (FloatingActionButton) findViewById(R.id.fab_cuisine);
         profileBtn = (FloatingActionButton) findViewById(R.id.fab_profile);
+        ingredientsBtn = (Button) findViewById(R.id.ingredients_button);
+        pantryBtn = (Button) findViewById(R.id.view_pantry_btn_home);
 
         cuisineBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -49,6 +62,20 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
             // Send to next activity
             startActivity(new Intent(Home.this, Preferences.class));
+            }
+        });
+
+        ingredientsBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            // Send to next activity
+            startActivity(new Intent(Home.this, Ingredients.class));
+            }
+        });
+
+        pantryBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Send to next activity
+                startActivity(new Intent(Home.this, Pantry.class));
             }
         });
     }

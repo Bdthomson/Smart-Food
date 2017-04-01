@@ -115,8 +115,6 @@ public class CustomAdapter extends BaseAdapter{
         holder.name = result[position];
         holder.selection = checked.contains(holder.name);
 
-
-
         if (checked.contains(holder.name)) {
             Log.d(TAG, "True for " + holder.name);
             holder.os_img.setImageResource(hoverId[position]);
@@ -146,5 +144,4 @@ public class CustomAdapter extends BaseAdapter{
         });
         return rowView;
     }
-
 }
