@@ -2,6 +2,7 @@ package com.schachte.android.proactive_food_app;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ public class Ingredients extends AppCompatActivity implements ZXingScannerView.R
 
     Button barcodeBtn;
     Button manualBtn;
+    Button ingredientsBtn;
     private ZXingScannerView zXingScannerView;
     TextView tv;
     ClientRequests cR;
@@ -40,11 +42,12 @@ public class Ingredients extends AppCompatActivity implements ZXingScannerView.R
 
         barcodeBtn = (Button) findViewById(R.id.barcode_button);
         manualBtn = (Button) findViewById(R.id.manual_button);
+        ingredientsBtn = (Button) findViewById(R.id.view_pantry_btn_ingredients);
+
         cR = new ClientRequests(getApplicationContext());
 
         barcodeBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            Log.d(TAG, "ABUTO TI CAKK");
             // cR.makeReq();
             beginBarcodeScan();
             }
@@ -52,10 +55,16 @@ public class Ingredients extends AppCompatActivity implements ZXingScannerView.R
 
         manualBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Log.d(TAG, "ABUTO TI CAKK");
                 String pName = null;
+                Log.d(TAG, "About to make the request");
 
-                Log.d(TAG, pName + " us teh pname!!");
+            }
+        });
+
+        ingredientsBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Ingredients.this, Pantry.class);
+                startActivity(intent);
             }
         });
     }
@@ -85,6 +94,7 @@ public class Ingredients extends AppCompatActivity implements ZXingScannerView.R
         zXingScannerView.stopCamera(); //<- then stop the camera
         setContentView(R.layout.activity_ingredients); //<- and set the View again.
         tv = (TextView) findViewById(R.id.barcodeID);
+        cR.makeReq(result.getText() + ".json");
         tv.setText(result.getText());
         registerButtonListeners();
     }

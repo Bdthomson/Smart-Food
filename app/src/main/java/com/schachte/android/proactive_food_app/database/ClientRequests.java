@@ -17,6 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+
+
 /**
  * Make JSON API Requests to Food API
  */
@@ -27,29 +30,30 @@ public class ClientRequests {
     private final String TAG = this.getClass().getSimpleName();
     public RequestQueue mRequestQueue;
     public StringRequest stringRequest;
-    public String url = "https://world.openfoodfacts.org/api/v0/product/039400018803.json";
+    public String url = "https://world.openfoodfacts.org/api/v0/product/";
     public Context cntxt;
 
     public ClientRequests(Context cntxt) {
-        Log.d(TAG, "WORKING");
         this.cntxt = cntxt;
     }
 
-    public void makeReq() {
+    public void makeReq(String barcodeID) {
 
+        Log.d(TAG, "Making request!!");
+        Log.d(TAG, url + barcodeID);
         mRequestQueue = Volley.newRequestQueue(this.cntxt);
 
-        stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        stringRequest = new StringRequest(Request.Method.GET, url + barcodeID, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject mainResponse = new JSONObject(response.toString());
                     JSONObject productData = mainResponse.getJSONObject("product");
                     Object productName = productData.get("product_name");
-
-                    Log.d(TAG, "b4");
                     Log.d(TAG, productName.toString());
-                    // Toast.makeText(cntxt, productName.toString(),)
+                    Log.d(TAG, productData.toString());
+                    Toast.makeText(cntxt, productName.toString(), Toast.LENGTH_LONG).show();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

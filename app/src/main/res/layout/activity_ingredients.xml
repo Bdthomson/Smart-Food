@@ -14,17 +14,6 @@
     android:background="@drawable/take_photo_bg"
     >
 
-    <Button
-        android:stateListAnimator="@null"
-        android:text=""
-        android:id="@+id/manual_button"
-        android:layout_width="400dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="100dp"
-        android:background="@drawable/manualbtn"
-        android:layout_below="@+id/barcode_button"
-        android:layout_alignParentStart="true"/>
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +26,7 @@
         android:stateListAnimator="@null"
         android:text=""
         android:id="@+id/barcode_button"
-        android:layout_width="400dp"
+        android:layout_width="345dp"
         android:layout_height="100dp"
         android:background="@drawable/barcode"
         android:layout_marginTop="31dp"
@@ -48,10 +37,31 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/manual_button"
+        android:id="@+id/barcodeID"
+        android:layout_below="@+id/view_pantry_btn_ingredients"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:id="@+id/barcodeID"/>
+        android:layout_marginTop="23dp"/>
+
+    <Button
+        android:stateListAnimator="@null"
+        android:text=""
+        android:id="@+id/view_pantry_btn_ingredients"
+        android:layout_width="500dp"
+        android:layout_marginTop="14dp"
+        android:layout_height="100dp"
+        android:background="@drawable/pantry"
+        android:layout_below="@+id/manual_button"
+        android:layout_alignParentStart="true"/>
+
+    <Button
+        android:stateListAnimator="@null"
+        android:text=""
+        android:id="@+id/manual_button"
+        android:layout_width="345dp"
+        android:layout_height="100dp"
+        android:background="@drawable/manualbtn"
+        android:layout_below="@+id/barcode_button"
+        android:layout_alignParentStart="true"/>
 
 
 </RelativeLayout>

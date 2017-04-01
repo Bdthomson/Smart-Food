@@ -16,7 +16,6 @@
     android:background="@drawable/chef"
     >
 
-
     <Button
         android:stateListAnimator="@null"
         android:text=""
@@ -31,13 +30,24 @@
     <Button
         android:stateListAnimator="@null"
         android:text=""
-        android:id="@+id/add_ingredients_btn"
+        android:id="@+id/view_pantry_btn_home"
         android:layout_width="300dp"
         android:layout_marginTop="21dp"
         android:layout_height="88.67dp"
-        android:background="@drawable/make"
+        android:background="@drawable/pantry"
         android:layout_below="@+id/ingredients_button"
         android:layout_alignStart="@+id/ingredients_button"/>
+
+    <Button
+        android:stateListAnimator="@null"
+        android:text=""
+        android:id="@+id/add_ingredients_btn"
+        android:layout_width="300dp"
+        android:layout_marginTop="18dp"
+        android:layout_height="88.67dp"
+        android:background="@drawable/make"
+        android:layout_below="@+id/view_pantry_btn_home"
+        android:layout_alignStart="@+id/view_pantry_btn_home"/>
 
     <com.github.clans.fab.FloatingActionMenu
         android:src="@drawable/fabtn_cog"
@@ -51,9 +61,10 @@
         fab:menu_colorPressed="#2980b9"
         fab:menu_colorRipple="#2980b9"
         android:layout_width="200dp"
+        android:elevation="20dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignStart="@+id/add_ingredients_btn">
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fab_profile"
@@ -76,6 +87,5 @@
         />
 
     </com.github.clans.fab.FloatingActionMenu>
-
 
 </RelativeLayout>

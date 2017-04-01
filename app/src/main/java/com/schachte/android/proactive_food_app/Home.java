@@ -19,6 +19,7 @@ public class Home extends AppCompatActivity {
     FloatingActionButton cuisineBtn;
     FloatingActionButton profileBtn;
     Button ingredientsBtn;
+    Button pantryBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class Home extends AppCompatActivity {
         //Load the categories screen if the setup is not yet complete
         if (!getInstance().getPreferenceBool("setupComplete")) {
             Intent go = new Intent(this, Category.class);
-            // finish();
+            finish();
             startActivity(go);
         } else {
             setContentView(R.layout.activity_home);
@@ -48,6 +49,7 @@ public class Home extends AppCompatActivity {
         cuisineBtn = (FloatingActionButton) findViewById(R.id.fab_cuisine);
         profileBtn = (FloatingActionButton) findViewById(R.id.fab_profile);
         ingredientsBtn = (Button) findViewById(R.id.ingredients_button);
+        pantryBtn = (Button) findViewById(R.id.view_pantry_btn_home);
 
         cuisineBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -67,6 +69,13 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
             // Send to next activity
             startActivity(new Intent(Home.this, Ingredients.class));
+            }
+        });
+
+        pantryBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Send to next activity
+                startActivity(new Intent(Home.this, Pantry.class));
             }
         });
     }
