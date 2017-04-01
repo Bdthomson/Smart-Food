@@ -29,14 +29,25 @@ public class Preferences {
         userSharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctxt);
     }
 
-    public String getPreference(String key){
+    public String getPreferenceString(String key){
         SharedPreferences prefs = userSharedPreferences;
         return prefs.getString(key, null);
+    }
+
+    public boolean getPreferenceBool(String key){
+        SharedPreferences prefs = userSharedPreferences;
+        return prefs.getBoolean(key, false);
     }
 
     public void writePreference(String key, String value){
         SharedPreferences.Editor e = userSharedPreferences.edit();
         e.putString(key, value);
+        e.commit();
+    }
+
+    public void writePreferenceBool(String key, Boolean value){
+        SharedPreferences.Editor e = userSharedPreferences.edit();
+        e.putBoolean(key, value);
         e.commit();
     }
 }

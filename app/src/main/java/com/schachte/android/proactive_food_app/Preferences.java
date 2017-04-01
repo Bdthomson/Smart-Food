@@ -15,6 +15,8 @@ import android.widget.SeekBar;
 
 import org.json.JSONArray;
 
+import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
+
 public class Preferences extends AppCompatActivity {
 
     Button backButton;
@@ -38,9 +40,9 @@ public class Preferences extends AppCompatActivity {
 
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.d(TAG, "Back Button Pressed");
                 finish();
-            }
-        });
+            }});
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -67,18 +69,20 @@ public class Preferences extends AppCompatActivity {
 
                 editor.putString("gender", radiovalue);
 
-
                 SeekBar activityLevel = (SeekBar) findViewById(R.id.activity_level_seekbar);
                 editor.putInt("activity_level", activityLevel.getProgress());
 
                 // Commit the changes.
                 editor.commit();
 
-                finish();  //Kill the activity from which you will go to next activity
-
-                // Intent i = new Intent(Preferences.this, Home.class);
-                // finish();  //Kill the activity from which you will go to next activity
-                // startActivity(i);
+                if (!getInstance().getPreferenceBool("setupComplete")){
+                    getInstance().writePreferenceBool("setupComplete", true);
+                    Intent intent = new Intent(Preferences.this, Home.class);
+                    finish();  //Kill the activity from which you will go to next activity
+                    startActivity(intent);
+                } else {
+                    finish();
+                }
             }
         });
     }

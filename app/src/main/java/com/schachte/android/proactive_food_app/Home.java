@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,13 +23,20 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        setFabMenu();
-        registerButtonListeners();
 
         //Instantiate the singleton class for managing user-prefs onload
         getInstance().Initialize(getApplicationContext());
 
+        //Load the categories screen if the setup is not yet complete
+        if (!getInstance().getPreferenceBool("setupComplete")) {
+            Intent go = new Intent(this, Category.class);
+            // finish();
+            startActivity(go);
+        } else {
+            setContentView(R.layout.activity_home);
+            setFabMenu();
+            registerButtonListeners();
+        }
     }
 
     /**

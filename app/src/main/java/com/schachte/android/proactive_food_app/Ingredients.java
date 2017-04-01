@@ -54,13 +54,7 @@ public class Ingredients extends AppCompatActivity implements ZXingScannerView.R
             public void onClick(View v) {
                 // Log.d(TAG, "ABUTO TI CAKK");
                 String pName = null;
-                try {
-                    pName = cR.makeReq();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
                 Log.d(TAG, pName + " us teh pname!!");
             }
         });
@@ -76,7 +70,12 @@ public class Ingredients extends AppCompatActivity implements ZXingScannerView.R
     @Override
     protected void onPause() {
         super.onPause();
-        zXingScannerView.stopCamera();
+
+        try {
+            zXingScannerView.stopCamera();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -88,8 +87,5 @@ public class Ingredients extends AppCompatActivity implements ZXingScannerView.R
         tv = (TextView) findViewById(R.id.barcodeID);
         tv.setText(result.getText());
         registerButtonListeners();
-        // zXingScannerView.stopCameraPreview();
-
-
     }
 }

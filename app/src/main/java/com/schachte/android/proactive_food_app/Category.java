@@ -1,9 +1,7 @@
 package com.schachte.android.proactive_food_app;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +26,6 @@ public class Category extends Activity {
     public Button saveButton;
 
     public final String TAG = this.getClass().getSimpleName();
-
 
     //The number of food categories need to match with the images that are saved in the code below
     public static String[] osNameList = {
@@ -110,8 +107,15 @@ public class Category extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "C1 is " + getInstance().getPreferenceString("c1"));
+
         // Load Stringified JSON Array (default value is []) from shared preferences.
-        ArrayList<String> checked = jsonToList(getInstance().getPreference("c1"));
+        ArrayList<String> checked;
+
+        if (getInstance().getPreferenceString("c1") != null)
+            checked = jsonToList(getInstance().getPreferenceString("c1"));
+        else
+            checked = new ArrayList<>();
 
         // Get GridView
         gridview = (GridView) findViewById(R.id.customgrid);
@@ -146,8 +150,16 @@ public class Category extends Activity {
             }
 
             //Write any newly selected or deselected values
+            Log.d(TAG, "Logging data..");
             getInstance().writePreference("c1", array.toString());
-            finish();
+
+            if (!getInstance().getPreferenceBool("setupComplete")) {
+                Intent intent = new Intent(Category.this, Preferences.class);
+                startActivity(intent);
+            } else {
+                Log.d(TAG, "Um");
+                finish();
+            }
             }
         });
     }
