@@ -3,6 +3,7 @@ package com.schachte.android.proactive_food_app;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,15 @@ public class Preferences extends AppCompatActivity {
     Button backButton;
     Button saveButton;
 
+    EditText name;
+    EditText age;
+    EditText height;
+    EditText weight;
+    RadioGroup rg;
+    RadioButton radioButton;
+    String radioValue;
+    SeekBar activityLevel;
+
     public final String TAG = this.getClass().getSimpleName();
 
 
@@ -29,6 +39,24 @@ public class Preferences extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
+
+        name = (EditText) findViewById(R.id.editTextName);
+        age = (EditText) findViewById(R.id.editTextAge);
+        height = (EditText) findViewById(R.id.editTextHeight);
+        weight = (EditText) findViewById(R.id.editTextWeight);
+        rg = (RadioGroup) findViewById(R.id.radioGroupGender);
+        activityLevel = (SeekBar) findViewById(R.id.activity_level_seekbar);
+
+        // Load values from preferences if setup is complete.
+        if (getInstance().getPreferenceBool("setupComplete")) {
+            name.setText(getInstance().getPreferenceString("name"));
+            age.setText(String.valueOf(getInstance().getPreferenceInt("age")));
+            height.setText(String.valueOf(getInstance().getPreferenceInt("height")));
+            weight.setText(String.valueOf(getInstance().getPreferenceInt("weight")));
+            activityLevel.setProgress(getInstance().getPreferenceInt("activity_level"));
+            rg.check(getInstance().getPreferenceInt("gender"));
+        }
+
         registerButtonListeners();
     }
 
@@ -40,40 +68,18 @@ public class Preferences extends AppCompatActivity {
 
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(TAG, "Back Button Pressed");
                 finish();
             }});
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                // Save User Preferences
-
-                // We need an Editor object to make preference changes.
-                // All objects are from android.context.Context
-                SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = settings.edit();
-
-                EditText name = (EditText) findViewById(R.id.editTextName);
-                EditText age = (EditText) findViewById(R.id.editTextAge);
-                EditText height = (EditText) findViewById(R.id.editTextHeight);
-                EditText weight = (EditText) findViewById(R.id.editTextWeight);
-
-                editor.putString("name", name.getText().toString());
-                editor.putInt("age", Integer.parseInt(age.getText().toString()));
-                editor.putInt("height", Integer.parseInt(height.getText().toString()));
-                editor.putInt("weight", Integer.parseInt(weight.getText().toString()));
-
-                RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroupGender);
-                String radiovalue = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
-
-                editor.putString("gender", radiovalue);
-
-                SeekBar activityLevel = (SeekBar) findViewById(R.id.activity_level_seekbar);
-                editor.putInt("activity_level", activityLevel.getProgress());
-
-                // Commit the changes.
-                editor.commit();
+                getInstance().writePreferenceString("name", name.getText().toString());
+                getInstance().writePreferenceInt("age", Integer.parseInt(age.getText().toString()));
+                getInstance().writePreferenceInt("height", Integer.parseInt(height.getText().toString()));
+                getInstance().writePreferenceInt("weight", Integer.parseInt(weight.getText().toString()));
+                getInstance().writePreferenceInt("gender", rg.getCheckedRadioButtonId());
+                getInstance().writePreferenceInt("activity_level", activityLevel.getProgress());
 
                 if (!getInstance().getPreferenceBool("setupComplete")){
                     getInstance().writePreferenceBool("setupComplete", true);

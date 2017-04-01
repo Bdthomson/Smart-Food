@@ -39,7 +39,12 @@ public class Preferences {
         return prefs.getBoolean(key, false);
     }
 
-    public void writePreference(String key, String value){
+    public int getPreferenceInt(String key){
+        SharedPreferences prefs = userSharedPreferences;
+        return prefs.getInt(key, 0);
+    }
+
+    public void writePreferenceString(String key, String value){
         SharedPreferences.Editor e = userSharedPreferences.edit();
         e.putString(key, value);
         e.commit();
@@ -48,6 +53,12 @@ public class Preferences {
     public void writePreferenceBool(String key, Boolean value){
         SharedPreferences.Editor e = userSharedPreferences.edit();
         e.putBoolean(key, value);
+        e.commit();
+    }
+
+    public void writePreferenceInt(String key, int value){
+        SharedPreferences.Editor e = userSharedPreferences.edit();
+        e.putInt(key, value);
         e.commit();
     }
 }

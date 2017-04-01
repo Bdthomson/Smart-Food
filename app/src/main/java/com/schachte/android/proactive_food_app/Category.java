@@ -151,7 +151,7 @@ public class Category extends Activity {
 
             //Write any newly selected or deselected values
             Log.d(TAG, "Logging data..");
-            getInstance().writePreference("c1", array.toString());
+            getInstance().writePreferenceString("c1", array.toString());
 
             if (!getInstance().getPreferenceBool("setupComplete")) {
                 Intent intent = new Intent(Category.this, Preferences.class);
