@@ -45,6 +45,16 @@ public final class SqlQueries {
             + KEY_QUANTITY + " INTEGER NOT NULL);";
 
     /*
+    CREATE TABLE recipes (
+        id            TEXT
+        recipeName    TEXT,
+        ingredients   TEXT,
+        prepTime      INTEGER,
+        rating        INTEGER,
+        largeImageUrl TEXT,
+    );
+     */
+    /*
      * DROP table queries
      */
     public static final String DROP_FOOD_TABLE = "DROP TABLE IF EXISTS " + FOOD_TABLE_NAME;

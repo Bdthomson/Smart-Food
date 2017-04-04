@@ -5,7 +5,7 @@ import android.widget.ListView;
 
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
-import com.schachte.android.proactive_food_app.database.Recipe;
+import com.schachte.android.proactive_food_app.models.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
