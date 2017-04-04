@@ -28,8 +28,6 @@ public class Preferences extends AppCompatActivity {
     EditText height;
     EditText weight;
     RadioGroup rg;
-    RadioButton radioButton;
-    String radioValue;
     SeekBar activityLevel;
 
     public final String TAG = this.getClass().getSimpleName();
@@ -60,6 +58,71 @@ public class Preferences extends AppCompatActivity {
         registerButtonListeners();
     }
 
+    private boolean validateInput(){
+
+        boolean valid = true;
+        int ageValue, weightValue, heightValue;
+        ageValue = 0;
+        weightValue = 0;
+        heightValue = 0;
+
+        // Name Required
+        if (name.getText().toString().trim().equalsIgnoreCase("")){
+            valid = false;
+            name.setError("Name required.");
+        }
+
+        // Age Required
+        try {
+            ageValue = Integer.parseInt(age.getText().toString());
+        } catch (NumberFormatException e){
+            valid = false;
+            age.setError("Age Required");
+        }
+
+        // Age must be in valid range. 13 - 130.
+        if (age.getError() == null){
+            if (ageValue < 13 || ageValue > 130){
+                valid = false;
+                age.setError("Invalid Age");
+            }
+        }
+
+        // Weight Required
+        try {
+            weightValue = Integer.parseInt(weight.getText().toString());
+        } catch (NumberFormatException e){
+            valid = false;
+            weight.setError("Weight Required");
+        }
+
+        // Weight must be in valid range. 40 - 1400.
+        if (weight.getError() == null){
+            if (weightValue < 13 || weightValue > 1400){
+                valid = false;
+                weight.setError("Invalid Weight");
+            }
+        }
+
+        // Height Required
+        try {
+            heightValue = Integer.parseInt(height.getText().toString());
+        } catch (NumberFormatException e){
+            valid = false;
+            height.setError("Height Required");
+        }
+
+        //  must be in valid range (inches). 10 - 100.
+        if (height.getError() == null){
+            if (heightValue < 10 || heightValue > 100){
+                valid = false;
+                height.setError("Invalid Height");
+            }
+        }
+
+        return valid;
+    }
+
     private void registerButtonListeners() {
 
         // The save button loads the selected choices from UI and saves them to shared preferences.
@@ -74,20 +137,23 @@ public class Preferences extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                getInstance().writePreferenceString("name", name.getText().toString());
-                getInstance().writePreferenceInt("age", Integer.parseInt(age.getText().toString()));
-                getInstance().writePreferenceInt("height", Integer.parseInt(height.getText().toString()));
-                getInstance().writePreferenceInt("weight", Integer.parseInt(weight.getText().toString()));
-                getInstance().writePreferenceInt("gender", rg.getCheckedRadioButtonId());
-                getInstance().writePreferenceInt("activity_level", activityLevel.getProgress());
+                boolean valid = validateInput();
+                if (valid) {
+                    getInstance().writePreferenceString("name", name.getText().toString());
+                    getInstance().writePreferenceInt("age", Integer.parseInt(age.getText().toString()));
+                    getInstance().writePreferenceInt("height", Integer.parseInt(height.getText().toString()));
+                    getInstance().writePreferenceInt("weight", Integer.parseInt(weight.getText().toString()));
+                    getInstance().writePreferenceInt("gender", rg.getCheckedRadioButtonId());
+                    getInstance().writePreferenceInt("activity_level", activityLevel.getProgress());
 
-                if (!getInstance().getPreferenceBool("setupComplete")){
-                    getInstance().writePreferenceBool("setupComplete", true);
-                    Intent intent = new Intent(Preferences.this, Home.class);
-                    finish();  //Kill the activity from which you will go to next activity
-                    startActivity(intent);
-                } else {
-                    finish();
+                    if (!getInstance().getPreferenceBool("setupComplete")) {
+                        getInstance().writePreferenceBool("setupComplete", true);
+                        Intent intent = new Intent(Preferences.this, Home.class);
+                        finish();  //Kill the activity from which you will go to next activity
+                        startActivity(intent);
+                    } else {
+                        finish();
+                    }
                 }
             }
         });
