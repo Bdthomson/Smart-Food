@@ -2,6 +2,10 @@ package com.schachte.android.proactive_food_app.database;
 
 /**
  * Created by Spencer Smith on 3/25/2017.
+ *
+ * This file should hold all query strings that will be used by the DataAccessLayer
+ * class.  It is much easier to maintain a file like this than have it jumbling up the
+ * DAL class.
  */
 
 public final class SqlQueries {
@@ -18,6 +22,7 @@ public final class SqlQueries {
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
     public static final String KEY_QUANTITY = "quantity";
+
 
     /*
      * SELECT queries
@@ -44,16 +49,20 @@ public final class SqlQueries {
             + KEY_NAME + " TEXT NOT NULL,"
             + KEY_QUANTITY + " INTEGER NOT NULL);";
 
-    /*
-    CREATE TABLE recipes (
-        id            TEXT
-        recipeName    TEXT,
-        ingredients   TEXT,
-        prepTime      INTEGER,
-        rating        INTEGER,
-        largeImageUrl TEXT,
-    );
-     */
+
+    public static final String CREATE_RECIPE_TABLE = "CREATE TABLE recipes ( "
+            + "recipeName      TEXT,"
+            + "imageUrl        TEXT,"
+            + "imageByteData   TEXT,"
+            + "sourceUrl       TEXT,"
+            + "proteinCount    TEXT,"
+            + "fatCount        TEXT,"
+            + "carbCount       TEXT,"
+            + "readyInMinutes  INTEGER,"
+            + "recipeId        INTEGER,"
+            + "servings        INTEGER,"
+            + "calories        INTEGER)";
+
     /*
      * DROP table queries
      */

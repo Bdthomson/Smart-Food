@@ -41,6 +41,8 @@ public class DataAccessLayer extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SqlQueries.DROP_FOOD_TABLE);
+        db.execSQL(SqlQueries.CREATE_RECIPE_TABLE);
+
         onCreate(db);
     }
 
@@ -54,12 +56,27 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(SqlQueries.SELECT_ALL_RECIPES, null);
 
-        List<Recipe> returnRecipes = new ArrayList<>();
+        List<Recipe> recipeList = new ArrayList<>();
         while(cursor.moveToNext()) {
-            returnRecipes.add( new Recipe("Test", "Test", null) );
+            Recipe recipe = new Recipe();
+
+            recipe.setRecipeName( cursor.getString(cursor.getColumnIndex("recipeName")) );
+            recipe.setImageUrl( cursor.getString(cursor.getColumnIndex("imageUrl")) );
+            recipe.setImageByteData( cursor.getString(cursor.getColumnIndex("imageByteData")) ); //Raw image blob
+            recipe.setSourceUrl( cursor.getString(cursor.getColumnIndex("sourceUrl")) );
+            recipe.setProteinCount( cursor.getString(cursor.getColumnIndex("proteinCount")) );
+            recipe.setFatCount( cursor.getString(cursor.getColumnIndex("fatCount")) );
+            recipe.setCarbCount( cursor.getString(cursor.getColumnIndex("carbCount")) );
+
+            recipe.setReadyInMinutes( cursor.getInt(cursor.getColumnIndex("readyInMinutes")) );
+            recipe.setRecipeId( cursor.getInt(cursor.getColumnIndex("recipeId")) );
+            recipe.setServings( cursor.getInt(cursor.getColumnIndex("servings")) );
+            recipe.setCalories( cursor.getInt(cursor.getColumnIndex("calories")) );
+
+            recipeList.add(recipe);
         }
 
-        return returnRecipes;
+        return recipeList;
     }
 }
 

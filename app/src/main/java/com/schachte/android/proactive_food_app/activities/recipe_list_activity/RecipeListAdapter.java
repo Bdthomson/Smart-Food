@@ -1,11 +1,15 @@
-package com.schachte.android.proactive_food_app.activities.recipe_activity;
+package com.schachte.android.proactive_food_app.activities.recipe_list_activity;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -34,9 +38,14 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
 
         TextView mainText = (TextView) convertView.findViewById(R.id.firstLine);
         TextView subText = (TextView) convertView.findViewById(R.id.secondLine);
+        ImageView recipeImage = (ImageView) convertView.findViewById(R.id.recipeImage);
 
-        mainText.setText("TEST TEST");
-        subText.setText("TEEST SUB TEXT");
+        mainText.setText(recipe.getRecipeName());
+        subText.setText("Calories: " + recipe.getCalories());
+
+        byte[] decodedString = Base64.decode(recipe.getImageByteData(), Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        recipeImage.setImageBitmap(bitmap);
 
         return convertView;
     }

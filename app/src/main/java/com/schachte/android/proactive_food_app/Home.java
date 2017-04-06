@@ -11,7 +11,10 @@ import android.widget.Button;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
+
+import com.schachte.android.proactive_food_app.activities.recipe_list_activity.RecipeListActivity;
 import com.schachte.android.proactive_food_app.database.Preferences.*;
+import com.schachte.android.proactive_food_app.util.WebServices;
 
 public class Home extends AppCompatActivity {
 
@@ -20,6 +23,7 @@ public class Home extends AppCompatActivity {
     FloatingActionButton profileBtn;
     Button ingredientsBtn;
     Button pantryBtn;
+    Button recipesBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class Home extends AppCompatActivity {
         profileBtn = (FloatingActionButton) findViewById(R.id.fab_profile);
         ingredientsBtn = (Button) findViewById(R.id.ingredients_button);
         pantryBtn = (Button) findViewById(R.id.view_pantry_btn_home);
+        recipesBtn = (Button) findViewById(R.id.add_ingredients_btn);
 
         cuisineBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,6 +81,13 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 // Send to next activity
                 startActivity(new Intent(Home.this, Pantry.class));
+            }
+        });
+
+        recipesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this, RecipeListActivity.class));
             }
         });
     }
