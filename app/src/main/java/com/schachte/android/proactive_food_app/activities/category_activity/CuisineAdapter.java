@@ -1,4 +1,4 @@
-package com.schachte.android.proactive_food_app;
+package com.schachte.android.proactive_food_app.activities.category_activity;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,16 +8,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.activities.category_activity.CategoryActivity;
+import com.schachte.android.proactive_food_app.activities.category_activity.CategoryData;
 
 import java.util.ArrayList;
 
-import static android.content.ContentValues.TAG;
-
-public class CustomAdapter extends BaseAdapter{
+public class CuisineAdapter extends BaseAdapter{
 
     String [] result;
 
@@ -41,16 +39,16 @@ public class CustomAdapter extends BaseAdapter{
      *  Custom adapter is used to retrieve and display the images and handle user selection
      *  for shared preferences
      *
-     *  @param category The reference to the previous activity calling the adapter
+     *  @param categoryActivity The reference to the previous activity calling the adapter
      *  @param osNameList String names for cuisine cateogories
      *  @param osImages Regular image references for image resource (cuisine cateogory images)
      *  @param osImagesHover Hover image references for image resource (cuisine cateogory images)
      *  @param checked Arraylist used to store the checked objects into users phone memory
      **/
-    public CustomAdapter(Category category, String[] osNameList, int[] osImages, int[] osImagesHover, ArrayList<String> checked) {
+    public CuisineAdapter(CategoryActivity categoryActivity, String[] osNameList, int[] osImages, int[] osImagesHover, ArrayList<String> checked) {
         // TODO Auto-generated constructor stub
         result=osNameList;
-        context=category;
+        context= categoryActivity;
         imageId=osImages;
         hoverId=osImagesHover;
         this.checked=checked;

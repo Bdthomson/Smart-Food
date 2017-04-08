@@ -1,24 +1,19 @@
-package com.schachte.android.proactive_food_app;
+package com.schachte.android.proactive_food_app.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 
-import org.json.JSONArray;
+import com.schachte.android.proactive_food_app.R;
 
 import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
-public class Preferences extends AppCompatActivity {
+public class PreferencesActivity extends AppCompatActivity {
 
     Button backButton;
     Button saveButton;
@@ -148,7 +143,7 @@ public class Preferences extends AppCompatActivity {
 
                     if (!getInstance().getPreferenceBool("setupComplete")) {
                         getInstance().writePreferenceBool("setupComplete", true);
-                        Intent intent = new Intent(Preferences.this, Home.class);
+                        Intent intent = new Intent(PreferencesActivity.this, HomeActivity.class);
                         finish();  //Kill the activity from which you will go to next activity
                         startActivity(intent);
                     } else {

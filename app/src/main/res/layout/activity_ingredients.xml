@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.schachte.android.proactive_food_app.Ingredients"
+    tools:context="com.schachte.android.proactive_food_app.activities.AddIngredientsActivity"
     android:background="@drawable/take_photo_bg"
     >
 

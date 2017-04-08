@@ -1,4 +1,4 @@
-package com.schachte.android.proactive_food_app;
+package com.schachte.android.proactive_food_app.activities.category_activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
+import com.schachte.android.proactive_food_app.activities.PreferencesActivity;
+import com.schachte.android.proactive_food_app.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -15,13 +18,13 @@ import java.util.ArrayList;
 
 import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
-public class Category extends Activity {
+public class CategoryActivity extends Activity {
 
     GridView gridview;
 
     ArrayList<CategoryData> selectedCategories;
 
-    public CustomAdapter customAdapter;
+    public CuisineAdapter cuisineAdapter;
 
     public Button saveButton;
 
@@ -121,10 +124,10 @@ public class Category extends Activity {
         gridview = (GridView) findViewById(R.id.customgrid);
 
         // Create a custom adapter, setting all values in it's constructor.
-        customAdapter = new CustomAdapter(this, osNameList, osImages, osImagesHover, checked);
+        cuisineAdapter = new CuisineAdapter(this, osNameList, osImages, osImagesHover, checked);
 
         // Set the adapter for the gridView
-        gridview.setAdapter(customAdapter);
+        gridview.setAdapter(cuisineAdapter);
 
         // Button Listeners
         registerButtonListeners();
@@ -139,7 +142,7 @@ public class Category extends Activity {
             public void onClick(View v) {
 
             // Get selected categories.
-            selectedCategories = customAdapter.getSelectedCategories();
+            selectedCategories = cuisineAdapter.getSelectedCategories();
 
             // Store the selected values.
             JSONArray array = new JSONArray();
@@ -154,7 +157,7 @@ public class Category extends Activity {
             getInstance().writePreferenceString("c1", array.toString());
 
             if (!getInstance().getPreferenceBool("setupComplete")) {
-                Intent intent = new Intent(Category.this, Preferences.class);
+                Intent intent = new Intent(CategoryActivity.this, PreferencesActivity.class);
                 startActivity(intent);
             } else {
                 Log.d(TAG, "Um");

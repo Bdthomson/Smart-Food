@@ -1,6 +1,5 @@
-package com.schachte.android.proactive_food_app;
+package com.schachte.android.proactive_food_app.activities;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,13 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.google.zxing.Result;
+import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.database.ClientRequests;
-
-import java.util.concurrent.ExecutionException;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class Ingredients extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class AddIngredientsActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     Button barcodeBtn;
     Button manualBtn;
@@ -63,7 +61,7 @@ public class Ingredients extends AppCompatActivity implements ZXingScannerView.R
 
         ingredientsBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(Ingredients.this, Pantry.class);
+                Intent intent = new Intent(AddIngredientsActivity.this, PantryActivity.class);
                 startActivity(intent);
             }
         });

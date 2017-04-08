@@ -1,4 +1,4 @@
-package com.schachte.android.proactive_food_app;
+package com.schachte.android.proactive_food_app.activities.category_activity;
 
 
 

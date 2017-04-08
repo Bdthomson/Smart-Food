@@ -12,25 +12,25 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/taco_in_a_toaster"
-        android:label="SmartFood - Meal Planner"
+        android:label="SmartFood"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".Home">
+            android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Preferences">
+        <activity android:name=".activities.PreferencesActivity">
         </activity>
-        <activity android:name=".Category">
+        <activity android:name=".activities.category_activity.CategoryActivity">
         </activity>
-        <activity android:name=".Ingredients">
+        <activity android:name=".activities.AddIngredientsActivity">
         </activity>
-        <activity android:name=".Pantry">
+        <activity android:name=".activities.PantryActivity">
         </activity>
         <activity android:name=".activities.recipe_list_activity.RecipeListActivity">
         </activity>

@@ -1,4 +1,4 @@
-package com.schachte.android.proactive_food_app;
+package com.schachte.android.proactive_food_app.activities;
 
 import android.content.Intent;
 import android.support.v4.view.ViewCompat;
@@ -11,7 +11,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class Splash extends AppCompatActivity {
+import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.activities.HomeActivity;
+
+public class SplashAnimationActivity extends AppCompatActivity {
 
     public static final int STARTUP_DELAY = 300;
     public static final int ANIM_ITEM_DURATION = 1000;
@@ -44,7 +47,7 @@ public class Splash extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         finish();  //Kill the activity from which you will go to next activity
         startActivity(intent);
 

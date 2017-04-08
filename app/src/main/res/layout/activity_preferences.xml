@@ -6,7 +6,7 @@
     android:id="@+id/activity_preferences"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.schachte.android.proactive_food_app.Preferences">
+    tools:context="com.schachte.android.proactive_food_app.activities.PreferencesActivity">
 
     <SeekBar
         style="@android:style/Widget.Holo.Light.SeekBar"

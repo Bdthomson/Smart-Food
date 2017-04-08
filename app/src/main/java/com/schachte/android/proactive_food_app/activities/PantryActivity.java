@@ -1,9 +1,11 @@
-package com.schachte.android.proactive_food_app;
+package com.schachte.android.proactive_food_app.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Pantry extends AppCompatActivity {
+import com.schachte.android.proactive_food_app.R;
+
+public class PantryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
