@@ -5,21 +5,27 @@ import java.util.List;
 
 public class PantryData {
 
-    private List<String> userIngredients = new ArrayList<>();
+    private List<Ingredient> userIngredients = new ArrayList<>();
     private List<String> cuisinePreferences = new ArrayList<>();
     private String mealPreference;			//Breakfast, Lunch, Dinner
     private String activityLevel; 			//High, Medium, Low
 
-    public List<String> getUserIngredients() {
+    public List<Ingredient> getUserIngredients() {
         return userIngredients;
     }
+
     public void setUserIngredients(List<String> userIngredients) {
-        this.userIngredients = userIngredients;
+        userIngredients.clear();
+        for (String ingredient : userIngredients) {
+            Ingredient i = new Ingredient(ingredient);
+            this.userIngredients.add(i);
+        }
     }
-    public void addUserIngredient(String userIngredient) {
+
+    public void addUserIngredient(Ingredient userIngredient) {
         this.userIngredients.add(userIngredient);
     }
-    public void addUserIngredients(List<String> userIngredients) {
+    public void addUserIngredients(List<Ingredient> userIngredients) {
         this.userIngredients.addAll(userIngredients);
     }
     public List<String> getCuisinePreferences() {

@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.models.Ingredient;
 import com.schachte.android.proactive_food_app.models.PantryData;
 
 import java.util.ArrayList;
@@ -26,17 +27,21 @@ public class PantryActivity extends AppCompatActivity {
 
         pantryItemsListView = (ListView)findViewById(R.id.pantryListView);
 
+        // Some test data
         PantryData pd = new PantryData();
-        pd.addUserIngredient("tester");
+        pd.addUserIngredient(new Ingredient("tester"));
 
-        List<String> ingredients = pd.getUserIngredients();
+        List<Ingredient> ingredients = pd.getUserIngredients();
 
         adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingredientNames);
 
         pantryItemsListView.setAdapter(adapter);
 
-        for (String ingredient : ingredients) {
-            ingredientNames.add(ingredient);
+        for (Ingredient ingredient : ingredients) {
+            ingredientNames.add(ingredient.getName());
+            if (ingredient.getBlob() != null) {
+                String blob = ingredient.getBlob();
+            }
             adapter.notifyDataSetChanged();
         }
     }
