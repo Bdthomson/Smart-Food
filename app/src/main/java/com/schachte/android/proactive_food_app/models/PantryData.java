@@ -16,6 +16,12 @@ public class PantryData {
     public void setUserIngredients(List<String> userIngredients) {
         this.userIngredients = userIngredients;
     }
+    public void addUserIngredient(String userIngredient) {
+        this.userIngredients.add(userIngredient);
+    }
+    public void addUserIngredients(List<String> userIngredients) {
+        this.userIngredients.addAll(userIngredients);
+    }
     public List<String> getCuisinePreferences() {
         return cuisinePreferences;
     }
