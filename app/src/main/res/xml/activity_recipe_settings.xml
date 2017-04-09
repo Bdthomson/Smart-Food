@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:dependency="pref_sync"
+        android:key="pref_syncConnectionType"
+        android:title="Meal to get recipes for:"
+        android:dialogTitle="Meal?"
+        android:entries="@array/meal_options"
+        android:entryValues="@array/meal_options" />
+</PreferenceScreen>

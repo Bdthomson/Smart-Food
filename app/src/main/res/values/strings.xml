@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">proactive_food_app</string>
+    <string name="action_refresh">Refresh Recipes</string>
+    <string name="action_settings">Settings</string>
 </resources>
