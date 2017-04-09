@@ -34,17 +34,17 @@ public class CategoryActivity extends Activity {
 
     //The number of food categories need to match with the images that are saved in the code below
     public static String[] osNameList = {
-            "American Food",
-            "Caribbean Food",
-            "Chinese Food",
-            "French Food",
-            "German Food",
-            "Greek Food",
-            "Indian Food",
-            "Italian Food",
-            "Japanese Food",
-            "Mexican Food",
-            "Thai Food"
+            "American",
+            "Caribbean",
+            "Chinese",
+            "French",
+            "German",
+            "Greek",
+            "Indian",
+            "Italian",
+            "Japanese",
+            "Mexican",
+            "Thai"
 
     };
     public static int[] osImages = {
