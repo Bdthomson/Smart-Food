@@ -16,6 +16,7 @@ import java.util.List;
 
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.models.Recipe;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Spencer Smith on 3/28/2017.
@@ -37,15 +38,20 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
         }
 
         TextView mainText = (TextView) convertView.findViewById(R.id.firstLine);
-        TextView subText = (TextView) convertView.findViewById(R.id.secondLine);
+        TextView secondTextView = (TextView) convertView.findViewById(R.id.secondLine);
+        TextView thirdTextView = (TextView) convertView.findViewById(R.id.thirdLine);
+
         ImageView recipeImage = (ImageView) convertView.findViewById(R.id.recipeImage);
 
         mainText.setText(recipe.getRecipeName());
-        subText.setText("Calories: " + recipe.getCalories());
+        secondTextView.setText("Calories: " + recipe.getCalories());
+        thirdTextView.setText("Ready in: " + recipe.getReadyInMinutes() + " minutes.");
 
-        byte[] decodedString = Base64.decode(recipe.getImageByteData(), Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        recipeImage.setImageBitmap(bitmap);
+        //byte[] decodedString = Base64.decode(recipe.getImageByteData(), Base64.DEFAULT);
+        //Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        Picasso.with(convertView.getContext()).load(recipe.getImageUrl()).resize(200,200).centerCrop().into(recipeImage);
+        //recipeImage.setImageBitmap(bitmap);
 
         return convertView;
     }

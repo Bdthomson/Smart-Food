@@ -32,8 +32,8 @@
         </activity>
         <activity android:name=".activities.PantryActivity">
         </activity>
-        <activity android:name=".activities.recipe_list_activity.RecipeListActivity">
-        </activity>
+        <activity android:name=".activities.recipe_list_activity.RecipeListActivity"
+                  android:parentActivityName=".activities.HomeActivity" />
 
     </application>
 
