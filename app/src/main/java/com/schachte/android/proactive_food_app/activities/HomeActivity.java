@@ -2,18 +2,18 @@ package com.schachte.android.proactive_food_app.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
-
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.activities.category_activity.CategoryActivity;
 import com.schachte.android.proactive_food_app.activities.recipe_list_activity.RecipeListActivity;
+
+import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -104,6 +104,5 @@ public class HomeActivity extends AppCompatActivity {
         //Colorize to defaultFabButtonColor
         mainButton.getMenuIconView().setColorFilter(defaultFabButtonColor);
         mainButton.getMenuIconView().setImageResource(R.drawable.fabtn_cog);
-
     }
 }
