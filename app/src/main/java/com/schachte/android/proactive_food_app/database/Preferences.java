@@ -34,7 +34,7 @@ public class Preferences {
 
     // For explanation, please see:
     // http://stackoverflow.com/questions/21396358/sharedpreferences-putstringset-doesnt-work
-    // TLDR: Have to create a copy of the object so it will recognize that that the
+    // TLDR: Have to create a copy of the object so it will recognize that the
     // object has changed.
     public Set<String> getPreferenceStringSet(String key){
         SharedPreferences prefs = userSharedPreferences;
