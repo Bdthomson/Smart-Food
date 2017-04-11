@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
@@ -110,15 +112,9 @@ public class CategoryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "C1 is " + getInstance().getPreferenceString("c1"));
-
-        // Load Stringified JSON Array (default value is []) from shared preferences.
-        ArrayList<String> checked;
-
-        if (getInstance().getPreferenceString("c1") != null)
-            checked = jsonToList(getInstance().getPreferenceString("c1"));
-        else
-            checked = new ArrayList<>();
+        // Load the checked categories from shared preferences.
+        Set<String> checked = getInstance().getPreferenceStringSet("categories");
+        Log.d(TAG, "Categories are " + checked);
 
         // Get GridView
         gridview = (GridView) findViewById(R.id.customgrid);
@@ -141,28 +137,26 @@ public class CategoryActivity extends Activity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-            // Get selected categories.
-            selectedCategories = cuisineAdapter.getSelectedCategories();
+                // Get selected categories.
+                selectedCategories = cuisineAdapter.getSelectedCategories();
 
-            // Store the selected values.
-            JSONArray array = new JSONArray();
+                // Store the selected values in a string set.
+                HashSet<String> tempSet = new HashSet<>();
 
-            //Store any new values
-            for (CategoryData data : selectedCategories) {
-                array.put(data.catName);
-            }
+                //Store any new values
+                for (CategoryData data : selectedCategories) {
+                    tempSet.add(data.catName);
+                }
 
-            //Write any newly selected or deselected values
-            Log.d(TAG, "Logging data..");
-            getInstance().writePreferenceString("c1", array.toString());
+                //Write any newly selected or deselected values
+                getInstance().writePreferenceStringSet("categories", tempSet);
 
-            if (!getInstance().getPreferenceBool("setupComplete")) {
-                Intent intent = new Intent(CategoryActivity.this, PreferencesActivity.class);
-                startActivity(intent);
-            } else {
-                Log.d(TAG, "Um");
-                finish();
-            }
+                if (!getInstance().getPreferenceBool("setupComplete")) {
+                    Intent intent = new Intent(CategoryActivity.this, PreferencesActivity.class);
+                    startActivity(intent);
+                } else {
+                    finish();
+                }
             }
         });
     }

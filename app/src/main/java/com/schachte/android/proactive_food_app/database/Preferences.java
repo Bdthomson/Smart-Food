@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * This is a singleton class for instantiating one object of the userprefs
  * object throughout the entire application. This is where you will call and store
@@ -29,6 +32,16 @@ public class Preferences {
         userSharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctxt);
     }
 
+    // For explanation, please see:
+    // http://stackoverflow.com/questions/21396358/sharedpreferences-putstringset-doesnt-work
+    // TLDR: Have to create a copy of the object so it will recognize that the
+    // object has changed.
+    public Set<String> getPreferenceStringSet(String key){
+        SharedPreferences prefs = userSharedPreferences;
+        Set<String> tempSet = prefs.getStringSet(key, new HashSet<String>());
+        return new HashSet<>(tempSet);
+    }
+
     public String getPreferenceString(String key){
         SharedPreferences prefs = userSharedPreferences;
         return prefs.getString(key, null);
@@ -42,6 +55,13 @@ public class Preferences {
     public int getPreferenceInt(String key){
         SharedPreferences prefs = userSharedPreferences;
         return prefs.getInt(key, 0);
+    }
+
+
+    public void writePreferenceStringSet(String key, Set<String> ss){
+        SharedPreferences.Editor e = userSharedPreferences.edit();
+        e.putStringSet(key, ss);
+        e.commit();
     }
 
     public void writePreferenceString(String key, String value){

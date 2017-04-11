@@ -14,6 +14,8 @@ import com.schachte.android.proactive_food_app.activities.category_activity.Cate
 import com.schachte.android.proactive_food_app.activities.category_activity.CategoryData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CuisineAdapter extends BaseAdapter{
 
@@ -30,7 +32,7 @@ public class CuisineAdapter extends BaseAdapter{
 
     //Debugging tag
     public final String TAG = this.getClass().getSimpleName();
-    ArrayList<String> checked = new ArrayList<>();
+    Set<String> checked = new HashSet<>();
     ArrayList<CategoryData> categoryData = new ArrayList<>();
     private static LayoutInflater inflater=null;
 
@@ -45,7 +47,7 @@ public class CuisineAdapter extends BaseAdapter{
      *  @param osImagesHover Hover image references for image resource (cuisine cateogory images)
      *  @param checked Arraylist used to store the checked objects into users phone memory
      **/
-    public CuisineAdapter(CategoryActivity categoryActivity, String[] osNameList, int[] osImages, int[] osImagesHover, ArrayList<String> checked) {
+    public CuisineAdapter(CategoryActivity categoryActivity, String[] osNameList, int[] osImages, int[] osImagesHover, Set<String> checked) {
         // TODO Auto-generated constructor stub
         result=osNameList;
         context= categoryActivity;
