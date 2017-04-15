@@ -26,9 +26,9 @@
             android:name=".util.BootComplete"
             android:enabled="true"
             android:exported="false" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--&lt;!&ndash;<action android:name="android.intent.action.BOOT_COMPLETED" />&ndash;&gt;-->
+            <!--</intent-filter>-->
         </receiver>
 
         <service android:name=".util.PedometerStart" >

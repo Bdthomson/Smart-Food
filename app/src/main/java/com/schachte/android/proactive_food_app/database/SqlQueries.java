@@ -27,8 +27,8 @@ public final class SqlQueries {
 
     // Pedometer Keys
     public static final String KEY_CURRENT_TIMESTAMP = "timestamp";
-    public static final String TOTAL_STEPS = "total_steps";
-    public static final String STEPS_SINCE_LAST_RESET = "steps_since_reset";
+    public static final String KEY_TOTAL_STEPS = "total_steps";
+    public static final String KEY_STEPS_SINCE_LAST_RESET = "steps_since_reset";
 
 
     /*
@@ -47,7 +47,7 @@ public final class SqlQueries {
      * INSERT queries
      */
     public static final String INSERT_PEDOMETER_LOG = "INSERT INTO " + PEDOMETER_TABLE_NAME
-            + "(" + TOTAL_STEPS + ", " + STEPS_SINCE_LAST_RESET + ") "
+            + "(" + KEY_TOTAL_STEPS + ", " + KEY_STEPS_SINCE_LAST_RESET + ") "
             + " VALUES ";
 
 
@@ -80,11 +80,11 @@ public final class SqlQueries {
             + "calories        INTEGER)";
 
     public static final String CREATE_PEDOMETER_TABLE =  "CREATE TABLE "
-            + PEDOMETER_TABLE_NAME      + "("
-            + KEY_ID                    + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + KEY_CURRENT_TIMESTAMP     + " TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
-            + TOTAL_STEPS               + " FLOAT NOT NULL,"
-            + STEPS_SINCE_LAST_RESET    + " FLOAT NOT NULL);";
+            + PEDOMETER_TABLE_NAME          + "("
+            + KEY_ID                        + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + KEY_CURRENT_TIMESTAMP         + " TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+            + KEY_TOTAL_STEPS               + " FLOAT NOT NULL,"
+            + KEY_STEPS_SINCE_LAST_RESET    + " FLOAT NOT NULL);";
 
     /*
      * DROP table queries

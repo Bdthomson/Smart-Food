@@ -6,7 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.schachte.android.proactive_food_app.models.PedometerEntry;
 import com.schachte.android.proactive_food_app.models.Recipe;
+import com.schachte.android.proactive_food_app.util.PedometerSensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,17 +85,45 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         return recipeList;
     }
 
-    public List<Integer> getLastPedometerEntry() {
+    public List<PedometerEntry> getAllPedometerEntries(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(SqlQueries.SELECT_ALL_PEDOMETER_LOGS, null);
+        ArrayList<PedometerEntry> pedometerEntries = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            pedometerEntries.add(new PedometerEntry(
+                    cursor.getInt(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("timestamp")),
+                    cursor.getInt(cursor.getColumnIndex("total_steps")),
+                    cursor.getInt(cursor.getColumnIndex("steps_since_reset"))
+            ));
+
+            Log.d("HomeActivity", pedometerEntries.get(pedometerEntries.size() - 1).toString());
+        }
+
+        return pedometerEntries;
+    }
+
+    public PedometerEntry getLastPedometerEntry() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(SqlQueries.SELECT_LAST_PEDOMETER_RECORD, null);
 
-        List<Integer> pedometerList = new ArrayList<>();
+
+        PedometerEntry pedEnt = null;
+
+        //TODO: Maybe refactor this. The query is limited to 1 already though.
+
+        //Return an object of the last pedometer log value
         while(cursor.moveToNext()) {
-            Log.d("HomeActivity", "Float value is: " + Float.toString(cursor.getFloat(cursor.getColumnIndex("total_steps"))));
-            Log.d("HomeActivity", "Data: " + cursor.getString(cursor.getColumnIndex("timestamp")));
+            pedEnt = new PedometerEntry(
+                    cursor.getInt(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("timestamp")),
+                    cursor.getInt(cursor.getColumnIndex("total_steps")),
+                    cursor.getInt(cursor.getColumnIndex("steps_since_reset"))
+            );
         }
 
-        return pedometerList;
+        return pedEnt;
     }
 
     public void insertPedometerLog(float totalSteps, float stepsSinceReset){

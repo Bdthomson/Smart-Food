@@ -6,9 +6,13 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
+import com.schachte.android.proactive_food_app.models.PedometerEntry;
+
+import java.security.acl.LastOwnerException;
 
 import static android.content.Context.SENSOR_SERVICE;
 
@@ -18,7 +22,7 @@ public class PedometerSensor implements SensorEventListener {
     public Handler handler = null;
     public static Runnable runnable = null;
     public Context mContext;
-    public float steps;
+    public float steps = -1;
     public long MILLISECOND_DELAY = 5000;
     DataAccessLayer dal;
 
@@ -34,7 +38,8 @@ public class PedometerSensor implements SensorEventListener {
             runnable = new Runnable() {
                 public void run() {
                     Toast.makeText(mContext, "Service is still running!! : " + Float.toString(steps), Toast.LENGTH_LONG).show();
-                    addNewPedometerLog(steps);
+                    if (steps != -1)
+                        addNewPedometerLog(steps);
                     handler.postDelayed(runnable, MILLISECOND_DELAY);
                 }
             };
@@ -50,6 +55,8 @@ public class PedometerSensor implements SensorEventListener {
 
         //Update currently tracked step count value
         steps = event.values[0];
+
+        Log.d("HomeActivity", "Sensor Changed");
     }
 
     @Override
@@ -60,7 +67,7 @@ public class PedometerSensor implements SensorEventListener {
     /**
      * TABLE SCHEMA
 
-     TOTAL_STEPS | STEPS_SINCE_RESET
+     KEY_TOTAL_STEPS | STEPS_SINCE_RESET
 
      1000 | 1000 // Sensor value - 1000
      5000 | 5000 // Sensor value - 5000
@@ -76,18 +83,37 @@ public class PedometerSensor implements SensorEventListener {
      11000 | 1000 // Sensor value - 1000
      */
 
-    public void addNewPedometerLog(float stepCount){
+    public void addNewPedometerLog(float stepCount) {
+
         if (dal == null) {
             dal = new DataAccessLayer(mContext);
         }
 
-        //Only ran on the first insertion in the DB
-        if (dal.getLastPedometerEntry().size() == 0){
-            dal.insertPedometerLog(stepCount, stepCount);
+        dal.getAllPedometerEntries();
+
+        PedometerEntry lastEntry = dal.getLastPedometerEntry();
+
+        // Only ran on the first insertion in the DB
+        if (lastEntry == null) {
+
+                // USE CASE: User installs app, has moved since opening app.
+                // If there is no data and the step count has triggered.
+                if (stepCount != 0.0) {
+                    dal.insertPedometerLog(stepCount, stepCount);
+                }
+
+        // USE CASE: User has already ran the application before.
+        } else {
+
+            if (stepCount < lastEntry.getStepsSinceReset()) {
+                dal.insertPedometerLog(lastEntry.getTotalSteps() + stepCount, stepCount);
+                Log.d("HomeActivity", "// Handling Phone Reboot");
+
+            // Handle
+            } else {
+                dal.insertPedometerLog(lastEntry.getTotalSteps() + stepCount - lastEntry.getStepsSinceReset(), stepCount);
+                Log.d("HomeActivity", "// Handling Normal Insertion");
+            }
         }
-
-        //TODO: Get current steps and steps since reset.
-
-        //TODO:
     }
 }
