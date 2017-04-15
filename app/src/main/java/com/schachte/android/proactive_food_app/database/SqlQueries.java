@@ -33,9 +33,12 @@ public final class SqlQueries {
 
     /*
      * SELECT queries
+     * SELECT * FROM tablename ORDER BY column DESC LIMIT 1;
      */
     public static final String SELECT_ALL_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME;
     public static final String SELECT_ALL_PEDOMETER_LOGS = "SELECT * FROM " + PEDOMETER_TABLE_NAME;
+    public static final String SELECT_LAST_PEDOMETER_RECORD = "SELECT * FROM " + PEDOMETER_TABLE_NAME
+            + " ORDER BY " + KEY_ID + " DESC LIMIT 1;";
 
 
 
@@ -43,6 +46,9 @@ public final class SqlQueries {
     /*
      * INSERT queries
      */
+    public static final String INSERT_PEDOMETER_LOG = "INSERT INTO " + PEDOMETER_TABLE_NAME
+            + "(" + TOTAL_STEPS + ", " + STEPS_SINCE_LAST_RESET + ") "
+            + " VALUES ";
 
 
     /*

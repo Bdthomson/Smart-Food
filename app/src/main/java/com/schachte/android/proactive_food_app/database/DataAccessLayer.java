@@ -83,8 +83,26 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         return recipeList;
     }
 
-    public void getPedometerLogs() {
+    public List<Integer> getLastPedometerEntry() {
         SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(SqlQueries.SELECT_LAST_PEDOMETER_RECORD, null);
+
+        List<Integer> pedometerList = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            Log.d("HomeActivity", "Float value is: " + Float.toString(cursor.getFloat(cursor.getColumnIndex("total_steps"))));
+            Log.d("HomeActivity", "Data: " + cursor.getString(cursor.getColumnIndex("timestamp")));
+        }
+
+        return pedometerList;
+    }
+
+    public void insertPedometerLog(float totalSteps, float stepsSinceReset){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(SqlQueries.INSERT_PEDOMETER_LOG + "("
+                + totalSteps + ", "
+                + stepsSinceReset
+                + ")");
+
     }
 }
 

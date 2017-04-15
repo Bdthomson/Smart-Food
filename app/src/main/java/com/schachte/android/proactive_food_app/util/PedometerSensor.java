@@ -18,8 +18,8 @@ public class PedometerSensor implements SensorEventListener {
     public Handler handler = null;
     public static Runnable runnable = null;
     public Context mContext;
-    public int steps;
-    public long MILLISECOND_DELAY = 30000;
+    public float steps;
+    public long MILLISECOND_DELAY = 5000;
     DataAccessLayer dal;
 
 
@@ -33,7 +33,7 @@ public class PedometerSensor implements SensorEventListener {
             handler = new Handler();
             runnable = new Runnable() {
                 public void run() {
-                    Toast.makeText(mContext, "Service is still running!! : " + Integer.toString(steps), Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Service is still running!! : " + Float.toString(steps), Toast.LENGTH_LONG).show();
                     addNewPedometerLog(steps);
                     handler.postDelayed(runnable, MILLISECOND_DELAY);
                 }
@@ -49,7 +49,7 @@ public class PedometerSensor implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
 
         //Update currently tracked step count value
-        steps = (int) event.values[0];
+        steps = event.values[0];
     }
 
     @Override
@@ -57,12 +57,34 @@ public class PedometerSensor implements SensorEventListener {
 
     }
 
-    public void addNewPedometerLog(int stepCount){
+    /**
+     * TABLE SCHEMA
+
+     TOTAL_STEPS | STEPS_SINCE_RESET
+
+     1000 | 1000 // Sensor value - 1000
+     5000 | 5000 // Sensor value - 5000
+
+     PHONE RESET
+
+     7000  | 2000 // Sensor value - 2000
+     8000  | 3000 // Sensor value - 3000
+     10000 | 5000 // Sensor value - 5000
+
+     PHONE RESET
+
+     11000 | 1000 // Sensor value - 1000
+     */
+
+    public void addNewPedometerLog(float stepCount){
         if (dal == null) {
             dal = new DataAccessLayer(mContext);
-            dal.getPedometerLogs();
         }
 
+        //Only ran on the first insertion in the DB
+        if (dal.getLastPedometerEntry().size() == 0){
+            dal.insertPedometerLog(stepCount, stepCount);
+        }
 
         //TODO: Get current steps and steps since reset.
 

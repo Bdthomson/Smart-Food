@@ -35,9 +35,6 @@ public class HomeActivity extends AppCompatActivity {
         //Instantiate the singleton class for managing user-prefs onload
         getInstance().Initialize(getApplicationContext());
 
-        DataAccessLayer dal = new DataAccessLayer(this);
-        dal.getPedometerLogs();
-
         //Initialize pedometer sensor here if the background service is not already registered
         BackgroundHelper utils = new BackgroundHelper(this);
         Boolean serviceRunning = utils.isMyServiceRunning(PedometerStart.class);
