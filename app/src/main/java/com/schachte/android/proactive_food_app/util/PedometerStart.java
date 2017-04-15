@@ -20,13 +20,12 @@ public class PedometerStart extends Service {
         super.onCreate();
         Toast.makeText(this, "Pedometer Logging Started", Toast.LENGTH_LONG).show();
         Log.d("HomeActivity", "working!!!!!");
-        // do something when the service is created
+        PedometerSensor pedSensor = new PedometerSensor(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Toast.makeText(this, "Pedometer Logging Killed", Toast.LENGTH_LONG).show();
-
     }
 }
