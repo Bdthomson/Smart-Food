@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.schachte.android.proactive_food_app.models.Recipe;
 
@@ -13,12 +14,12 @@ import java.util.List;
 
 public class DataAccessLayer extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
-    protected static final String DATABASE_NAME = "FoodDatabase";
-
+    private static final int DATABASE_VERSION = 3;
+    protected static final String DATABASE_NAME = "FoodDatabase.db";
 
     public DataAccessLayer(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        Log.d("HomeActivity", "This is called for constructor");
 
     }
 
@@ -30,6 +31,9 @@ public class DataAccessLayer extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(SqlQueries.CREATE_FOOD_TABLE);
+        // db.execSQL(SqlQueries.CREATE_RECIPE_TABLE);
+        db.execSQL(SqlQueries.CREATE_PEDOMETER_TABLE);
+
     }
 
     /**
@@ -40,12 +44,12 @@ public class DataAccessLayer extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d("HomeActivity", "This si called for upgrade");
         db.execSQL(SqlQueries.DROP_FOOD_TABLE);
-        db.execSQL(SqlQueries.CREATE_RECIPE_TABLE);
+        db.execSQL(SqlQueries.DROP_RECIPE_TABLE);
 
         onCreate(db);
     }
-
 
     /*
      * Returns a List of recipes that can be used to create the recipes ListView
@@ -77,6 +81,10 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         }
 
         return recipeList;
+    }
+
+    public void getPedometerLogs() {
+        SQLiteDatabase db = this.getReadableDatabase();
     }
 }
 

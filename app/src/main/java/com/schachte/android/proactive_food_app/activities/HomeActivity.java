@@ -13,6 +13,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
 import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 import com.schachte.android.proactive_food_app.util.BackgroundHelper;
 import com.schachte.android.proactive_food_app.activities.category_activity.CategoryActivity;
 import com.schachte.android.proactive_food_app.activities.recipe_list_activity.RecipeListActivity;
@@ -33,6 +34,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //Instantiate the singleton class for managing user-prefs onload
         getInstance().Initialize(getApplicationContext());
+
+        DataAccessLayer dal = new DataAccessLayer(this);
+        dal.getPedometerLogs();
 
         //Initialize pedometer sensor here if the background service is not already registered
         BackgroundHelper utils = new BackgroundHelper(this);

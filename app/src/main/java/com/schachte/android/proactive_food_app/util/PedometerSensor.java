@@ -7,6 +7,9 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
 import android.widget.Toast;
+
+import com.schachte.android.proactive_food_app.database.DataAccessLayer;
+
 import static android.content.Context.SENSOR_SERVICE;
 
 public class PedometerSensor implements SensorEventListener {
@@ -17,6 +20,7 @@ public class PedometerSensor implements SensorEventListener {
     public Context mContext;
     public int steps;
     public long MILLISECOND_DELAY = 30000;
+    DataAccessLayer dal;
 
 
     public PedometerSensor(Context context){
@@ -30,6 +34,7 @@ public class PedometerSensor implements SensorEventListener {
             runnable = new Runnable() {
                 public void run() {
                     Toast.makeText(mContext, "Service is still running!! : " + Integer.toString(steps), Toast.LENGTH_LONG).show();
+                    addNewPedometerLog(steps);
                     handler.postDelayed(runnable, MILLISECOND_DELAY);
                 }
             };
@@ -50,5 +55,17 @@ public class PedometerSensor implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    public void addNewPedometerLog(int stepCount){
+        if (dal == null) {
+            dal = new DataAccessLayer(mContext);
+            dal.getPedometerLogs();
+        }
+
+
+        //TODO: Get current steps and steps since reset.
+
+        //TODO:
     }
 }
