@@ -17,6 +17,7 @@ public final class SqlQueries {
     /* Tables */
     public static final String FOOD_TABLE_NAME = "food";
     public static final String RECIPE_TABLE_NAME = "recipes";
+    public static final String INGREDIENT_TABLE_NAME = "ingredients";
 
     /* Columns */
     public static final String KEY_ID = "id";
@@ -28,6 +29,7 @@ public final class SqlQueries {
      * SELECT queries
      */
     public static final String SELECT_ALL_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME;
+    public static final String SELECT_ALL_INGREDIENTS = "SELECT * FROM " + INGREDIENT_TABLE_NAME;
 
 
     /*
@@ -50,7 +52,14 @@ public final class SqlQueries {
             + KEY_QUANTITY + " INTEGER NOT NULL);";
 
 
-    public static final String CREATE_RECIPE_TABLE = "CREATE TABLE recipes ( "
+    public static final String CREATE_INGREDIENT_TABLE = "CREATE TABLE " + INGREDIENT_TABLE_NAME + " ( "
+            + "ingredientName      TEXT,"
+            + "imageUrl        TEXT,"
+            + "imageByteData   TEXT,"
+            + "sourceUrl       TEXT,"
+            + "ingredientId    INTEGER)";
+
+    public static final String CREATE_RECIPE_TABLE = "CREATE TABLE " + RECIPE_TABLE_NAME + " ( "
             + "recipeName      TEXT,"
             + "imageUrl        TEXT,"
             + "imageByteData   TEXT,"
