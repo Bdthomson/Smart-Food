@@ -19,7 +19,7 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
     Button barcodeBtn;
     Button manualBtn;
     Button ingredientsBtn;
-    private ZXingScannerView zXingScannerView;
+    private ZXingScannerView zXingScannerView = new ZXingScannerView(getApplicationContext());
     TextView tv;
     ClientRequests cR;
     private static Context context;
