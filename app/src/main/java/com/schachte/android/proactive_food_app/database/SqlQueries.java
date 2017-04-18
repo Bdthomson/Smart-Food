@@ -41,6 +41,7 @@ public final class SqlQueries {
         public static final String RECIPE_PROTEIN = "proteinCount";
         public static final String RECIPE_FAT = "fatCount";
         public static final String RECIPE_CARB = "carbCount";
+        public static final String RECIPE_INGREDIENTS = "ingredients";
         public static final String RECIPE_READY_MINUTES = "readyInMinutes";
         public static final String RECIPE_RECIPE_ID = "recipeId";
         public static final String RECIPE_SERVINGS = "servings";
@@ -50,7 +51,6 @@ public final class SqlQueries {
     /*
      * SELECT queries
      */
-    public static final String SELECT_ALL_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME;
     public static final String SELECT_ALL_INGREDIENTS = "SELECT * FROM " + INGREDIENT_TABLE_NAME;
     public static final String SELECT_ALL_PEDOMETER_LOGS = "SELECT * FROM " + PEDOMETER_TABLE_NAME;
     public static final String SELECT_LAST_PEDOMETER_RECORD = "SELECT * FROM " + PEDOMETER_TABLE_NAME
@@ -89,6 +89,10 @@ public final class SqlQueries {
             "			group by strftime('%Y-%m-%d',dt) ) bounds" +
             "		WHERE dt = bounds.maxTime) maxSteps" +
             "	WHERE minSteps.day = maxSteps.day)";
+
+        public static final String SELECT_ALL_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME;
+        public static final String SELECT_NOT_FAVORITE_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME + " WHERE favorite = 'N'";
+        public static final String SELECT_FAVORITE_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME + " WHERE favorite = 'Y'";
 
     /*
      * INSERT queries
@@ -132,6 +136,7 @@ public final class SqlQueries {
             + RECIPE_PROTEIN        + " TEXT,"
             + RECIPE_FAT            + " TEXT,"
             + RECIPE_CARB           + " TEXT,"
+            + RECIPE_INGREDIENTS    + " TEXT,"
             + RECIPE_READY_MINUTES  + " INTEGER,"
             + RECIPE_RECIPE_ID      + " INTEGER,"
             + RECIPE_SERVINGS       + " INTEGER,"

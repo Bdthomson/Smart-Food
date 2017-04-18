@@ -1,9 +1,10 @@
 package com.schachte.android.proactive_food_app.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Serializable {
 
     private List<String> allIngredients;
 
@@ -14,11 +15,13 @@ public class Recipe {
     private String proteinCount;
     private String fatCount;
     private String carbCount;
+    private String isFavorite;
 
     private int readyInMinutes;
     private int recipeId;
     private int servings;
     private int calories;
+
 
     public Recipe() {
         allIngredients = new ArrayList<>();
@@ -72,6 +75,8 @@ public class Recipe {
     public String getCarbCount() {
         return carbCount;
     }
+    public void setIsFavorite(String isFavorite) {this.isFavorite = isFavorite;}
+    public String getIsFavorite() { return isFavorite; }
     public void setCarbCount(String carbCount) {
         this.carbCount = carbCount;
     }

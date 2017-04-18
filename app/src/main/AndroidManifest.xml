@@ -37,23 +37,23 @@
 
         <activity
             android:name=".activities.HomeActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activities.PreferencesActivity">
-        </activity>
-        <activity android:name=".activities.category_activity.CategoryActivity">
-        </activity>
-        <activity android:name=".activities.AddIngredientsActivity">
-        </activity>
-        <activity android:name=".activities.PantryActivity">
-        </activity>
-        <activity android:name=".activities.recipe_list_activity.RecipeListActivity"
-                  android:parentActivityName=".activities.HomeActivity" />
-
+        <activity android:name=".activities.PreferencesActivity"></activity>
+        <activity android:name=".activities.category_activity.CategoryActivity"></activity>
+        <activity android:name=".activities.AddIngredientsActivity"></activity>
+        <activity android:name=".activities.PantryActivity"></activity>
+        <activity
+            android:name=".activities.recipe_list_activity.RecipeListActivity"
+            android:parentActivityName=".activities.HomeActivity" />
+        <activity
+            android:name=".activities.recipe_detail_activity.RecipeDetailActivity"
+            android:parentActivityName=".activities.recipe_list_activity.RecipeListActivity"/>
     </application>
 
 </manifest>
