@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.schachte.android.proactive_food_app">
+    package="com.schachte.android.proactive_food_app">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
         android:name="android.hardware.camera.autofocus"
-        android:required="false"/>
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -22,16 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.PreferencesActivity"></activity>
-        <activity android:name=".activities.category_activity.CategoryActivity"></activity>
-        <activity android:name=".activities.AddIngredientsActivity"></activity>
-        <activity android:name=".activities.PantryActivity"></activity>
+        <activity android:name=".activities.PreferencesActivity" />
+        <activity android:name=".activities.category_activity.CategoryActivity" />
+        <activity android:name=".activities.AddIngredientsActivity" />
+        <activity android:name=".activities.PantryActivity" />
         <activity
             android:name=".activities.recipe_list_activity.RecipeListActivity"
             android:parentActivityName=".activities.HomeActivity" />
         <activity
             android:name=".activities.recipe_detail_activity.RecipeDetailActivity"
-            android:parentActivityName=".activities.recipe_list_activity.RecipeListActivity"/>
+            android:parentActivityName=".activities.recipe_list_activity.RecipeListActivity" />
+        <activity
+            android:name=".activities.ManualIngredientActivity"
+            android:label="@string/title_activity_manual_ingredient"></activity>
     </application>
 
 </manifest>

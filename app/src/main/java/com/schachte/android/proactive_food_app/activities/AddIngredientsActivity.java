@@ -2,12 +2,12 @@ package com.schachte.android.proactive_food_app.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.google.zxing.Result;
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.database.ClientRequests;
@@ -53,9 +53,8 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
 
         manualBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String pName = null;
-                Log.d(TAG, "About to make the request");
-
+                Intent intent = new Intent(AddIngredientsActivity.this, ManualIngredientActivity.class);
+                startActivity(intent);
             }
         });
 

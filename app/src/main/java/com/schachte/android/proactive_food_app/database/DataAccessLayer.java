@@ -52,6 +52,7 @@ public class DataAccessLayer extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SqlQueries.CREATE_FOOD_TABLE);
         db.execSQL(SqlQueries.CREATE_RECIPE_TABLE);
+        db.execSQL(SqlQueries.CREATE_INGREDIENT_TABLE);
     }
 
     /**
@@ -64,19 +65,43 @@ public class DataAccessLayer extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SqlQueries.DROP_RECIPE_TABLE);
         db.execSQL(SqlQueries.DROP_FOOD_TABLE);
+        db.execSQL(SqlQueries.DROP_INGREDIENT_TABLE);
 
         onCreate(db);
     }
 
-
-    public void storeIngredients(List<Ingredient> ingredientList) {
+    public void storeIngredient(Ingredient ingredient) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
         try {
-            for ( Ingredient ingredient : ingredientList ) {
+            ContentValues values = new ContentValues();
+            values.put(INGREDIENT_NAME, ingredient.getIngredientName());
+            values.put(INGREDIENT_GENERAL_NAME, ingredient.getIngredientGeneralName());
+            values.put(INGREDIENT_IMAGE_URL, ingredient.getIngredientImageURL());
+            values.put(INGREDIENT_IMAGE_BYTES, ingredient.getIngredientImageBytes());
+            values.put(INGREDIENT_ID, ingredient.getIngredientId());
+            Long result = db.insert(INGREDIENT_TABLE_NAME, null, values);
 
-                //Create a string with the ignredients separated by "|||"
+            if ( result < 0 ) {
+                System.out.println("Insertion not correctly performed");
+            }
+            db.setTransactionSuccessful();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+        db.close();
+    }
+
+
+    public void storeIngredients(List<Ingredient> ingredientList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            for ( Ingredient ingredient : ingredientList ) {
 
                 ContentValues values = new ContentValues();
                 values.put(INGREDIENT_NAME, ingredient.getIngredientName());
@@ -146,10 +171,10 @@ public class DataAccessLayer extends SQLiteOpenHelper {
      * the Ingredient object will also contain the information to display on the ingredient
      * details page
      */
-    public ArrayList<Ingredient> getIngredients(String sqlQuery) {
+    public ArrayList<Ingredient> getIngredients() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery(sqlQuery, null);
+        Cursor cursor = db.rawQuery(SqlQueries.SELECT_ALL_INGREDIENTS, null);
 
         ArrayList<Ingredient> ingredientList = new ArrayList<>();
         while(cursor.moveToNext()) {

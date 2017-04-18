@@ -1,7 +1,7 @@
 package com.schachte.android.proactive_food_app.activities.recipe_list_activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,7 +12,6 @@ import android.widget.ListView;
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.activities.recipe_detail_activity.RecipeDetailActivity;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
-import com.schachte.android.proactive_food_app.database.Preferences;
 import com.schachte.android.proactive_food_app.database.SqlQueries;
 import com.schachte.android.proactive_food_app.models.PantryData;
 import com.schachte.android.proactive_food_app.models.Recipe;
@@ -21,7 +20,6 @@ import com.schachte.android.proactive_food_app.util.WebServices;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 
 
 public class RecipeListActivity extends AppCompatActivity implements MealDialog.MealDialogListener, WebServices.WebServiceResponseListener {
@@ -141,15 +139,15 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
         PantryData pantryData = new PantryData();
 
         pantryData.setUserIngredients( dal.getIngredients() );
-        String preferredCuisines = Preferences.getInstance().getPreferenceString("c1");
-        List<String> cuisineList = Arrays.asList(preferredCuisines.split(","));
-        pantryData.setCuisinePreferences(cuisineList);
-        pantryData.setActivityLevel("Low");             //TODO: Figure out where this value will really come from
+//        String preferredCuisines = Preferences.getInstance().getPreferenceString("c1");
+//        List<String> cuisineList = Arrays.asList(preferredCuisines.split(","));
+//        pantryData.setCuisinePreferences(cuisineList);
+//        pantryData.setActivityLevel("Low");             //TODO: Figure out where this value will really come from
 
         //If the user hasn't selected any
         if( mealCurrentlySelected == null )
             determineMealToSearch();
-        pantryData.setMealPreference( mealCurrentlySelected.name() );
+//        pantryData.setMealPreference( mealCurrentlySelected.name() );
 
         //Close to avoid locking issues
         dal.close();
