@@ -25,7 +25,7 @@
         <activity android:name=".activities.PreferencesActivity" />
         <activity android:name=".activities.category_activity.CategoryActivity" />
         <activity android:name=".activities.AddIngredientsActivity" />
-        <activity android:name=".activities.PantryActivity" />
+        <activity android:name=".activities.ingredient_list_activity.PantryActivity" />
         <activity
             android:name=".activities.recipe_list_activity.RecipeListActivity"
             android:parentActivityName=".activities.HomeActivity" />

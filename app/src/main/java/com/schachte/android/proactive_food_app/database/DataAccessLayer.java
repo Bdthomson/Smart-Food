@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.schachte.android.proactive_food_app.models.Ingredient;
 import com.schachte.android.proactive_food_app.models.Recipe;
@@ -76,6 +77,7 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
+            Log.i(ingredient.getIngredientGeneralName(), ingredient.getIngredientGeneralName());
             values.put(INGREDIENT_NAME, ingredient.getIngredientName());
             values.put(INGREDIENT_GENERAL_NAME, ingredient.getIngredientGeneralName());
             values.put(INGREDIENT_IMAGE_URL, ingredient.getIngredientImageURL());

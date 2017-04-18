@@ -13,6 +13,7 @@ import static com.schachte.android.proactive_food_app.database.Preferences.getIn
 
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.activities.category_activity.CategoryActivity;
+import com.schachte.android.proactive_food_app.activities.ingredient_list_activity.PantryActivity;
 import com.schachte.android.proactive_food_app.activities.recipe_list_activity.RecipeListActivity;
 
 public class HomeActivity extends AppCompatActivity {

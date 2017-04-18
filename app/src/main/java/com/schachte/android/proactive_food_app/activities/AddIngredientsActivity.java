@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.zxing.Result;
 import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.activities.ingredient_list_activity.PantryActivity;
 import com.schachte.android.proactive_food_app.database.ClientRequests;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
