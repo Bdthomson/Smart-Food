@@ -6,12 +6,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.schachte.android.proactive_food_app.models.Ingredient;
 import com.schachte.android.proactive_food_app.models.Recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_GENERAL_NAME;
+import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_ID;
+import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_IMAGE_BYTES;
+import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_IMAGE_URL;
+import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_NAME;
+import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_TABLE_NAME;
 import static com.schachte.android.proactive_food_app.database.SqlQueries.RECIPE_CALORIES;
 import static com.schachte.android.proactive_food_app.database.SqlQueries.RECIPE_CARB;
 import static com.schachte.android.proactive_food_app.database.SqlQueries.RECIPE_FAT;
@@ -62,6 +69,36 @@ public class DataAccessLayer extends SQLiteOpenHelper {
     }
 
 
+    public void storeIngredients(List<Ingredient> ingredientList) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            for ( Ingredient ingredient : ingredientList ) {
+
+                //Create a string with the ignredients separated by "|||"
+
+                ContentValues values = new ContentValues();
+                values.put(INGREDIENT_NAME, ingredient.getIngredientName());
+                values.put(INGREDIENT_GENERAL_NAME, ingredient.getIngredientGeneralName());
+                values.put(INGREDIENT_IMAGE_URL, ingredient.getIngredientImageURL());
+                values.put(INGREDIENT_IMAGE_BYTES, ingredient.getIngredientImageBytes());
+                values.put(INGREDIENT_ID, ingredient.getIngredientId());
+                Long result = db.insert(INGREDIENT_TABLE_NAME, null, values);
+
+                if ( result < 0 )
+                    System.out.println("Insertion not correctly performed");
+            }
+            db.setTransactionSuccessful();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+        db.close();
+    }
+
     public void storeRecipes(List<Recipe> recipeList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -105,6 +142,34 @@ public class DataAccessLayer extends SQLiteOpenHelper {
 
 
     /*
+     * Returns a List of ingredients that can be used to create the ingredients ListView
+     * the Ingredient object will also contain the information to display on the ingredient
+     * details page
+     */
+    public ArrayList<Ingredient> getIngredients(String sqlQuery) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        ArrayList<Ingredient> ingredientList = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            Ingredient ingredient = new Ingredient();
+
+            ingredient.setIngredientName(cursor.getString(cursor.getColumnIndex(INGREDIENT_NAME)));
+            ingredient.setIngredientGeneralName(cursor.getString(cursor.getColumnIndex(INGREDIENT_GENERAL_NAME)));
+            ingredient.setIngredientImageURL(cursor.getString(cursor.getColumnIndex(INGREDIENT_IMAGE_URL)));
+            ingredient.setIngredientImageBytes(cursor.getString(cursor.getColumnIndex(INGREDIENT_IMAGE_BYTES)));
+            ingredient.setIngredientId(cursor.getInt(cursor.getColumnIndex(INGREDIENT_ID)));
+
+            ingredientList.add(ingredient);
+        }
+
+        cursor.close();
+        db.close();
+        return ingredientList;
+    }
+
+    /*
      * Returns a List of recipes that can be used to create the recipes ListView
      * the Recipe object will also contain the information to display on the recipe
      * deatils page
@@ -118,19 +183,19 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         while(cursor.moveToNext()) {
             Recipe recipe = new Recipe();
 
-            recipe.setRecipeName( cursor.getString(cursor.getColumnIndex("recipeName")) );
-            recipe.setImageUrl( cursor.getString(cursor.getColumnIndex("imageUrl")) );
-            recipe.setImageByteData( cursor.getString(cursor.getColumnIndex("imageByteData")) ); //Raw image blob
-            recipe.setSourceUrl( cursor.getString(cursor.getColumnIndex("sourceUrl")) );
-            recipe.setProteinCount( cursor.getString(cursor.getColumnIndex("proteinCount")) );
-            recipe.setFatCount( cursor.getString(cursor.getColumnIndex("fatCount")) );
-            recipe.setCarbCount( cursor.getString(cursor.getColumnIndex("carbCount")) );
+            recipe.setRecipeName( cursor.getString(cursor.getColumnIndex(RECIPE_NAME)) );
+            recipe.setImageUrl( cursor.getString(cursor.getColumnIndex(RECIPE_IMAGE_URL)) );
+            recipe.setImageByteData( cursor.getString(cursor.getColumnIndex(RECIPE_IMAGE_BYTES)) ); //Raw image blob
+            recipe.setSourceUrl( cursor.getString(cursor.getColumnIndex(RECIPE_SOURCE_URL)) );
+            recipe.setProteinCount( cursor.getString(cursor.getColumnIndex(RECIPE_PROTEIN)) );
+            recipe.setFatCount( cursor.getString(cursor.getColumnIndex(RECIPE_FAT)) );
+            recipe.setCarbCount( cursor.getString(cursor.getColumnIndex(RECIPE_CARB)) );
             recipe.setIsFavorite( cursor.getString(cursor.getColumnIndex(RECIPE_FAVORITE)));
 
-            recipe.setReadyInMinutes( cursor.getInt(cursor.getColumnIndex("readyInMinutes")) );
-            recipe.setRecipeId( cursor.getInt(cursor.getColumnIndex("recipeId")) );
-            recipe.setServings( cursor.getInt(cursor.getColumnIndex("servings")) );
-            recipe.setCalories( cursor.getInt(cursor.getColumnIndex("calories")) );
+            recipe.setReadyInMinutes( cursor.getInt(cursor.getColumnIndex(RECIPE_READY_MINUTES)) );
+            recipe.setRecipeId( cursor.getInt(cursor.getColumnIndex(RECIPE_RECIPE_ID)) );
+            recipe.setServings( cursor.getInt(cursor.getColumnIndex(RECIPE_SERVINGS)) );
+            recipe.setCalories( cursor.getInt(cursor.getColumnIndex(RECIPE_CALORIES)) );
 
             String ingredients = cursor.getString(cursor.getColumnIndex(RECIPE_INGREDIENTS));
             String[] ingredientArray = ingredients.split("\\|\\|\\|");
@@ -163,17 +228,6 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<String> getIngredients() {
-        //TODO: Dougherty to implement this?
-        List<String> ingredients = new ArrayList<String>();
-        ingredients.add("chocolate");
-        ingredients.add("pepperoni");
-        ingredients.add("ham");
-        ingredients.add("cilantro");
-        ingredients.add("tortillas");
-        ingredients.add("noodles");
 
-        return ingredients;
-    }
 }
 
