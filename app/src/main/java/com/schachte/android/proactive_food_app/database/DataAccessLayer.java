@@ -81,7 +81,7 @@ public class DataAccessLayer extends SQLiteOpenHelper {
                 values.put(RECIPE_CALORIES, recipe.getCalories());
                 Long result = db.insert(RECIPE_TABLE_NAME, null, values);
 
-                if( result < 0 )
+                if ( result < 0 )
                     System.out.println("Insertion not correctly performed");
             }
             db.setTransactionSuccessful();
@@ -139,8 +139,8 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         db.execSQL(SqlQueries.DELETE_STORED_RECIPES);
         db.close();
     }
-    public List<String> getIngredients() {
 
+    public List<String> getIngredients() {
         //TODO: Dougherty to implement this?
         List<String> ingredients = new ArrayList<String>();
         ingredients.add("chocolate");
