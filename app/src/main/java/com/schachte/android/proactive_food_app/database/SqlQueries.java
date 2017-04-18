@@ -50,6 +50,9 @@ public final class SqlQueries {
      * SELECT queries
      */
     public static final String SELECT_ALL_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME;
+    public static final String SELECT_NOT_FAVORITE_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME + " WHERE favorite = 'N'";
+    public static final String SELECT_FAVORITE_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME + " WHERE favorite = 'Y'";
+
     public static final String SELECT_ALL_INGREDIENTS = "SELECT * FROM " + INGREDIENT_TABLE_NAME;
 
     /*
