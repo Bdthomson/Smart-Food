@@ -15,9 +15,9 @@ public final class SqlQueries {
      */
 
     /* Tables */
-        public static final String FOOD_TABLE_NAME = "food";
-        public static final String RECIPE_TABLE_NAME = "recipes";
-        public static final String INGREDIENT_TABLE_NAME = "ingredients";
+    public static final String FOOD_TABLE_NAME = "food";
+    public static final String RECIPE_TABLE_NAME = "recipes";
+    public static final String INGREDIENT_TABLE_NAME = "ingredients";
 
     /* Columns */
         public static final String KEY_ID = "id";
@@ -49,9 +49,8 @@ public final class SqlQueries {
     /*
      * SELECT queries
      */
-        public static final String SELECT_ALL_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME;
-        public static final String SELECT_NOT_FAVORITE_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME + " WHERE favorite = 'N'";
-        public static final String SELECT_FAVORITE_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME + " WHERE favorite = 'Y'";
+    public static final String SELECT_ALL_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME;
+    public static final String SELECT_ALL_INGREDIENTS = "SELECT * FROM " + INGREDIENT_TABLE_NAME;
 
     /*
      * INSERT queries
