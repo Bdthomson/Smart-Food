@@ -1,16 +1,19 @@
 package com.schachte.android.proactive_food_app.activities.recipe_list_activity;
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.activities.recipe_detail_activity.RecipeDetailActivity;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 import com.schachte.android.proactive_food_app.database.Preferences;
+import com.schachte.android.proactive_food_app.database.SqlQueries;
 import com.schachte.android.proactive_food_app.models.PantryData;
 import com.schachte.android.proactive_food_app.models.Recipe;
 import com.schachte.android.proactive_food_app.util.WebServices;
@@ -34,6 +37,15 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
         recipeListView = (ListView) this.findViewById(R.id.recipeListView);
+
+        recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent toRecipeDetail = new Intent(RecipeListActivity.this, RecipeDetailActivity.class);
+                toRecipeDetail.putExtra( RecipeDetailActivity.RECIPE_STRING, adapter.getItem(position) );
+                startActivity(toRecipeDetail);
+            }
+        });
     }
 
     /*
@@ -110,7 +122,7 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
      */
     private ArrayList<Recipe> getRecipes() {
         DataAccessLayer dal = new DataAccessLayer(this);
-        ArrayList<Recipe> recipeList = dal.getRecipes();
+        ArrayList<Recipe> recipeList = dal.getRecipes(SqlQueries.SELECT_NOT_FAVORITE_RECIPES);
 
         if(recipeList.size() == 0) {
             getRecipesFromServer(dal);
