@@ -41,9 +41,9 @@ public final class SqlQueries {
 
         // Ingredient Columns
         public static final String INGREDIENT_NAME = "ingredientName";
+        public static final String INGREDIENT_GENERAL_NAME = "ingredientGeneralName";
         public static final String INGREDIENT_IMAGE_URL = "ingredientImageUrl";
         public static final String INGREDIENT_IMAGE_BYTES = "ingredientImageByteData";
-        public static final String INGREDIENT_SOURCE_URL = "ingredientSourceUrl";
         public static final String INGREDIENT_ID = "ingredientId";
 
     /*
@@ -80,6 +80,7 @@ public final class SqlQueries {
 
     public static final String CREATE_INGREDIENT_TABLE = "CREATE TABLE " + INGREDIENT_TABLE_NAME + " ( "
             + INGREDIENT_NAME + " TEXT,"
+            + INGREDIENT_GENERAL_NAME + " TEXT,"
             + INGREDIENT_IMAGE_URL + " TEXT,"
             + INGREDIENT_IMAGE_BYTES + " TEXT,"
             + INGREDIENT_ID + " INTEGER)";
