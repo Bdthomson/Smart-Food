@@ -33,8 +33,9 @@
             android:name=".activities.recipe_detail_activity.RecipeDetailActivity"
             android:parentActivityName=".activities.recipe_list_activity.RecipeListActivity" />
         <activity
-            android:name=".activities.ManualIngredientActivity"
-            android:label="@string/title_activity_manual_ingredient"></activity>
+            android:name=".activities.add_ingredient_activities.ManualIngredientActivity"
+            android:label="@string/title_activity_manual_ingredient" />
+        <activity android:name=".activities.add_ingredient_activities.AutoIngredientActivity"></activity>
     </application>
 
 </manifest>

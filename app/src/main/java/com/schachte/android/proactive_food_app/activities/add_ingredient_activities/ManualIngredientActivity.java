@@ -1,4 +1,4 @@
-package com.schachte.android.proactive_food_app.activities;
+package com.schachte.android.proactive_food_app.activities.add_ingredient_activities;
 
 import android.app.Activity;
 import android.os.Bundle;

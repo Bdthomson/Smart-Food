@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.schachte.android.proactive_food_app.activities.ManualIngredientActivity">
+    tools:context="com.schachte.android.proactive_food_app.activities.add_ingredient_activities.ManualIngredientActivity">
 
     <TextView
         android:id="@+id/nameOfIngredient"
