@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.schachte.android.proactive_food_app.R;
@@ -30,7 +30,7 @@ public class ManualIngredientActivity extends Activity {
     }
 
     private void addIngredient() {
-        TextView tv = (TextView)findViewById(R.id.nameOfIngredient);
+        EditText tv = (EditText)findViewById(R.id.nameOfIngredient);
         Log.i(tv.getText().toString(), tv.getText().toString());
         if (tv.getText().length() == 0) {
             Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();

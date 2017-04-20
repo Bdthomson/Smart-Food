@@ -4,21 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.schachte.android.proactive_food_app.activities.add_ingredient_activities.ManualIngredientActivity">
+    tools:context="com.schachte.android.proactive_food_app.activities.add_ingredient_activities.ManualIngredientActivity"><![CDATA[
 
-    <TextView
-        android:id="@+id/nameOfIngredient"
-        android:layout_width="168dp"
-        android:layout_height="47dp"
-        android:text="Ingredient Name"
-        tools:layout_editor_absoluteX="123dp"
-        tools:layout_editor_absoluteY="385dp" />
+    />
+
+    ]]>
 
     <Button
         android:id="@+id/addManualIngredientBtn"
-        android:layout_width="135dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Add Ingredient"
-        tools:layout_editor_absoluteX="137dp"
-        tools:layout_editor_absoluteY="432dp" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="270dp"
+        app:layout_constraintHorizontal_bias="0.502" />
+
+    <EditText
+        android:id="@+id/nameOfIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="93dp" />
+
 </android.support.constraint.ConstraintLayout>
