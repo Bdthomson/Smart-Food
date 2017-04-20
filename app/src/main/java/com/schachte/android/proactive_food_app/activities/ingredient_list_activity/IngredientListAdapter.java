@@ -13,13 +13,9 @@ import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.models.Ingredient;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.net.URL;
 import java.util.List;
-
-/**
- * Created by Spencer Smith on 3/28/2017.
- *
- * This adapter will be used by the recipe list activity to show all of our sweet recipes in a nice way
- */
 
 public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
 
@@ -44,8 +40,23 @@ public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
         secondTextView.setText("");
         thirdTextView.setText("");
 
-        Picasso.with(convertView.getContext()).load(ingredient.getIngredientImageURL()).resize(200,200).centerCrop().into(recipeImage);
+        String URLorFile = ingredient.getIngredientImageURL();
+        File f = new File(URLorFile);
+        if ((f.exists() && !f.isDirectory()) || isValidURL(URLorFile) ){
+            Picasso.with(convertView.getContext()).load(ingredient.getIngredientImageURL()).resize(200,200).centerCrop().into(recipeImage);
+        }
 
         return convertView;
+    }
+
+    private boolean isValidURL(String urLorFile) {
+        try {
+            URL url = new URL(urLorFile);
+            url.toURI();
+            return true;
+        } catch (Exception exception)
+        {
+            return false;
+        }
     }
 }
