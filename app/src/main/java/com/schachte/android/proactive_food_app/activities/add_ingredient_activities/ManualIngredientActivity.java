@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
@@ -32,7 +33,7 @@ public class ManualIngredientActivity extends Activity {
         TextView tv = (TextView)findViewById(R.id.nameOfIngredient);
         Log.i(tv.getText().toString(), tv.getText().toString());
         if (tv.getText().length() == 0) {
-            // TODO: display
+            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
         } else {
             String nameOfIngredient = tv.getText().toString();
             Ingredient toAdd = new Ingredient();
@@ -47,6 +48,7 @@ public class ManualIngredientActivity extends Activity {
 
             DataAccessLayer dal = new DataAccessLayer(this);
             dal.storeIngredient(toAdd);
+            finish();
         }
     }
 
