@@ -255,6 +255,13 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         db.close();
     }
 
-
+    /*
+     * Deletes all ingredients from the database
+     */
+    public void deleteStoredIngredients() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(SqlQueries.DELETE_STORED_INGREDIENTS);
+        db.close();
+    }
 }
 

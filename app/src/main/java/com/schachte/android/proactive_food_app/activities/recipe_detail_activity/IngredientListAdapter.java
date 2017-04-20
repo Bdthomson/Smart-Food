@@ -8,12 +8,7 @@ import android.widget.TextView;
 
 import com.schachte.android.proactive_food_app.R;
 
-import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by Spencer Smith on 4/15/2017.
- */
 
 public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder> {
 
