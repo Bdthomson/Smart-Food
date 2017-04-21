@@ -1,6 +1,8 @@
 package com.schachte.android.proactive_food_app.activities.add_ingredient_activities;
 
-import android.app.Activity;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -20,7 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 
-public class ManualIngredientActivity extends Activity {
+public class ManualIngredientActivity extends AppCompatActivity {
 
     private EditText normalName;
     private EditText generalName;
