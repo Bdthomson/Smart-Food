@@ -10,3 +10,5 @@
 .externalNativeBuild
 
 build\.gradle
+
+\.idea/misc\.xml

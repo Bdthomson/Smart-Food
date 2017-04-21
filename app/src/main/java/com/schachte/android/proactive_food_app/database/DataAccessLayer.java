@@ -45,7 +45,6 @@ public class DataAccessLayer extends SQLiteOpenHelper {
 
     public DataAccessLayer(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.d("HomeActivity", "This is called for constructor");
     }
 
     /**
@@ -68,7 +67,6 @@ public class DataAccessLayer extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d("HomeActivity", "This si called for upgrade");
         db.execSQL(SqlQueries.DROP_FOOD_TABLE);
         db.execSQL(SqlQueries.DROP_INGREDIENT_TABLE);
         db.execSQL(SqlQueries.DROP_RECIPE_TABLE);
@@ -250,7 +248,6 @@ public class DataAccessLayer extends SQLiteOpenHelper {
 
     public int getDailyStepCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Log.d(TAG, SqlQueries.SELECT_DAILY_STEPS);
         Cursor cursor = db.rawQuery(SqlQueries.SELECT_DAILY_STEPS, null);
 
         if(cursor.moveToNext()){
@@ -263,7 +260,6 @@ public class DataAccessLayer extends SQLiteOpenHelper {
 
     public int getAverageForNow() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Log.d(TAG, SqlQueries.SELECT_AVG_STEPS);
         Cursor cursor = db.rawQuery(SqlQueries.SELECT_AVG_STEPS, null);
 
         if(cursor.moveToNext()){
@@ -275,6 +271,9 @@ public class DataAccessLayer extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Used for debugging only.
+     */
     public void getAllSteps(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(SqlQueries.SELECT_ALL_STEP_RECORDS, null);
@@ -283,9 +282,6 @@ public class DataAccessLayer extends SQLiteOpenHelper {
             Log.d(TAG, cursor.getString(cursor.getColumnIndex(SqlQueries.KEY_TOTAL_STEPS)));
             Log.d(TAG, cursor.getString(cursor.getColumnIndex(SqlQueries.KEY_CURRENT_TIMESTAMP)));
             Log.d(TAG, "------");
-
-
-            // Log.d("HomeActivity", pedometerEntries.get(pedometerEntries.size() - 1).toString());
         }
     }
 
