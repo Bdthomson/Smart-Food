@@ -1,14 +1,20 @@
 package com.schachte.android.proactive_food_app.activities.add_ingredient_activities;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.database.DataAccessLayer;
+import com.schachte.android.proactive_food_app.models.Ingredient;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -16,9 +22,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,7 +35,7 @@ public class AutoIngredientActivity extends AppCompatActivity {
 
     private final String BEGIN_URL = "https://pod.opendatasoft.com/api/records/1.0/search/?dataset=pod_gtin&q=";
 
-    private TextView nameOfIngredient;
+    private EditText nameOfIngredient;
     private ImageView imageView;
 
     private String ingredientName;
@@ -38,23 +46,59 @@ public class AutoIngredientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_ingredient);
 
-        // TODO: pass in JSON_ID with the GTIN Id
-        //https://pod.opendatasoft.com/api/records/1.0/search/?dataset=pod_gtin&q=0742753343156
-        final String gtin_id = "0742753343156"; // getIntent().getStringExtra("JSON_ID");
+        final String gtin_id = getIntent().getStringExtra("JSON_ID");
 
         imageView = (ImageView)findViewById(R.id.autoImageView);
-        nameOfIngredient = (TextView)findViewById(R.id.autoTextView);
+        nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
 
+        new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
 
         // TODO: make the view automatically load this, and have button add to DB and close view
         Button autoAddButton = (Button)findViewById(R.id.autoIngredientButton);
         autoAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
+                addIngredient();
             }
         });
 
+    }
+
+    private void addIngredient() {
+        EditText tv = this.nameOfIngredient;
+        Log.i(tv.getText().toString(), tv.getText().toString());
+        if (tv.getText().length() == 0) {
+            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
+        } else {
+            String nameOfIngredient = tv.getText().toString();
+            Ingredient toAdd = new Ingredient();
+            toAdd.setIngredientName(nameOfIngredient);
+
+            // I think this is okay for now...
+            toAdd.setIngredientGeneralName(nameOfIngredient);
+
+            toAdd.setIngredientId(0);
+
+            BitmapDrawable drawable = (BitmapDrawable)imageView.getDrawable();
+            Bitmap bitmap = drawable.getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] bytes = baos.toByteArray();
+            String base64 = null;
+            try {
+                base64 = new String(bytes, "UTF-8");
+                toAdd.setIngredientImageBytes(base64);
+
+                toAdd.setIngredientImageURL(ingredientURL);
+
+                DataAccessLayer dal = new DataAccessLayer(this);
+                dal.storeIngredient(toAdd);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            finish();
+        }
     }
 
     private class DownloadJSONTask extends AsyncTask<String, String, String> {

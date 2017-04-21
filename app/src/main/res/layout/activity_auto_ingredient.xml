@@ -6,14 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.schachte.android.proactive_food_app.activities.add_ingredient_activities.AutoIngredientActivity">
 
-    <TextView
-        android:id="@+id/autoTextView"
-        android:layout_width="58dp"
-        android:layout_height="17dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="297dp" />
-
     <ImageView
         android:id="@+id/autoImageView"
         android:layout_width="48dp"
@@ -29,4 +21,14 @@
         android:text="Add Ingredient"
         tools:layout_editor_absoluteX="125dp"
         tools:layout_editor_absoluteY="452dp" />
+
+    <EditText
+        android:id="@+id/autoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Product Name"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="217dp" />
 </android.support.constraint.ConstraintLayout>
