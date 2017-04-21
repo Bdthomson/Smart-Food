@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -14,9 +14,10 @@ import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.activities.category_activity.CategoryActivity;
 import com.schachte.android.proactive_food_app.activities.ingredient_list_activity.PantryActivity;
 import com.schachte.android.proactive_food_app.activities.recipe_list_activity.RecipeListActivity;
-import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 import com.schachte.android.proactive_food_app.util.BackgroundHelper;
 import com.schachte.android.proactive_food_app.util.PedometerStart;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
@@ -28,7 +29,6 @@ public class HomeActivity extends AppCompatActivity {
     Button ingredientsBtn;
     Button pantryBtn;
     Button recipesBtn;
-    DataAccessLayer dal;
     Button favoritesBtn;
 
     @Override
@@ -41,23 +41,10 @@ public class HomeActivity extends AppCompatActivity {
         //Initialize pedometer sensor here if the background service is not already registered
         BackgroundHelper utils = new BackgroundHelper(this);
         Boolean serviceRunning = utils.isMyServiceRunning(PedometerStart.class);
-        Log.d(TAG, Boolean.toString(serviceRunning));
+
         if (!serviceRunning) {
             Intent serviceIntent = new Intent(this, PedometerStart.class);
             this.startService(serviceIntent);
-
-            if(dal == null){
-                dal = new DataAccessLayer(this);
-            }
-
-            Log.d(TAG, "*******: AVG FOR NOW: " + Integer.toString(dal.getAverageForNow()));
-
-            dal.getAllSteps();
-
-            Log.d(TAG, "Running!!!!!!");
-            Log.d(TAG, Boolean.toString(utils.isMyServiceRunning(PedometerStart.class)));
-        } else {
-            Log.d(TAG, "Already running...");
         }
 
         //Load the categories screen if the setup is not yet complete

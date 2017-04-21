@@ -79,12 +79,13 @@ public class PreferencesActivity extends AppCompatActivity {
         }
 
         // Age must be in valid range. 13 - 130.
-        if (age.getError() == null){
-            if (ageValue < 13 || ageValue > 130){
-                valid = false;
-                age.setError("Invalid Age");
-            }
-        }
+        // TODO: 4/21/17 Uncomment to enable stricter validation on preference fields.
+//        if (age.getError() == null){
+//            if (ageValue < 13 || ageValue > 130){
+//                valid = false;
+//                age.setError("Invalid Age");
+//            }
+//        }
 
         // Weight Required
         try {
@@ -95,12 +96,13 @@ public class PreferencesActivity extends AppCompatActivity {
         }
 
         // Weight must be in valid range. 40 - 1400.
-        if (weight.getError() == null){
-            if (weightValue < 13 || weightValue > 1400){
-                valid = false;
-                weight.setError("Invalid Weight");
-            }
-        }
+        // TODO: 4/21/17 Uncomment to enable stricter validation on preference fields.
+//        if (weight.getError() == null){
+//            if (weightValue < 13 || weightValue > 1400){
+//                valid = false;
+//                weight.setError("Invalid Weight");
+//            }
+//        }
 
         // Height Required
         try {
@@ -111,12 +113,14 @@ public class PreferencesActivity extends AppCompatActivity {
         }
 
         //  must be in valid range (inches). 10 - 100.
-        if (height.getError() == null){
-            if (heightValue < 10 || heightValue > 100){
-                valid = false;
-                height.setError("Invalid Height");
-            }
-        }
+
+        // TODO: 4/21/17 Uncomment to enable stricter validation on preference fields.
+//        if (height.getError() == null){
+//            if (heightValue < 10 || heightValue > 100){
+//                valid = false;
+//                height.setError("Invalid Height");
+//            }
+//        }
 
         return valid;
     }

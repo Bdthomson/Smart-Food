@@ -1,6 +1,8 @@
 package com.schachte.android.proactive_food_app.activities.add_ingredient_activities;
 
-import android.app.Activity;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -19,7 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 
-public class ManualIngredientActivity extends Activity {
+public class ManualIngredientActivity extends AppCompatActivity {
 
     private EditText normalName;
     private EditText generalName;
@@ -62,28 +64,6 @@ public class ManualIngredientActivity extends Activity {
                 startActivityForResult(intent, RESULT_LOAD_IMAGE);
             }
         });
-
-        normalName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    normalName.setHint("");
-                } else {
-                    normalName.setHint("Name");
-                }
-            }
-        });
-
-        generalName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    generalName.setHint("");
-                } else {
-                    generalName.setHint("Name");
-                }
-            }
-        });
     }
 
     @Override
@@ -99,7 +79,7 @@ public class ManualIngredientActivity extends Activity {
     private void addIngredient() {
         Log.i(normalName.getText().toString(), normalName.getText().toString());
         if (normalName.getText().length() == 0) {
-            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You must insert the name of an ingredient!", Toast.LENGTH_LONG).show();
         } else {
             String nameOfIngredient = normalName.getText().toString();
             Ingredient toAdd = new Ingredient();

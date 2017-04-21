@@ -114,7 +114,6 @@ public class CategoryActivity extends Activity {
 
         // Load the checked categories from shared preferences.
         Set<String> checked = getInstance().getPreferenceStringSet("categories");
-        Log.d(TAG, "Categories are " + checked);
 
         // Get GridView
         gridview = (GridView) findViewById(R.id.customgrid);
