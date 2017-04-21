@@ -79,7 +79,9 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
         super.onPause();
 
         try {
-            zXingScannerView.stopCamera();
+            if (zXingScannerView != null) {
+                zXingScannerView.stopCamera();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
