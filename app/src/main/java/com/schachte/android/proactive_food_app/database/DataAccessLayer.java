@@ -101,6 +101,19 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         return 0;
     }
 
+    public int getAverageForNow() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Log.d(TAG, SqlQueries.SELECT_AVG_STEPS);
+        Cursor cursor = db.rawQuery(SqlQueries.SELECT_AVG_STEPS, null);
+
+        if(cursor.moveToNext()){
+            int stepCount = cursor.getInt(cursor.getColumnIndex("averageSteps"));
+            return stepCount;
+        }
+
+        return 0;
+    }
+
 
     public void getAllSteps(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -115,7 +128,6 @@ public class DataAccessLayer extends SQLiteOpenHelper {
             // Log.d("HomeActivity", pedometerEntries.get(pedometerEntries.size() - 1).toString());
         }
     }
-
 
     public List<PedometerEntry> getAllPedometerEntries(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -164,7 +176,6 @@ public class DataAccessLayer extends SQLiteOpenHelper {
                 + totalSteps + ", "
                 + stepsSinceReset
                 + ")");
-
     }
 }
 

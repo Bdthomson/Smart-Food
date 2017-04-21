@@ -53,7 +53,7 @@ public final class SqlQueries {
             "				WHERE dt = (SELECT MAX(dt) from steps where strftime('%Y-%m-%d %H:%M:%S', dt ) BETWEEN '" + TimeHelper.getDateNow() + " 00:00:00' AND datetime('now', 'localtime'))) b";
 
 
-    public static final String SELECT_AVG_STEPS = "SELECT AVG(difference) as averageSteps" +
+    public static final String SELECT_AVG_STEPS = "SELECT AVG(difference) as averageSteps " +
             "FROM" +
             "	(SELECT maxSteps.steps - minSteps.steps as difference, minSteps.day" +
             "	FROM" +

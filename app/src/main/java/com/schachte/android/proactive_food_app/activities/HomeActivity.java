@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
                 dal = new DataAccessLayer(this);
             }
 
-            Log.d(TAG, "*******: " + Integer.toString(dal.getDailyStepCount()));
+            Log.d(TAG, "*******: AVG FOR NOW: " + Integer.toString(dal.getAverageForNow()));
 
             dal.getAllSteps();
 
