@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -17,6 +18,8 @@ import com.schachte.android.proactive_food_app.activities.recipe_list_activity.R
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 import com.schachte.android.proactive_food_app.util.BackgroundHelper;
 import com.schachte.android.proactive_food_app.util.PedometerStart;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
@@ -49,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
             if(dal == null){
                 dal = new DataAccessLayer(this);
             }
+
 
             Log.d(TAG, "*******: AVG FOR NOW: " + Integer.toString(dal.getAverageForNow()));
 
