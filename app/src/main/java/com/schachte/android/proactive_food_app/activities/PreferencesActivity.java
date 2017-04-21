@@ -158,15 +158,24 @@ public class PreferencesActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Loads step data from the database and sets text views dynamically.
+     */
     private void loadCalorieTextFields() {
         DataAccessLayer dal = new DataAccessLayer(this);
-        int stepCount = 100;
-        //int stepCount = dal.getStepCount();
+        int stepCount = dal.getDailyStepCount(); // Steps logged today.
+        int averageStepCount = dal.getAverageForNow(); // Average steps logged by current local time.
 
         TextView stepView = (TextView) findViewById(R.id.stepsTakenTextField);
         TextView calorieView = (TextView) findViewById(R.id.calorieTextView);
 
-        stepView.setText("Step count today: " + Integer.toString(stepCount) + "");
+        stepView.setText("Step count today: " + Integer.toString(stepCount) + ", Average is " + averageStepCount);
+
+        // If the steps today are less than the average, restrict calories.
+        if (stepCount < averageStepCount)
+            calorieView.setText("Calories: 2000 (Restricted)");
+        else
+            calorieView.setText("Calories: 2400 (Unrestricted)");
 
     }
 }
