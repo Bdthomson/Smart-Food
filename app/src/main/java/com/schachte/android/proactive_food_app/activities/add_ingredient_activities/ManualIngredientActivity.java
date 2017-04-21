@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -50,14 +49,14 @@ public class ManualIngredientActivity extends Activity {
 
         chosenImageView = (ImageView)findViewById(R.id.manualImageView);
         chosenImageView.setDrawingCacheEnabled(true);
-        chosenImageView.buildDrawingCache(true);
 
         loadChosenImageButton = (Button)findViewById(R.id.manualLoadImageButton);
 
         loadChosenImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
                 startActivityForResult(intent, RESULT_LOAD_IMAGE);
             }
         });
@@ -116,6 +115,7 @@ public class ManualIngredientActivity extends Activity {
                 chosenImageView.buildDrawingCache();
                 Bitmap bitmap = chosenImageView.getDrawingCache();
                 if (bitmap != null) {
+                    Log.i("not null", "not null");
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
                     byte[] bytes = baos.toByteArray();

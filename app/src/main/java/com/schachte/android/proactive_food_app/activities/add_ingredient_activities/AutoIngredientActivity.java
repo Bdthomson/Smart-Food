@@ -96,10 +96,10 @@ public class AutoIngredientActivity extends AppCompatActivity {
             String base64 = null;
             base64 = Base64.encodeToString(bytes, 0);
 
-                toAdd.setIngredientImageBytes(base64);
+            toAdd.setIngredientImageBytes(base64);
 
-                DataAccessLayer dal = new DataAccessLayer(this);
-                dal.storeIngredient(toAdd);
+            DataAccessLayer dal = new DataAccessLayer(this);
+            dal.storeIngredient(toAdd);
 
             finish();
         }
