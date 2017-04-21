@@ -116,7 +116,6 @@ public class CuisineAdapter extends BaseAdapter{
         holder.selection = checked.contains(holder.name);
 
         if (checked.contains(holder.name)) {
-            Log.d(TAG, "True for " + holder.name);
             holder.os_img.setImageResource(hoverId[position]);
             categoryData.add(new CategoryData(holder.name, position));
         }
