@@ -14,6 +14,9 @@ import com.schachte.android.proactive_food_app.models.Ingredient;
 
 public class ManualIngredientActivity extends Activity {
 
+    private EditText normalName;
+    private EditText generalName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +30,38 @@ public class ManualIngredientActivity extends Activity {
             }
         });
 
+        normalName = (EditText)findViewById(R.id.nameOfIngredient);
+        generalName = (EditText)findViewById(R.id.manualGeneralTextView);
+
+        normalName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    normalName.setHint("");
+                } else {
+                    normalName.setHint("Name");
+                }
+            }
+        });
+
+        generalName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    generalName.setHint("");
+                } else {
+                    generalName.setHint("Name");
+                }
+            }
+        });
     }
 
     private void addIngredient() {
-        EditText tv = (EditText)findViewById(R.id.nameOfIngredient);
-        Log.i(tv.getText().toString(), tv.getText().toString());
-        if (tv.getText().length() == 0) {
+        Log.i(normalName.getText().toString(), normalName.getText().toString());
+        if (normalName.getText().length() == 0) {
             Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
         } else {
-            String nameOfIngredient = tv.getText().toString();
+            String nameOfIngredient = normalName.getText().toString();
             Ingredient toAdd = new Ingredient();
             toAdd.setIngredientName(nameOfIngredient);
 
