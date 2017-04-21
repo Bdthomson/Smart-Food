@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.schachte.android.proactive_food_app">
-
+    package="com.schachte.android.proactive_food_app">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
 
@@ -13,7 +12,7 @@
 
     <uses-feature
         android:name="android.hardware.camera.autofocus"
-        android:required="false"/>
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -36,24 +35,46 @@
 
 
         <activity
-            android:name=".activities.HomeActivity">
+            android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".activities.PreferencesActivity"></activity>
-        <activity android:name=".activities.category_activity.CategoryActivity"></activity>
-        <activity android:name=".activities.AddIngredientsActivity"></activity>
-        <activity android:name=".activities.PantryActivity"></activity>
+        <activity android:name=".activities.PreferencesActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.category_activity.CategoryActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.AddIngredientsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.PantryActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activities.recipe_list_activity.RecipeListActivity"
-            android:parentActivityName=".activities.HomeActivity" />
+            android:parentActivityName=".activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activities.recipe_detail_activity.RecipeDetailActivity"
-            android:parentActivityName=".activities.recipe_list_activity.RecipeListActivity"/>
+            android:parentActivityName=".activities.recipe_list_activity.RecipeListActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activities.RecipeFavoriteActivity"
+            android:parentActivityName=".activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.WebActivity"
+            android:parentActivityName=".activities.recipe_detail_activity.RecipeDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -251,11 +251,13 @@ public class DataAccessLayer extends SQLiteOpenHelper {
     }
 
     /*
-     * Deletes all non-favorite recipes from the database
+     * Deletes all non-favorite recipes from the database, if the recipe was new it will set it
+     * to not be new anymore.
      */
     public void deleteStoredRecipes() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(SqlQueries.DELETE_STORED_RECIPES);
+        db.execSQL(SqlQueries.UPDATE_RECIPES_NOT_NEW);
         db.close();
     }
 

@@ -1,4 +1,4 @@
-package com.schachte.android.proactive_food_app.activities.recipe_list_activity;
+package com.schachte.android.proactive_food_app.activities;
 
 
 import android.content.Context;
@@ -43,9 +43,6 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
         mainText.setText(recipe.getRecipeName());
         secondTextView.setText("Calories: " + recipe.getCalories());
         thirdTextView.setText("Ready in: " + recipe.getReadyInMinutes() + " minutes.");
-
-        //byte[] decodedString = Base64.decode(recipe.getImageByteData(), Base64.DEFAULT);
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
         Picasso.with(convertView.getContext()).load(recipe.getImageUrl()).resize(200,200).centerCrop().into(recipeImage);
         //recipeImage.setImageBitmap(bitmap);

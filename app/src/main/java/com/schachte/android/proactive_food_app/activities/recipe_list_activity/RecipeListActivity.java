@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.activities.RecipeListAdapter;
 import com.schachte.android.proactive_food_app.activities.recipe_detail_activity.RecipeDetailActivity;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 import com.schachte.android.proactive_food_app.database.Preferences;
@@ -123,7 +124,7 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
      */
     private ArrayList<Recipe> getRecipes() {
         DataAccessLayer dal = new DataAccessLayer(this);
-        ArrayList<Recipe> recipeList = dal.getRecipes(SqlQueries.SELECT_NOT_FAVORITE_RECIPES);
+        ArrayList<Recipe> recipeList = dal.getRecipes(SqlQueries.SELECT_NEW_RECIPES);
 
         if(recipeList.size() == 0) {
             getRecipesFromServer(dal);

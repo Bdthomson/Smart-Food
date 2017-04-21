@@ -41,13 +41,24 @@
     <Button
         android:stateListAnimator="@null"
         android:text=""
-        android:id="@+id/add_ingredients_btn"
+        android:id="@+id/make_me_food_btn"
         android:layout_width="300dp"
         android:layout_marginTop="18dp"
         android:layout_height="88.67dp"
         android:background="@drawable/make"
         android:layout_below="@+id/view_pantry_btn_home"
         android:layout_alignStart="@+id/view_pantry_btn_home"/>
+
+    <Button
+        android:stateListAnimator="@null"
+        android:text=""
+        android:id="@+id/favorite_recipes"
+        android:layout_width="300dp"
+        android:layout_marginTop="18dp"
+        android:layout_height="88.67dp"
+        android:background="@drawable/make"
+        android:layout_below="@+id/make_me_food_btn"
+        android:layout_alignStart="@+id/make_me_food_btn"/>
 
     <com.github.clans.fab.FloatingActionMenu
         android:src="@drawable/fabtn_cog"
@@ -64,7 +75,7 @@
         android:elevation="20dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/add_ingredients_btn">
+        android:layout_alignStart="@+id/make_me_food_btn">
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fab_profile"

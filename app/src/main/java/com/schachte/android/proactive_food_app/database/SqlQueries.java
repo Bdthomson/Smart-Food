@@ -47,6 +47,7 @@ public final class SqlQueries {
         public static final String RECIPE_SERVINGS = "servings";
         public static final String RECIPE_CALORIES = "calories";
         public static final String RECIPE_FAVORITE = "favorite";
+        public static final String RECIPE_NEW_RECIPE = "newRecipe";
 
     /*
      * SELECT queries
@@ -91,7 +92,7 @@ public final class SqlQueries {
             "	WHERE minSteps.day = maxSteps.day)";
 
         public static final String SELECT_ALL_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME;
-        public static final String SELECT_NOT_FAVORITE_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME + " WHERE favorite = 'N'";
+        public static final String SELECT_NEW_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME + " WHERE newRecipe = 'Y'";
         public static final String SELECT_FAVORITE_RECIPES = "SELECT * FROM " + RECIPE_TABLE_NAME + " WHERE favorite = 'Y'";
 
     /*
@@ -104,11 +105,12 @@ public final class SqlQueries {
     /*
      * UPDATE queries
      */
+    public static final String UPDATE_RECIPES_NOT_NEW = "UPDATE " + RECIPE_TABLE_NAME + " SET " + RECIPE_NEW_RECIPE + "='N';";
 
     /*
      * DELETE queries
      */
-    public static final String DELETE_STORED_RECIPES = "DELETE FROM " + RECIPE_TABLE_NAME;
+    public static final String DELETE_STORED_RECIPES = "DELETE FROM " + RECIPE_TABLE_NAME + " WHERE " + RECIPE_FAVORITE + "='N';";
 
 
     /*
@@ -141,7 +143,8 @@ public final class SqlQueries {
             + RECIPE_RECIPE_ID      + " INTEGER,"
             + RECIPE_SERVINGS       + " INTEGER,"
             + RECIPE_CALORIES       + " INTEGER,"
-            + RECIPE_FAVORITE       + " TEXT DEFAULT 'N')";
+            + RECIPE_FAVORITE       + " TEXT DEFAULT 'N', "
+            + RECIPE_NEW_RECIPE     + " TEXT DEFAULT 'Y')";
 
     public static final String CREATE_PEDOMETER_TABLE =  "CREATE TABLE "
             + PEDOMETER_TABLE_NAME          + "("
