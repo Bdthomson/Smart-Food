@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.google.zxing.Result;
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.activities.add_ingredient_activities.AutoIngredientActivity;
-import com.schachte.android.proactive_food_app.activities.add_ingredient_activities.ManualIngredientActivity;
 import com.schachte.android.proactive_food_app.activities.ingredient_list_activity.PantryActivity;
 import com.schachte.android.proactive_food_app.database.ClientRequests;
 
@@ -56,7 +55,8 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
 
         manualBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(AddIngredientsActivity.this, ManualIngredientActivity.class);
+                Intent intent = new Intent(AddIngredientsActivity.this, AutoIngredientActivity.class);
+                intent.putExtra("JSON_ID", "4011200296908"/*result.getText()*/);
                 startActivity(intent);
             }
         });
@@ -92,18 +92,18 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
     @Override
     public void handleResult(Result result) {
         // Toast.makeText(getApplicationContext(), result.getText(), Toast.LENGTH_SHORT).show();
-        zXingScannerView.removeAllViews(); //<- here remove all the views, it will make an Activity having no View
-        zXingScannerView.stopCamera(); //<- then stop the camera
-        setContentView(R.layout.activity_ingredients); //<- and set the View again.
-        tv = (TextView) findViewById(R.id.barcodeID);
-
-        // Now load the AutoIngredientActivity
-
-
-
-        Intent intent = new Intent(getBaseContext(), AutoIngredientActivity.class);
-        intent.putExtra("JSON_ID", result.getText());
-        startActivity(intent);
+//        zXingScannerView.removeAllViews(); //<- here remove all the views, it will make an Activity having no View
+//        zXingScannerView.stopCamera(); //<- then stop the camera
+//        setContentView(R.layout.activity_ingredients); //<- and set the View again.
+//        tv = (TextView) findViewById(R.id.barcodeID);
+//
+//        // Now load the AutoIngredientActivity
+//
+//
+//
+//        Intent intent = new Intent(getBaseContext(), AutoIngredientActivity.class);
+//        intent.putExtra("JSON_ID", "4011200296908"/*result.getText()*/);
+//        startActivity(intent);
 
 //        cR.makeReq(result.getText() + ".json");
 //        tv.setText(result.getText());
