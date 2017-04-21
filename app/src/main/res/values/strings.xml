@@ -4,4 +4,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_manual_ingredient">ManualIngredientActivity</string>
     <string name="title_activity_recipe_favorite">RecipeFavoriteActivity</string>
+    <string name="network_issues">Network Connection Issues</string>
+    <string name="network_issues_info">Please check your internet connection.</string>
 </resources>

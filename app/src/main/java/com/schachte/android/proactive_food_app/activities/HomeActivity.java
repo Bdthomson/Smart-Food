@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -15,6 +16,8 @@ import com.schachte.android.proactive_food_app.activities.ingredient_list_activi
 import com.schachte.android.proactive_food_app.activities.recipe_list_activity.RecipeListActivity;
 import com.schachte.android.proactive_food_app.util.BackgroundHelper;
 import com.schachte.android.proactive_food_app.util.PedometerStart;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
