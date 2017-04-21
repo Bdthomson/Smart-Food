@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 
 public class RecipeListActivity extends AppCompatActivity implements MealDialog.MealDialogListener, WebServices.WebServiceResponseListener {
@@ -141,8 +142,8 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
         PantryData pantryData = new PantryData();
 
         pantryData.setUserIngredients( dal.getIngredients() );
-        String preferredCuisines = Preferences.getInstance().getPreferenceString("c1");
-        List<String> cuisineList = Arrays.asList(preferredCuisines.split(","));
+        Set<String> preferredCuisines = Preferences.getInstance().getPreferenceStringSet("categories");
+        List<String> cuisineList = new ArrayList<>(preferredCuisines);
         pantryData.setCuisinePreferences(cuisineList);
         pantryData.setActivityLevel("Low");             //TODO: Figure out where this value will really come from
 
