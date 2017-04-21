@@ -2,6 +2,7 @@ package com.schachte.android.proactive_food_app.activities.ingredient_list_activ
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +43,12 @@ public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
 
         String URLorFile = ingredient.getIngredientImageURL();
         if (URLorFile != null) {
+            Log.i(URLorFile, URLorFile);
             File f = new File(URLorFile);
-            if ((f.exists() && !f.isDirectory()) || isValidURL(URLorFile) ){
+            if ((f.exists() && !f.isDirectory()) ){
+                Log.i("yes", "yes");
+                Picasso.with(convertView.getContext()).load(f).resize(200,200).centerCrop().into(recipeImage);
+            } else if (isValidURL(URLorFile)) {
                 Picasso.with(convertView.getContext()).load(ingredient.getIngredientImageURL()).resize(200,200).centerCrop().into(recipeImage);
             }
         }

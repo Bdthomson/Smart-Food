@@ -57,7 +57,7 @@ public class PantryActivity extends AppCompatActivity {
 
         ingredientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder adb=new AlertDialog.Builder(PantryActivity.this);
                 adb.setTitle("Delete?");
                 adb.setMessage("Are you sure you want to delete this?");
@@ -65,11 +65,10 @@ public class PantryActivity extends AppCompatActivity {
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        ArrayList<Ingredient> copied = (ArrayList<Ingredient>)ingredientList.clone();
-                        copied.remove(positionToRemove);
+                        ingredientList.remove(positionToRemove);
                         dal.deleteStoredIngredients();
-                        dal.storeIngredients(copied);
-                        ingredientListView.setAdapter(new IngredientListAdapter(PantryActivity.this, copied));
+                        dal.storeIngredients(ingredientList);
+                        ingredientListView.setAdapter(new IngredientListAdapter(PantryActivity.this, ingredientList));
                         adapter.notifyDataSetChanged();
                     }});
                 adb.show();
