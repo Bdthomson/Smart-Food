@@ -42,9 +42,11 @@ public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
         thirdTextView.setText("");
 
         String URLorFile = ingredient.getIngredientImageURL();
+
         if (URLorFile != null) {
             Log.i(URLorFile, URLorFile);
             File f = new File(URLorFile);
+            Log.i("test", String.valueOf(f.exists()));
             if ((f.exists() && !f.isDirectory()) ){
                 Log.i("yes", "yes");
                 Picasso.with(convertView.getContext()).load(f).resize(200,200).centerCrop().into(recipeImage);
@@ -52,7 +54,6 @@ public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
                 Picasso.with(convertView.getContext()).load(ingredient.getIngredientImageURL()).resize(200,200).centerCrop().into(recipeImage);
             }
         }
-
 
         return convertView;
     }

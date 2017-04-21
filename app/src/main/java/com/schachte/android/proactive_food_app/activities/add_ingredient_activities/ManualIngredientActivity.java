@@ -55,8 +55,10 @@ public class ManualIngredientActivity extends Activity {
         loadChosenImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.setType("image/*");
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivityForResult(intent, RESULT_LOAD_IMAGE);
             }
         });
@@ -90,7 +92,7 @@ public class ManualIngredientActivity extends Activity {
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
             imageURL = data.getData().toString();
-            Picasso.with(this).load(data.getData()).into(chosenImageView);
+            Picasso.with(this).load(data.getData().toString()).into(chosenImageView);
         }
     }
 
@@ -119,10 +121,11 @@ public class ManualIngredientActivity extends Activity {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
                     byte[] bytes = baos.toByteArray();
-                    String base64 = null;
-                    base64 = Base64.encodeToString(bytes, 0);
+                    String base64 = Base64.encodeToString(bytes, 0);
+
 
                     toAdd.setIngredientImageBytes(base64);
+                    Log.i(base64, base64);
                 }
             }
 
