@@ -63,28 +63,6 @@ public class ManualIngredientActivity extends AppCompatActivity {
                 startActivityForResult(intent, RESULT_LOAD_IMAGE);
             }
         });
-
-        normalName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    normalName.setHint("");
-                } else {
-                    normalName.setHint("Name");
-                }
-            }
-        });
-
-        generalName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    generalName.setHint("");
-                } else {
-                    generalName.setHint("Name");
-                }
-            }
-        });
     }
 
     @Override
@@ -100,7 +78,7 @@ public class ManualIngredientActivity extends AppCompatActivity {
     private void addIngredient() {
         Log.i(normalName.getText().toString(), normalName.getText().toString());
         if (normalName.getText().length() == 0) {
-            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You must insert the name of an ingredient!", Toast.LENGTH_LONG).show();
         } else {
             String nameOfIngredient = normalName.getText().toString();
             Ingredient toAdd = new Ingredient();
