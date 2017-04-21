@@ -91,11 +91,9 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
 
     @Override
     public void handleResult(Result result) {
-        // Toast.makeText(getApplicationContext(), result.getText(), Toast.LENGTH_SHORT).show();
         zXingScannerView.removeAllViews(); //<- here remove all the views, it will make an Activity having no View
         zXingScannerView.stopCamera(); //<- then stop the camera
         setContentView(R.layout.activity_ingredients); //<- and set the View again.
-        tv = (TextView) findViewById(R.id.barcodeID);
 
         // Now load the AutoIngredientActivity
         Intent intent = new Intent(getBaseContext(), AutoIngredientActivity.class);

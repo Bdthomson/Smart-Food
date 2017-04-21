@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 import com.schachte.android.proactive_food_app.models.Ingredient;
+import com.schachte.android.proactive_food_app.util.WebServices;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -45,6 +46,12 @@ public class AutoIngredientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_ingredient);
+
+        if (WebServices.isNetworkAvailable(this)) {
+            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
+        }
 
         final String gtin_id = getIntent().getStringExtra("JSON_ID");
 
@@ -170,7 +177,6 @@ public class AutoIngredientActivity extends AppCompatActivity {
                         }
                     }
                 }
-
 
             } catch (JSONException e) {
                 e.printStackTrace();

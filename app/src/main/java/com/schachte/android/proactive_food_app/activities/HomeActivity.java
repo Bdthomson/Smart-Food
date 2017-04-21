@@ -83,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
         ingredientsBtn = (Button) findViewById(R.id.ingredients_button);
         pantryBtn = (Button) findViewById(R.id.view_pantry_btn_home);
         recipesBtn = (Button) findViewById(R.id.make_me_food_btn);
-        favoritesBtn = (Button) findViewById(R.id.favorite_recipes);
+        favoritesBtn = (Button) findViewById(R.id.view_favorites);
 
         cuisineBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
