@@ -59,13 +59,14 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.ingredient_list_activity.PantryActivity"
-                  android:parentActivityName=".activities.HomeActivity"
+            android:parentActivityName=".activities.HomeActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.add_ingredient_activities.AutoIngredientActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.add_ingredient_activities.ManualIngredientActivity"
+            android:parentActivityName=".activities.AddIngredientsActivity"
             android:screenOrientation="portrait"/>
 
         <activity

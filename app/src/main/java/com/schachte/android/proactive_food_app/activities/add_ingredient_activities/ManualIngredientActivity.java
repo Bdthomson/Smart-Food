@@ -1,7 +1,7 @@
 package com.schachte.android.proactive_food_app.activities.add_ingredient_activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +12,7 @@ import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 import com.schachte.android.proactive_food_app.models.Ingredient;
 
-public class ManualIngredientActivity extends Activity {
+public class ManualIngredientActivity extends AppCompatActivity {
 
     private EditText normalName;
     private EditText generalName;
