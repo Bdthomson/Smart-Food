@@ -144,13 +144,13 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
         pantryData.setUserIngredients( dal.getIngredients() );
         Set<String> preferredCuisines = Preferences.getInstance().getPreferenceStringSet("categories");
         List<String> cuisineList = new ArrayList<>(preferredCuisines);
-        pantryData.setCuisinePreferences(cuisineList);
-        pantryData.setActivityLevel("Low");             //TODO: Figure out where this value will really come from
+//        pantryData.setCuisinePreferences(cuisineList);
+//        pantryData.setActivityLevel("Low");             //TODO: Figure out where this value will really come from
 
         //If the user hasn't selected any
         if( mealCurrentlySelected == null )
             determineMealToSearch();
-        pantryData.setMealPreference( mealCurrentlySelected.name() );
+//        pantryData.setMealPreference( mealCurrentlySelected.name() );
 
         //Close to avoid locking issues
         dal.close();
