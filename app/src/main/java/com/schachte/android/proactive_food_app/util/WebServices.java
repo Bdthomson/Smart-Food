@@ -42,7 +42,7 @@ public class WebServices {
         void onTaskCompleted(Object returnObject);
     }
 
-    private final static String BASE_SERVER_URL = "http://192.168.1.5:8080";
+    private final static String BASE_SERVER_URL = "http://10.144.218.195:8181";
     private final static String GET_RECIPES = "/getRecipes";
 
     public void getRecipesFromServer( final PantryData pantryData, final RecipeListActivity context ) {

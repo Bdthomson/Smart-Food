@@ -11,13 +11,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.activities.WebActivity;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
+import com.schachte.android.proactive_food_app.database.SqlQueries;
 import com.schachte.android.proactive_food_app.models.Recipe;
 import com.squareup.picasso.Picasso;
 
@@ -27,8 +31,9 @@ import java.util.Arrays;
 public class RecipeDetailActivity extends AppCompatActivity {
 
     public static String RECIPE_STRING = "selected_recipe";
-    private Recipe recipe;
+    private static Recipe recipe;
     private ImageButton favoriteButton;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_detail);
 
         Intent intentFromList = getIntent();
-        if( intentFromList != null ) {
+
+        if( savedInstanceState != null ) {
+            Serializable recipeObject = savedInstanceState.getSerializable(RECIPE_STRING);
+            if (recipeObject != null)
+                recipe = (Recipe) recipeObject;
+        } else if( intentFromList != null ) {
             Serializable recipeObject = intentFromList.getSerializableExtra(RECIPE_STRING);
             if (recipeObject != null)
                 recipe = (Recipe) recipeObject;
@@ -102,8 +112,28 @@ public class RecipeDetailActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         listView.setLayoutManager(layoutManager);
         listView.setAdapter(adapter);
+
+        /*
+         * Set up the "See Full Recipe" button
+         */
+        webView = (WebView) findViewById(R.id.webView);
+        Button seeFullRecipe = (Button) findViewById(R.id.fullRecipeButton);
+        seeFullRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toWebActivity = new Intent(RecipeDetailActivity.this, WebActivity.class);
+                toWebActivity.putExtra(SqlQueries.RECIPE_SOURCE_URL, recipe.getSourceUrl());
+                startActivity(toWebActivity);
+            }
+        });
     }
 
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(RECIPE_STRING, recipe);
+        super.onSaveInstanceState(outState);
+    }
 
     /*
      * If the recipe is favorited, it will unfavorite it and change the star back to grey, if

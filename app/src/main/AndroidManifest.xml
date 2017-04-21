@@ -4,6 +4,13 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature android:name="android.hardware.sensor.stepcounter" />
+    <uses-feature android:name="android.hardware.sensor.stepdetector" />
 
     <uses-feature
         android:name="android.hardware.camera.autofocus"
@@ -15,27 +22,67 @@
         android:label="SmartFood"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.HomeActivity">
+
+        <receiver
+            android:name=".util.BootComplete"
+            android:enabled="true"
+            android:exported="false" >
+            <!--<intent-filter>-->
+                <!--&lt;!&ndash;<action android:name="android.intent.action.BOOT_COMPLETED" />&ndash;&gt;-->
+            <!--</intent-filter>-->
+        </receiver>
+
+        <service android:name=".util.PedometerStart" >
+        </service>
+
+
+        <activity
+            android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".activities.PreferencesActivity" />
-        <activity android:name=".activities.category_activity.CategoryActivity" />
-        <activity android:name=".activities.AddIngredientsActivity" />
-        <activity android:name=".activities.ingredient_list_activity.PantryActivity" />
+        <activity android:name=".activities.PreferencesActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.category_activity.CategoryActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.AddIngredientsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.ingredient_list_activity.PantryActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.add_ingredient_activities.AutoIngredientActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.add_ingredient_activities.ManualIngredientActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activities.recipe_list_activity.RecipeListActivity"
-            android:parentActivityName=".activities.HomeActivity" />
+            android:parentActivityName=".activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activities.recipe_detail_activity.RecipeDetailActivity"
-            android:parentActivityName=".activities.recipe_list_activity.RecipeListActivity" />
+            android:parentActivityName=".activities.recipe_list_activity.RecipeListActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
-            android:name=".activities.add_ingredient_activities.ManualIngredientActivity"
-            android:label="@string/title_activity_manual_ingredient" />
-        <activity android:name=".activities.add_ingredient_activities.AutoIngredientActivity"></activity>
+            android:name=".activities.RecipeFavoriteActivity"
+            android:parentActivityName=".activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.WebActivity"
+            android:parentActivityName=".activities.recipe_detail_activity.RecipeDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

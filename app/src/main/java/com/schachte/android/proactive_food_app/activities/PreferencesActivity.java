@@ -8,8 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.schachte.android.proactive_food_app.R;
+import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 
 import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
@@ -51,6 +53,7 @@ public class PreferencesActivity extends AppCompatActivity {
         }
 
         registerButtonListeners();
+        loadCalorieTextFields();
     }
 
     private boolean validateInput(){
@@ -152,5 +155,18 @@ public class PreferencesActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    private void loadCalorieTextFields() {
+        DataAccessLayer dal = new DataAccessLayer(this);
+        int stepCount = 100;
+        //int stepCount = dal.getStepCount();
+
+        TextView stepView = (TextView) findViewById(R.id.stepsTakenTextField);
+        TextView calorieView = (TextView) findViewById(R.id.calorieTextView);
+
+        stepView.setText("Step count today: " + Integer.toString(stepCount) + "");
+
     }
 }

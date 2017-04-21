@@ -2,19 +2,23 @@ package com.schachte.android.proactive_food_app.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
-
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.activities.category_activity.CategoryActivity;
 import com.schachte.android.proactive_food_app.activities.ingredient_list_activity.PantryActivity;
 import com.schachte.android.proactive_food_app.activities.recipe_list_activity.RecipeListActivity;
+import com.schachte.android.proactive_food_app.database.DataAccessLayer;
+import com.schachte.android.proactive_food_app.util.BackgroundHelper;
+import com.schachte.android.proactive_food_app.util.PedometerStart;
+
+import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -24,6 +28,8 @@ public class HomeActivity extends AppCompatActivity {
     Button ingredientsBtn;
     Button pantryBtn;
     Button recipesBtn;
+    DataAccessLayer dal;
+    Button favoritesBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,28 @@ public class HomeActivity extends AppCompatActivity {
 
         //Instantiate the singleton class for managing user-prefs onload
         getInstance().Initialize(getApplicationContext());
+
+        //Initialize pedometer sensor here if the background service is not already registered
+        BackgroundHelper utils = new BackgroundHelper(this);
+        Boolean serviceRunning = utils.isMyServiceRunning(PedometerStart.class);
+        Log.d(TAG, Boolean.toString(serviceRunning));
+        if (!serviceRunning) {
+            Intent serviceIntent = new Intent(this, PedometerStart.class);
+            this.startService(serviceIntent);
+
+            if(dal == null){
+                dal = new DataAccessLayer(this);
+            }
+
+            Log.d(TAG, "*******: AVG FOR NOW: " + Integer.toString(dal.getAverageForNow()));
+
+            dal.getAllSteps();
+
+            Log.d(TAG, "Running!!!!!!");
+            Log.d(TAG, Boolean.toString(utils.isMyServiceRunning(PedometerStart.class)));
+        } else {
+            Log.d(TAG, "Already running...");
+        }
 
         //Load the categories screen if the setup is not yet complete
         if (!getInstance().getPreferenceBool("setupComplete")) {
@@ -54,7 +82,8 @@ public class HomeActivity extends AppCompatActivity {
         profileBtn = (FloatingActionButton) findViewById(R.id.fab_profile);
         ingredientsBtn = (Button) findViewById(R.id.ingredients_button);
         pantryBtn = (Button) findViewById(R.id.view_pantry_btn_home);
-        recipesBtn = (Button) findViewById(R.id.add_ingredients_btn);
+        recipesBtn = (Button) findViewById(R.id.make_me_food_btn);
+        favoritesBtn = (Button) findViewById(R.id.favorite_recipes);
 
         cuisineBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -90,6 +119,13 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, RecipeListActivity.class));
             }
         });
+
+        favoritesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, RecipeFavoriteActivity.class));
+            }
+        });
     }
 
     /**
@@ -107,4 +143,5 @@ public class HomeActivity extends AppCompatActivity {
         mainButton.getMenuIconView().setImageResource(R.drawable.fabtn_cog);
 
     }
+
 }
