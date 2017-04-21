@@ -96,11 +96,11 @@ public class PedometerSensor implements SensorEventListener {
         // Only ran on the first insertion in the DB
         if (lastEntry == null) {
 
-                // USE CASE: User installs app, has moved since opening app.
-                // If there is no data and the step count has triggered.
-                if (stepCount != 0.0) {
-                    dal.insertPedometerLog(stepCount, stepCount);
-                }
+            // USE CASE: User installs app, has moved since opening app.
+            // If there is no data and the step count has triggered.
+            if (stepCount != 0.0) {
+                dal.insertPedometerLog(stepCount, stepCount);
+            }
 
         // USE CASE: User has already ran the application before.
         } else {

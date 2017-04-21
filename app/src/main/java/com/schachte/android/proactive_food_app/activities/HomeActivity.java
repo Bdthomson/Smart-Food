@@ -14,6 +14,7 @@ import static com.schachte.android.proactive_food_app.database.Preferences.getIn
 
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
+import com.schachte.android.proactive_food_app.database.SqlQueries;
 import com.schachte.android.proactive_food_app.util.BackgroundHelper;
 import com.schachte.android.proactive_food_app.activities.category_activity.CategoryActivity;
 import com.schachte.android.proactive_food_app.activities.recipe_list_activity.RecipeListActivity;
@@ -27,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     Button ingredientsBtn;
     Button pantryBtn;
     Button recipesBtn;
+    DataAccessLayer dal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,15 @@ public class HomeActivity extends AppCompatActivity {
         if (!serviceRunning) {
             Intent serviceIntent = new Intent(this, PedometerStart.class);
             this.startService(serviceIntent);
+
+            if(dal == null){
+                dal = new DataAccessLayer(this);
+            }
+
+            Log.d(TAG, "*******: " + Integer.toString(dal.getDailyStepCount()));
+
+            dal.getAllSteps();
+
             Log.d(TAG, "Running!!!!!!");
             Log.d(TAG, Boolean.toString(utils.isMyServiceRunning(PedometerStart.class)));
         } else {
