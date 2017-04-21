@@ -1,10 +1,10 @@
 package com.schachte.android.proactive_food_app.activities.add_ingredient_activities;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +26,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -79,23 +78,18 @@ public class AutoIngredientActivity extends AppCompatActivity {
 
             toAdd.setIngredientId(0);
 
-            BitmapDrawable drawable = (BitmapDrawable)imageView.getDrawable();
-            Bitmap bitmap = drawable.getBitmap();
+            imageView.buildDrawingCache();
+            Bitmap bitmap = imageView.getDrawingCache();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] bytes = baos.toByteArray();
             String base64 = null;
-            try {
-                base64 = new String(bytes, "UTF-8");
-                toAdd.setIngredientImageBytes(base64);
+            base64 = Base64.encodeToString(bytes, 0);
 
-                toAdd.setIngredientImageURL(ingredientURL);
+                toAdd.setIngredientImageURL(base64);
 
                 DataAccessLayer dal = new DataAccessLayer(this);
                 dal.storeIngredient(toAdd);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
 
             finish();
         }
@@ -149,6 +143,7 @@ public class AutoIngredientActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             try {
+                Log.i(result, result);
                 JSONObject reader = new JSONObject(result);
 
                 if (reader.has("records")) {
@@ -157,7 +152,12 @@ public class AutoIngredientActivity extends AppCompatActivity {
                         JSONObject firstEntry = records.getJSONObject(0);
                         if (firstEntry.has("fields")) {
                             JSONObject fields = firstEntry.getJSONObject("fields");
-                            ingredientName = fields.getString("gtin_nm");
+                            if (fields.has("gtin_nm")) {
+                                ingredientName = fields.getString("gtin_nm");
+                            } else {
+                                ingredientName = "No Name Found";
+                            }
+
                             ingredientURL = fields.getString("gtin_img");
 
                             nameOfIngredient.setText(ingredientName);

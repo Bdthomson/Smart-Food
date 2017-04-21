@@ -56,7 +56,7 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
         manualBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(AddIngredientsActivity.this, AutoIngredientActivity.class);
-                intent.putExtra("JSON_ID", "4011200296908"/*result.getText()*/);
+                intent.putExtra("JSON_ID", "0742753343156"/*result.getText()*/);
                 startActivity(intent);
             }
         });
