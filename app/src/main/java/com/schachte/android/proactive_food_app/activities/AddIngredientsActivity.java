@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import com.schachte.android.proactive_food_app.activities.add_ingredient_activit
 import com.schachte.android.proactive_food_app.activities.add_ingredient_activities.ManualIngredientActivity;
 import com.schachte.android.proactive_food_app.activities.ingredient_list_activity.PantryActivity;
 import com.schachte.android.proactive_food_app.database.ClientRequests;
+import com.schachte.android.proactive_food_app.util.WebServices;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -49,8 +52,8 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
 
         barcodeBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            // cR.makeReq();
-            beginBarcodeScan();
+                Log.d("HomeActivity", "This button get's clicked");
+                beginBarcodeScan();
             }
         });
 
@@ -70,6 +73,8 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
     }
 
     public void beginBarcodeScan() {
+
+        Log.d("HomeActivity", "Inside this else");
         zXingScannerView = new ZXingScannerView(getApplicationContext());
         setContentView(zXingScannerView);
         zXingScannerView.setResultHandler(this);
@@ -94,10 +99,27 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
         zXingScannerView.removeAllViews(); //<- here remove all the views, it will make an Activity having no View
         zXingScannerView.stopCamera(); //<- then stop the camera
         setContentView(R.layout.activity_ingredients); //<- and set the View again.
-
+        registerButtonListeners();
         // Now load the AutoIngredientActivity
-        Intent intent = new Intent(getBaseContext(), AutoIngredientActivity.class);
-        intent.putExtra("JSON_ID", result.getText());
-        startActivity(intent);
+
+        if (WebServices.isNetworkAvailable(this)) {
+            Intent intent = new Intent(getBaseContext(), AutoIngredientActivity.class);
+            intent.putExtra("JSON_ID", result.getText());
+            startActivity(intent);
+        } else {
+            //Kills activity since no internet connection for given task
+            new LovelyStandardDialog(this)
+                    .setTopColorRes(R.color.network_issues)
+                    .setIcon(R.drawable.wifi)
+                    .setTitle(R.string.network_issues_info)
+                    .setMessage(R.string.network_issues_info)
+                    .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // finish();
+                        }
+                    })
+                    .show();
+        }
     }
 }

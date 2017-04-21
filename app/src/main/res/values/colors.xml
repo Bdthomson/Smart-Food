@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#2c3e50</color>
     <color name="colorAccent">#ff4081</color>
     <color name="splash">#ffffff</color>
+    <color name="network_issues">#1c1c1c</color>
 </resources>

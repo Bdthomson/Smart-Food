@@ -1,5 +1,6 @@
 package com.schachte.android.proactive_food_app.activities.add_ingredient_activities;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 import com.schachte.android.proactive_food_app.models.Ingredient;
 import com.schachte.android.proactive_food_app.util.WebServices;
 import com.squareup.picasso.Picasso;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,19 +50,20 @@ public class AutoIngredientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_ingredient);
 
+        //Ensure that the network is running
         if (WebServices.isNetworkAvailable(this)) {
-            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
+            final String gtin_id = getIntent().getStringExtra("JSON_ID");
+
+            imageView = (ImageView)findViewById(R.id.autoImageView);
+            nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
+            generalNameOfIngredient = (EditText)findViewById(R.id.generalizedTextView);
+
+            new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
         } else {
-            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
+
+            //This is a safe-check. This should never execute
+            finish();
         }
-
-        final String gtin_id = getIntent().getStringExtra("JSON_ID");
-
-        imageView = (ImageView)findViewById(R.id.autoImageView);
-        nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
-        generalNameOfIngredient = (EditText)findViewById(R.id.generalizedTextView);
-
-        new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
 
         // TODO: make the view automatically load this, and have button add to DB and close view
         Button autoAddButton = (Button)findViewById(R.id.autoIngredientButton);
@@ -69,7 +73,6 @@ public class AutoIngredientActivity extends AppCompatActivity {
                 addIngredient();
             }
         });
-
     }
 
     private void addIngredient() {
