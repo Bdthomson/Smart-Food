@@ -49,6 +49,13 @@ public final class SqlQueries {
         public static final String RECIPE_FAVORITE = "favorite";
         public static final String RECIPE_NEW_RECIPE = "newRecipe";
 
+    // Ingredient Columns
+    public static final String INGREDIENT_NAME = "ingredientName";
+    public static final String INGREDIENT_GENERAL_NAME = "ingredientGeneralName";
+    public static final String INGREDIENT_IMAGE_URL = "ingredientImageURL";
+    public static final String INGREDIENT_IMAGE_BYTES = "ingredientImageBytes";
+    public static final String INGREDIENT_ID = "ingredientID";
+
     /*
      * SELECT queries
      */
@@ -110,7 +117,8 @@ public final class SqlQueries {
     /*
      * DELETE queries
      */
-    public static final String DELETE_STORED_RECIPES = "DELETE FROM " + RECIPE_TABLE_NAME + " WHERE " + RECIPE_FAVORITE + "='N';";
+    public static final String DELETE_STORED_RECIPES = "DELETE FROM " + RECIPE_TABLE_NAME;
+    public static final String DELETE_STORED_INGREDIENTS = "DELETE FROM " + INGREDIENT_TABLE_NAME;
 
 
     /*
@@ -118,17 +126,16 @@ public final class SqlQueries {
      */
     public static final String CREATE_FOOD_TABLE =  "CREATE TABLE "
             + FOOD_TABLE_NAME + "("
-            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + KEY_NAME + " TEXT NOT NULL,"
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + KEY_NAME + " TEXT NOT NULL, "
             + KEY_QUANTITY + " INTEGER NOT NULL);";
 
-
     public static final String CREATE_INGREDIENT_TABLE = "CREATE TABLE " + INGREDIENT_TABLE_NAME + " ( "
-            + "ingredientName      TEXT,"
-            + "imageUrl        TEXT,"
-            + "imageByteData   TEXT,"
-            + "sourceUrl       TEXT,"
-            + "ingredientId    INTEGER)";
+            + INGREDIENT_NAME + " TEXT,"
+            + INGREDIENT_GENERAL_NAME + " TEXT,"
+            + INGREDIENT_IMAGE_URL + " TEXT,"
+            + INGREDIENT_IMAGE_BYTES + " TEXT,"
+            + INGREDIENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)";
 
     public static final String CREATE_RECIPE_TABLE = "CREATE TABLE " + RECIPE_TABLE_NAME +  "( "
             + RECIPE_NAME           + " TEXT,"
@@ -157,6 +164,8 @@ public final class SqlQueries {
      * DROP table queries
      */
     public static final String DROP_FOOD_TABLE = "DROP TABLE IF EXISTS " + FOOD_TABLE_NAME;
+    public static final String DROP_INGREDIENT_TABLE = "DROP TABLE IF EXISTS " + INGREDIENT_TABLE_NAME;
+
     public static final String DROP_RECIPE_TABLE = "DROP TABLE IF EXISTS " + RECIPE_TABLE_NAME;
     public static final String DROP_PEDOMETER_TABLE = "DROP TABLE IF EXISTS " + PEDOMETER_TABLE_NAME;
 }

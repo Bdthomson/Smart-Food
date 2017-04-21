@@ -2,25 +2,23 @@ package com.schachte.android.proactive_food_app.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
-
 import com.schachte.android.proactive_food_app.R;
-import com.schachte.android.proactive_food_app.database.DataAccessLayer;
-import com.schachte.android.proactive_food_app.database.SqlQueries;
-import com.schachte.android.proactive_food_app.util.BackgroundHelper;
 import com.schachte.android.proactive_food_app.activities.category_activity.CategoryActivity;
+import com.schachte.android.proactive_food_app.activities.ingredient_list_activity.PantryActivity;
 import com.schachte.android.proactive_food_app.activities.recipe_list_activity.RecipeListActivity;
-import com.schachte.android.proactive_food_app.util.PedometerStart;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
+import com.schachte.android.proactive_food_app.util.BackgroundHelper;
+import com.schachte.android.proactive_food_app.util.PedometerStart;
+
+import static com.schachte.android.proactive_food_app.database.Preferences.getInstance;
 
 public class HomeActivity extends AppCompatActivity {
 

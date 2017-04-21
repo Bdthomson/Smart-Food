@@ -47,6 +47,9 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
         Picasso.with(convertView.getContext()).load(recipe.getImageUrl()).resize(200,200).centerCrop().into(recipeImage);
         //recipeImage.setImageBitmap(bitmap);
 
+        Picasso.with(convertView.getContext()).load(recipe.getImageUrl()).resize(200,200).centerCrop().into(recipeImage);
+        //recipeImage.setImageBitmap(bitmap);
+
         return convertView;
     }
 }

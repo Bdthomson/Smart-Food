@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.schachte.android.proactive_food_app">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
 
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -54,7 +56,13 @@
         <activity android:name=".activities.AddIngredientsActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".activities.PantryActivity"
+        <activity android:name=".activities.ingredient_list_activity.PantryActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.add_ingredient_activities.AutoIngredientActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.add_ingredient_activities.ManualIngredientActivity"
             android:screenOrientation="portrait"/>
 
         <activity

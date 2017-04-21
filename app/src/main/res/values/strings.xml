@@ -2,5 +2,6 @@
     <string name="app_name">proactive_food_app</string>
     <string name="action_refresh">Refresh Recipes</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_manual_ingredient">ManualIngredientActivity</string>
     <string name="title_activity_recipe_favorite">RecipeFavoriteActivity</string>
 </resources>
