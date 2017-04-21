@@ -135,7 +135,7 @@ public final class SqlQueries {
             + INGREDIENT_GENERAL_NAME + " TEXT,"
             + INGREDIENT_IMAGE_URL + " TEXT,"
             + INGREDIENT_IMAGE_BYTES + " TEXT,"
-            + INGREDIENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)";
+            + INGREDIENT_ID + " INTEGER)";
 
     public static final String CREATE_RECIPE_TABLE = "CREATE TABLE " + RECIPE_TABLE_NAME +  "( "
             + RECIPE_NAME           + " TEXT,"
