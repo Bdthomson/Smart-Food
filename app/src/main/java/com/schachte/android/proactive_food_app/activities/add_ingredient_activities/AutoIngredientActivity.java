@@ -48,18 +48,18 @@ public class AutoIngredientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_auto_ingredient);
 
         if (WebServices.isNetworkAvailable(this)) {
-            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "NETWORK IS JID AS FINNA", Toast.LENGTH_LONG).show();
+            final String gtin_id = getIntent().getStringExtra("JSON_ID");
+
+            imageView = (ImageView)findViewById(R.id.autoImageView);
+            nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
+            generalNameOfIngredient = (EditText)findViewById(R.id.generalizedTextView);
+
+            new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
         } else {
-            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "FINNA NETWORK DOWN!", Toast.LENGTH_LONG).show();
+            finish();
         }
-
-        final String gtin_id = getIntent().getStringExtra("JSON_ID");
-
-        imageView = (ImageView)findViewById(R.id.autoImageView);
-        nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
-        generalNameOfIngredient = (EditText)findViewById(R.id.generalizedTextView);
-
-        new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
 
         // TODO: make the view automatically load this, and have button add to DB and close view
         Button autoAddButton = (Button)findViewById(R.id.autoIngredientButton);
@@ -69,7 +69,6 @@ public class AutoIngredientActivity extends AppCompatActivity {
                 addIngredient();
             }
         });
-
     }
 
     private void addIngredient() {
