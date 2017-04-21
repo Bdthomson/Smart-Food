@@ -11,8 +11,10 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         app:srcCompat="@mipmap/ic_launcher"
-        tools:layout_editor_absoluteX="45dp"
-        tools:layout_editor_absoluteY="53dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/autoIngredientButton"
@@ -20,7 +22,8 @@
         android:layout_height="wrap_content"
         android:text="Add Ingredient"
         tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="452dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/autoTextView" />
 
     <EditText
         android:id="@+id/autoTextView"
@@ -29,6 +32,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Product Name"
-        tools:layout_editor_absoluteX="118dp"
-        tools:layout_editor_absoluteY="217dp" />
+        tools:layout_editor_absoluteY="217dp"
+        android:layout_marginLeft="114dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 </android.support.constraint.ConstraintLayout>
