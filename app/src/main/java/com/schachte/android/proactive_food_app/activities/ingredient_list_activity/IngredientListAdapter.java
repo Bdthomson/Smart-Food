@@ -37,7 +37,7 @@ public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
         ImageView recipeImage = (ImageView) convertView.findViewById(R.id.recipeImage);
 
         mainText.setText(ingredient.getIngredientName());
-        secondTextView.setText("");
+        secondTextView.setText(ingredient.getIngredientGeneralName());
         thirdTextView.setText("");
 
         String URLorFile = ingredient.getIngredientImageURL();

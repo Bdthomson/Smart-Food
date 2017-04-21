@@ -35,6 +35,7 @@ public class AutoIngredientActivity extends AppCompatActivity {
     private final String BEGIN_URL = "https://pod.opendatasoft.com/api/records/1.0/search/?dataset=pod_gtin&q=";
 
     private EditText nameOfIngredient;
+    private EditText generalNameOfIngredient;
     private ImageView imageView;
 
     private String ingredientName;
@@ -49,6 +50,7 @@ public class AutoIngredientActivity extends AppCompatActivity {
 
         imageView = (ImageView)findViewById(R.id.autoImageView);
         nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
+        generalNameOfIngredient = (EditText)findViewById(R.id.generalizedTextView);
 
         new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
 
@@ -73,8 +75,9 @@ public class AutoIngredientActivity extends AppCompatActivity {
             Ingredient toAdd = new Ingredient();
             toAdd.setIngredientName(nameOfIngredient);
 
+            String generalizedName = this.generalNameOfIngredient.getText().toString();
             // I think this is okay for now...
-            toAdd.setIngredientGeneralName(nameOfIngredient);
+            toAdd.setIngredientGeneralName(generalizedName);
 
             toAdd.setIngredientId(0);
 

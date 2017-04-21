@@ -39,8 +39,9 @@ public class ManualIngredientActivity extends Activity {
             Ingredient toAdd = new Ingredient();
             toAdd.setIngredientName(nameOfIngredient);
 
-            // I think this is okay for now...
-            toAdd.setIngredientGeneralName(nameOfIngredient);
+            EditText general = (EditText)findViewById(R.id.manualGeneralTextView);
+            String generalNameOfIngredient = general.getText().toString();
+            toAdd.setIngredientGeneralName(generalNameOfIngredient);
 
             toAdd.setIngredientId(0);
             toAdd.setIngredientImageBytes("none");

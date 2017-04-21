@@ -32,7 +32,18 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Product Name"
-        tools:layout_editor_absoluteY="217dp"
-        android:layout_marginLeft="114dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginLeft="85dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/generalizedTextView" />
+
+    <EditText
+        android:id="@+id/generalizedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="General Name"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="16dp" />
 </android.support.constraint.ConstraintLayout>
