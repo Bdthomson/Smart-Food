@@ -4,8 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import com.schachte.android.proactive_food_app.models.PedometerEntry;
 import com.schachte.android.proactive_food_app.models.Recipe;
+import com.schachte.android.proactive_food_app.util.PedometerSensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +16,14 @@ import java.util.List;
 
 public class DataAccessLayer extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
-    protected static final String DATABASE_NAME = "FoodDatabase";
+    private static final int DATABASE_VERSION = 5;
+    protected static final String DATABASE_NAME = "FoodDatabase.db";
+    public final String TAG = this.getClass().getSimpleName();
 
 
     public DataAccessLayer(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        Log.d("HomeActivity", "This is called for constructor");
 
     }
 
@@ -30,6 +35,9 @@ public class DataAccessLayer extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(SqlQueries.CREATE_FOOD_TABLE);
+        //db.execSQL(SqlQueries.CREATE_RECIPE_TABLE);
+        db.execSQL(SqlQueries.CREATE_PEDOMETER_TABLE);
+
     }
 
     /**
@@ -40,12 +48,13 @@ public class DataAccessLayer extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d("HomeActivity", "This si called for upgrade");
         db.execSQL(SqlQueries.DROP_FOOD_TABLE);
-        db.execSQL(SqlQueries.CREATE_RECIPE_TABLE);
+        // db.execSQL(SqlQueries.DROP_RECIPE_TABLE);
+        db.execSQL(SqlQueries.DROP_PEDOMETER_TABLE);
 
         onCreate(db);
     }
-
 
     /*
      * Returns a List of recipes that can be used to create the recipes ListView
@@ -77,6 +86,85 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         }
 
         return recipeList;
+    }
+
+    public int getDailyStepCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Log.d(TAG, SqlQueries.SELECT_DAILY_STEPS);
+        Cursor cursor = db.rawQuery(SqlQueries.SELECT_DAILY_STEPS, null);
+
+        if(cursor.moveToNext()){
+            int stepCount = cursor.getInt(cursor.getColumnIndex("steps"));
+            return stepCount;
+        }
+
+        return 0;
+    }
+
+
+    public void getAllSteps(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(SqlQueries.SELECT_ALL_STEP_RECORDS, null);
+
+        while(cursor.moveToNext()){
+            Log.d(TAG, cursor.getString(cursor.getColumnIndex(SqlQueries.KEY_TOTAL_STEPS)));
+            Log.d(TAG, cursor.getString(cursor.getColumnIndex(SqlQueries.KEY_CURRENT_TIMESTAMP)));
+            Log.d(TAG, "------");
+
+
+            // Log.d("HomeActivity", pedometerEntries.get(pedometerEntries.size() - 1).toString());
+        }
+    }
+
+
+    public List<PedometerEntry> getAllPedometerEntries(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(SqlQueries.SELECT_ALL_PEDOMETER_LOGS, null);
+        ArrayList<PedometerEntry> pedometerEntries = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            pedometerEntries.add(new PedometerEntry(
+                    cursor.getInt(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex(SqlQueries.KEY_CURRENT_TIMESTAMP)),
+                    cursor.getInt(cursor.getColumnIndex(SqlQueries.KEY_TOTAL_STEPS)),
+                    cursor.getInt(cursor.getColumnIndex("steps_since_reset"))
+            ));
+
+            // Log.d("HomeActivity", pedometerEntries.get(pedometerEntries.size() - 1).toString());
+        }
+
+        return pedometerEntries;
+    }
+
+    public PedometerEntry getLastPedometerEntry() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(SqlQueries.SELECT_LAST_PEDOMETER_RECORD, null);
+
+
+        PedometerEntry pedEnt = null;
+
+        //TODO: Maybe refactor this. The query is limited to 1 already though.
+
+        //Return an object of the last pedometer log value
+        while(cursor.moveToNext()) {
+            pedEnt = new PedometerEntry(
+                    cursor.getInt(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex(SqlQueries.KEY_CURRENT_TIMESTAMP)),
+                    cursor.getInt(cursor.getColumnIndex(SqlQueries.KEY_TOTAL_STEPS)),
+                    cursor.getInt(cursor.getColumnIndex("steps_since_reset"))
+            );
+        }
+
+        return pedEnt;
+    }
+
+    public void insertPedometerLog(float totalSteps, float stepsSinceReset){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(SqlQueries.INSERT_PEDOMETER_LOG + "("
+                + totalSteps + ", "
+                + stepsSinceReset
+                + ")");
+
     }
 }
 
