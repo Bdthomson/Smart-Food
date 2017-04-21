@@ -14,12 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_GENERAL_NAME;
-import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_ID;
-import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_IMAGE_BYTES;
-import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_IMAGE_URL;
-import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_NAME;
-import static com.schachte.android.proactive_food_app.database.SqlQueries.INGREDIENT_TABLE_NAME;
 import static com.schachte.android.proactive_food_app.database.SqlQueries.RECIPE_CALORIES;
 import static com.schachte.android.proactive_food_app.database.SqlQueries.RECIPE_CARB;
 import static com.schachte.android.proactive_food_app.database.SqlQueries.RECIPE_FAT;
