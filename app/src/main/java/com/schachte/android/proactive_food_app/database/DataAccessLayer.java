@@ -173,24 +173,26 @@ public class DataAccessLayer extends SQLiteOpenHelper {
      * the Ingredient object will also contain the information to display on the ingredient
      * details page
      */
-    public ArrayList<Ingredient> getIngredients() {
+    public List<String> getIngredients() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(SqlQueries.SELECT_ALL_INGREDIENTS, null);
 
-        ArrayList<Ingredient> ingredientList = new ArrayList<>();
+        ArrayList<String> ingredientList = new ArrayList<>();
         while(cursor.moveToNext()) {
-            Ingredient ingredient = new Ingredient();
+//            Ingredient ingredient = new Ingredient();
 
-            ingredient.setIngredientName(cursor.getString(cursor.getColumnIndex(INGREDIENT_NAME)));
-            ingredient.setIngredientGeneralName(cursor.getString(cursor.getColumnIndex(INGREDIENT_GENERAL_NAME)));
-            ingredient.setIngredientImageURL(cursor.getString(cursor.getColumnIndex(INGREDIENT_IMAGE_URL)));
-            ingredient.setIngredientImageBytes(cursor.getString(cursor.getColumnIndex(INGREDIENT_IMAGE_BYTES)));
-            ingredient.setIngredientId(cursor.getInt(cursor.getColumnIndex(INGREDIENT_ID)));
+//            ingredient.setIngredientName(cursor.getString(cursor.getColumnIndex(INGREDIENT_NAME)));
+//            ingredient.setIngredientGeneralName(cursor.getString(cursor.getColumnIndex(INGREDIENT_GENERAL_NAME)));
+            ingredientList.add(cursor.getString(cursor.getColumnIndex(INGREDIENT_GENERAL_NAME)));
+//            ingredient.setIngredientImageURL(cursor.getString(cursor.getColumnIndex(INGREDIENT_IMAGE_URL)));
+//            ingredient.setIngredientImageBytes(cursor.getString(cursor.getColumnIndex(INGREDIENT_IMAGE_BYTES)));
+//            ingredient.setIngredientId(cursor.getInt(cursor.getColumnIndex(INGREDIENT_ID)));
 
-            ingredientList.add(ingredient);
-            Log.d(TAG, "getIngredients: " + ingredient);
+//            ingredientList.add(ingredient);
         }
+
+        Log.d(TAG, "getIngredients: " + ingredientList);
 
 
         cursor.close();
