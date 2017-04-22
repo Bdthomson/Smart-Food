@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.schachte.android.proactive_food_app.R;
@@ -40,6 +41,10 @@ public class AutoIngredientActivity extends AppCompatActivity {
 
     private EditText nameOfIngredient;
     private EditText generalNameOfIngredient;
+
+    private TextView nameHelpText;
+    private TextView generalNameHelpText;
+
     private ImageView imageView;
 
     private String ingredientName;
@@ -58,6 +63,9 @@ public class AutoIngredientActivity extends AppCompatActivity {
             nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
             generalNameOfIngredient = (EditText)findViewById(R.id.generalizedTextView);
 
+            nameHelpText = (TextView) findViewById(R.id.nameHelpText);
+            generalNameHelpText = (TextView) findViewById(R.id.generalNameHelpText);
+
             new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
         } else {
 
@@ -75,18 +83,73 @@ public class AutoIngredientActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if the form fields are valid.
+     * @return True if form fields are valid.
+     */
+    private boolean validateInput(){
+
+        boolean valid = true;
+
+        if(this.nameOfIngredient.getText().toString().trim().equalsIgnoreCase("")){
+            valid = false;
+            this.nameOfIngredient.setError("Ingredient Name required.");
+        }
+
+        if(this.generalNameOfIngredient.getText().toString().trim().equalsIgnoreCase("")){
+            valid = false;
+            this.generalNameOfIngredient.setError("General Ingredient Name required.");
+        }
+
+        return valid;
+    }
+
     private void addIngredient() {
         EditText tv = this.nameOfIngredient;
-        Log.i(tv.getText().toString(), tv.getText().toString());
-        if (tv.getText().length() == 0) {
-            Toast.makeText(this, "You must put some name of an ingredient!", Toast.LENGTH_LONG).show();
-        } else {
+
+        boolean valid = validateInput();
+
+        Log.d("HomeActivity", "Input is: " + valid);
+
+        // TODO: 4/21/17 - Why is this code duplicated...?
+
+        if (valid){
+
             String nameOfIngredient = tv.getText().toString();
             Ingredient toAdd = new Ingredient();
             toAdd.setIngredientName(nameOfIngredient);
 
             String generalizedName = this.generalNameOfIngredient.getText().toString();
-            // I think this is okay for now...
+
+            // I think this is okay for now... - Dougherty?
+            toAdd.setIngredientGeneralName(generalizedName);
+
+            toAdd.setIngredientId(0);
+
+            imageView.buildDrawingCache();
+            Bitmap bitmap = imageView.getDrawingCache();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] bytes = baos.toByteArray();
+            String base64 = null;
+            base64 = Base64.encodeToString(bytes, 0);
+
+            toAdd.setIngredientImageBytes(base64);
+
+            DataAccessLayer dal = new DataAccessLayer(this);
+            dal.storeIngredient(toAdd);
+
+            finish();
+        }
+
+        if (valid) {
+            String nameOfIngredient = tv.getText().toString();
+            Ingredient toAdd = new Ingredient();
+            toAdd.setIngredientName(nameOfIngredient);
+
+            String generalizedName = this.generalNameOfIngredient.getText().toString();
+
+            // I think this is okay for now... - Dougherty?
             toAdd.setIngredientGeneralName(generalizedName);
 
             toAdd.setIngredientId(0);
@@ -168,12 +231,19 @@ public class AutoIngredientActivity extends AppCompatActivity {
                             if (fields.has("gtin_nm")) {
                                 ingredientName = fields.getString("gtin_nm");
                             } else {
-                                ingredientName = "No Name Found";
+                                ingredientName = "";
                             }
 
                             ingredientURL = fields.getString("gtin_img");
 
                             nameOfIngredient.setText(ingredientName);
+
+                            // Set error messages underneath text views. (Not validation)
+                            if (nameOfIngredient.getText().toString().length() == 0)
+                                nameHelpText.setText("Could not locate name");
+
+                            if(generalNameOfIngredient.getText().toString().length() == 0)
+                                generalNameHelpText.setText("Could not locate general name");
 
                             Picasso.with(AutoIngredientActivity.this).load(ingredientURL).into(imageView);
 
