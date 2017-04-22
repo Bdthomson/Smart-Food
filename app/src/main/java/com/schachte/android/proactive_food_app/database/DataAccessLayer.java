@@ -167,13 +167,12 @@ public class DataAccessLayer extends SQLiteOpenHelper {
         db.close();
     }
 
-
     /*
-     * Returns a List of ingredients that can be used to create the ingredients ListView
+     * Returns a List of ingredients AS A STRING that can be used to create the ingredients ListView
      * the Ingredient object will also contain the information to display on the ingredient
      * details page
      */
-    public List<String> getIngredients() {
+    public List<String> getIngredientsString() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(SqlQueries.SELECT_ALL_INGREDIENTS, null);
@@ -190,6 +189,37 @@ public class DataAccessLayer extends SQLiteOpenHelper {
 //            ingredient.setIngredientId(cursor.getInt(cursor.getColumnIndex(INGREDIENT_ID)));
 
 //            ingredientList.add(ingredient);
+        }
+
+        Log.d(TAG, "getIngredients: " + ingredientList);
+
+
+        cursor.close();
+        db.close();
+        return ingredientList;
+    }
+
+    /*
+     * Returns a List of ingredients that can be used to create the ingredients ListView
+     * the Ingredient object will also contain the information to display on the ingredient
+     * details page
+     */
+    public ArrayList<Ingredient> getIngredients() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(SqlQueries.SELECT_ALL_INGREDIENTS, null);
+
+        ArrayList<Ingredient> ingredientList = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            Ingredient ingredient = new Ingredient();
+
+            ingredient.setIngredientName(cursor.getString(cursor.getColumnIndex(INGREDIENT_NAME)));
+            ingredient.setIngredientGeneralName(cursor.getString(cursor.getColumnIndex(INGREDIENT_GENERAL_NAME)));
+            ingredient.setIngredientImageURL(cursor.getString(cursor.getColumnIndex(INGREDIENT_IMAGE_URL)));
+            ingredient.setIngredientImageBytes(cursor.getString(cursor.getColumnIndex(INGREDIENT_IMAGE_BYTES)));
+            ingredient.setIngredientId(cursor.getInt(cursor.getColumnIndex(INGREDIENT_ID)));
+
+            ingredientList.add(ingredient);
         }
 
         Log.d(TAG, "getIngredients: " + ingredientList);
