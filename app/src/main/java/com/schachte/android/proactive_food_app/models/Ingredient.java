@@ -54,6 +54,9 @@ public class Ingredient implements Serializable {
         this.ingredientId = ingredientId;
     }
 
-
-
+    @Override
+    public String toString() {
+        return ingredientId + " - " + ingredientName + " + " + ingredientGeneralName + " - " +
+                ingredientImageURL;
+    }
 }

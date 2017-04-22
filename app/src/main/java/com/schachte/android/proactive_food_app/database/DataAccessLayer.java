@@ -189,7 +189,9 @@ public class DataAccessLayer extends SQLiteOpenHelper {
             ingredient.setIngredientId(cursor.getInt(cursor.getColumnIndex(INGREDIENT_ID)));
 
             ingredientList.add(ingredient);
+            Log.d(TAG, "getIngredients: " + ingredient);
         }
+
 
         cursor.close();
         db.close();
