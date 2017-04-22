@@ -37,7 +37,6 @@ public class PedometerSensor implements SensorEventListener {
             handler = new Handler();
             runnable = new Runnable() {
                 public void run() {
-                    Toast.makeText(mContext, "Service is still running!! : " + Float.toString(steps), Toast.LENGTH_LONG).show();
                     if (steps != -1)
                         addNewPedometerLog(steps);
                     handler.postDelayed(runnable, MILLISECOND_DELAY);
@@ -55,8 +54,6 @@ public class PedometerSensor implements SensorEventListener {
 
         //Update currently tracked step count value
         steps = event.values[0];
-
-        Log.d("HomeActivity", "Sensor Changed");
     }
 
     @Override
@@ -107,12 +104,12 @@ public class PedometerSensor implements SensorEventListener {
 
             if (stepCount < lastEntry.getStepsSinceReset()) {
                 dal.insertPedometerLog(lastEntry.getTotalSteps() + stepCount, stepCount);
-                Log.d("HomeActivity", "// Handling Phone Reboot");
+//                Log.d("HomeActivity", "// Handling Phone Reboot");
 
             // Handle
             } else {
                 dal.insertPedometerLog(lastEntry.getTotalSteps() + stepCount - lastEntry.getStepsSinceReset(), stepCount);
-                Log.d("HomeActivity", "// Handling Normal Insertion");
+//                Log.d("HomeActivity", "// Handling Normal Insertion");
             }
         }
     }

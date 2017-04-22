@@ -8,6 +8,9 @@
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature android:name="android.hardware.sensor.stepcounter" />
@@ -59,13 +62,15 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.ingredient_list_activity.PantryActivity"
-                  android:parentActivityName=".activities.HomeActivity"
+            android:parentActivityName=".activities.HomeActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.add_ingredient_activities.AutoIngredientActivity"
+            android:parentActivityName=".activities.AddIngredientsActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.add_ingredient_activities.ManualIngredientActivity"
+            android:parentActivityName=".activities.AddIngredientsActivity"
             android:screenOrientation="portrait"/>
 
         <activity
