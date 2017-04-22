@@ -1,5 +1,6 @@
 package com.schachte.android.proactive_food_app.activities.add_ingredient_activities;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +16,10 @@ import android.widget.Toast;
 import com.schachte.android.proactive_food_app.R;
 import com.schachte.android.proactive_food_app.database.DataAccessLayer;
 import com.schachte.android.proactive_food_app.models.Ingredient;
+import com.schachte.android.proactive_food_app.util.WebServices;
 import com.squareup.picasso.Picasso;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,13 +50,20 @@ public class AutoIngredientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_ingredient);
 
-        final String gtin_id = getIntent().getStringExtra("JSON_ID");
+        //Ensure that the network is running
+        if (WebServices.isNetworkAvailable(this)) {
+            final String gtin_id = getIntent().getStringExtra("JSON_ID");
 
-        imageView = (ImageView)findViewById(R.id.autoImageView);
-        nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
-        generalNameOfIngredient = (EditText)findViewById(R.id.generalizedTextView);
+            imageView = (ImageView)findViewById(R.id.autoImageView);
+            nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
+            generalNameOfIngredient = (EditText)findViewById(R.id.generalizedTextView);
 
-        new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
+            new DownloadJSONTask().execute(BEGIN_URL + gtin_id);
+        } else {
+
+            //This is a safe-check. This should never execute
+            finish();
+        }
 
         // TODO: make the view automatically load this, and have button add to DB and close view
         Button autoAddButton = (Button)findViewById(R.id.autoIngredientButton);
@@ -62,7 +73,6 @@ public class AutoIngredientActivity extends AppCompatActivity {
                 addIngredient();
             }
         });
-
     }
 
     private void addIngredient() {
@@ -89,10 +99,10 @@ public class AutoIngredientActivity extends AppCompatActivity {
             String base64 = null;
             base64 = Base64.encodeToString(bytes, 0);
 
-                toAdd.setIngredientImageURL(base64);
+            toAdd.setIngredientImageURL(base64);
 
-                DataAccessLayer dal = new DataAccessLayer(this);
-                dal.storeIngredient(toAdd);
+            DataAccessLayer dal = new DataAccessLayer(this);
+            dal.storeIngredient(toAdd);
 
             finish();
         }
@@ -162,7 +172,6 @@ public class AutoIngredientActivity extends AppCompatActivity {
                             }
 
                             ingredientURL = fields.getString("gtin_img");
-
                             nameOfIngredient.setText(ingredientName);
 
                             Picasso.with(AutoIngredientActivity.this).load(ingredientURL).into(imageView);
@@ -170,7 +179,6 @@ public class AutoIngredientActivity extends AppCompatActivity {
                         }
                     }
                 }
-
 
             } catch (JSONException e) {
                 e.printStackTrace();

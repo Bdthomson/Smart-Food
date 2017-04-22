@@ -23,7 +23,6 @@
         android:layout_width="300dp"
         android:layout_height="88.67dp"
         android:background="@drawable/make_me_ingredients"
-        android:layout_marginTop="53dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
@@ -52,11 +51,11 @@
     <Button
         android:stateListAnimator="@null"
         android:text=""
-        android:id="@+id/favorite_recipes"
+        android:id="@+id/view_favorites"
         android:layout_width="300dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="15dp"
         android:layout_height="88.67dp"
-        android:background="@drawable/make"
+        android:background="@drawable/banjeree"
         android:layout_below="@+id/make_me_food_btn"
         android:layout_alignStart="@+id/make_me_food_btn"/>
 
