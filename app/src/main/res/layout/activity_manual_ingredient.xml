@@ -4,69 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.schachte.android.proactive_food_app.activities.add_ingredient_activities.ManualIngredientActivity">
+    tools:context="com.schachte.android.proactive_food_app.activities.add_ingredient_activities.ManualIngredientActivity"
+    android:background="@drawable/ing_bg"
+                                             tools:layout_editor_absoluteY="25dp"
+                                             tools:layout_editor_absoluteX="0dp">
+
+    <ImageView
+        android:id="@+id/header_ingredients"
+        android:layout_width="0dp"
+        android:layout_height="39dp"
+        android:textColor="#FFF"
+        android:adjustViewBounds="false"
+        android:background="@drawable/add_header_ing"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <Button
         android:id="@+id/addManualIngredientBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Add Ingredient"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/add_ingredient"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="53dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="53dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="88dp"
-        app:layout_constraintTop_toBottomOf="@+id/manualImageView" />
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/manualImageView"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <EditText
         android:id="@+id/nameOfIngredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="19dp"
         android:ems="10"
         android:hint="Product Name"
         android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manualGeneralTextView" />
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@android:color/white"
+        android:textColorHint="@android:color/white"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/manualGeneralTextView"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/manualGeneralTextView"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/manualGeneralTextView"/>
 
     <EditText
         android:id="@+id/manualGeneralTextView"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="General Name"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteY="16dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textColorLink="@android:color/white"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="parent"
-        android:hint="General Name"/>
+        android:layout_marginTop="136dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/manualImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="123dp"
         app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="27dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="19dp"
         app:layout_constraintTop_toBottomOf="@+id/manualLoadImageButton"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <Button
         android:id="@+id/manualLoadImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="218dp"
+        android:layout_height="48dp"
         android:text="Load Image"
-        android:layout_marginTop="14dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@+id/nameOfIngredient"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
