@@ -142,33 +142,6 @@ public class AutoIngredientActivity extends AppCompatActivity {
             finish();
         }
 
-        if (valid) {
-            String nameOfIngredient = tv.getText().toString();
-            Ingredient toAdd = new Ingredient();
-            toAdd.setIngredientName(nameOfIngredient);
-
-            String generalizedName = this.generalNameOfIngredient.getText().toString();
-
-            // I think this is okay for now... - Dougherty?
-            toAdd.setIngredientGeneralName(generalizedName);
-
-            toAdd.setIngredientId(0);
-
-            imageView.buildDrawingCache();
-            Bitmap bitmap = imageView.getDrawingCache();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            byte[] bytes = baos.toByteArray();
-            String base64 = null;
-            base64 = Base64.encodeToString(bytes, 0);
-
-            toAdd.setIngredientImageBytes(base64);
-
-            DataAccessLayer dal = new DataAccessLayer(this);
-            dal.storeIngredient(toAdd);
-
-            finish();
-        }
     }
 
     private class DownloadJSONTask extends AsyncTask<String, String, String> {
@@ -241,8 +214,8 @@ public class AutoIngredientActivity extends AppCompatActivity {
                             if (nameOfIngredient.getText().toString().length() == 0)
                                 nameHelpText.setText("Could not locate name");
 
-                            if(generalNameOfIngredient.getText().toString().length() == 0)
-                                generalNameHelpText.setText("Could not locate general name");
+//                            if(generalNameOfIngredient.getText().toString().length() == 0)
+//                                generalNameHelpText.setText("Could not locate general name");
 
                             Picasso.with(AutoIngredientActivity.this).load(ingredientURL).into(imageView);
 

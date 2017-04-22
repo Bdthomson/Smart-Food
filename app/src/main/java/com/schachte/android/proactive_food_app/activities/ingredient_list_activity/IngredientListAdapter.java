@@ -36,6 +36,7 @@ public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
         TextView thirdTextView = (TextView) convertView.findViewById(R.id.thirdLine);
 
         ImageView recipeImage = (ImageView) convertView.findViewById(R.id.recipeImage);
+//        ImageView recipeImage = (ImageView) convertView.findViewById(R.id.food); //?
 
         mainText.setText(ingredient.getIngredientName());
         secondTextView.setText(ingredient.getIngredientGeneralName());
