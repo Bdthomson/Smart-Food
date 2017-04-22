@@ -75,11 +75,30 @@ public class ManualIngredientActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks if the form fields are valid.
+     * @return True if form fields are valid.
+     */
+    private boolean validateInput(){
+
+        boolean valid = true;
+
+        if(this.normalName.getText().toString().trim().equalsIgnoreCase("")){
+            valid = false;
+            this.normalName.setError("Ingredient Name required.");
+        }
+
+        if(this.generalName.getText().toString().trim().equalsIgnoreCase("")){
+            valid = false;
+            this.generalName.setError("General Ingredient Name required.");
+        }
+
+        return valid;
+    }
+
     private void addIngredient() {
-        Log.i(normalName.getText().toString(), normalName.getText().toString());
-        if (normalName.getText().length() == 0) {
-            Toast.makeText(this, "You must insert the name of an ingredient!", Toast.LENGTH_LONG).show();
-        } else {
+        boolean valid = validateInput();
+        if (valid) {
             String nameOfIngredient = normalName.getText().toString();
             Ingredient toAdd = new Ingredient();
             toAdd.setIngredientName(nameOfIngredient);
