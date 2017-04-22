@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -52,14 +51,16 @@ public class ManualIngredientActivity extends AppCompatActivity {
 
         chosenImageView = (ImageView)findViewById(R.id.manualImageView);
         chosenImageView.setDrawingCacheEnabled(true);
-        chosenImageView.buildDrawingCache(true);
 
         loadChosenImageButton = (Button)findViewById(R.id.manualLoadImageButton);
 
         loadChosenImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.setType("image/*");
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivityForResult(intent, RESULT_LOAD_IMAGE);
             }
         });
@@ -71,7 +72,7 @@ public class ManualIngredientActivity extends AppCompatActivity {
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
             imageURL = data.getData().toString();
-            Picasso.with(this).load(data.getData()).into(chosenImageView);
+            Picasso.with(this).load(data.getData().toString()).into(chosenImageView);
         }
     }
 
@@ -115,13 +116,15 @@ public class ManualIngredientActivity extends AppCompatActivity {
                 chosenImageView.buildDrawingCache();
                 Bitmap bitmap = chosenImageView.getDrawingCache();
                 if (bitmap != null) {
+                    Log.i("not null", "not null");
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
                     byte[] bytes = baos.toByteArray();
-                    String base64 = null;
-                    base64 = Base64.encodeToString(bytes, 0);
+                    String base64 = Base64.encodeToString(bytes, 0);
+
 
                     toAdd.setIngredientImageBytes(base64);
+                    Log.i(base64, base64);
                 }
             }
 
