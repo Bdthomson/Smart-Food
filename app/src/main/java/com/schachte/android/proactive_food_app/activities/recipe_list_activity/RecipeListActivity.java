@@ -142,10 +142,10 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
     private void getRecipesFromServer(DataAccessLayer dal) {
         PantryData pantryData = new PantryData();
 
-        pantryData.setUserIngredients( dal.getIngredients() );
+        pantryData.setUserIngredients( dal.getIngredientsString() );
         Set<String> preferredCuisines = Preferences.getInstance().getPreferenceStringSet("categories");
         List<String> cuisineList = new ArrayList<>(preferredCuisines);
-//        pantryData.setCuisinePreferences(cuisineList);
+        pantryData.setCuisinePreferences(cuisineList);
 //        pantryData.setActivityLevel("Low");             //TODO: Figure out where this value will really come from
 
         //If the user hasn't selected any
