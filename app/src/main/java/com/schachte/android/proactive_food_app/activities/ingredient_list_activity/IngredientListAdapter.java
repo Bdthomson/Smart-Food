@@ -42,8 +42,16 @@ public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
         thirdTextView.setText("");
 
         //TODO: Modify this to load from file system sometime
-        String ingredientImageURL = ingredient.getIngredientImageURL();
-        Picasso.with(convertView.getContext()).load(ingredientImageURL).resize(200,200).centerCrop().into(ingredientImage);
+        Picasso.with(convertView.getContext()).cancelRequest(ingredientImage);
+
+        final String ingredientImageURL = ingredient.getIngredientImageURL();
+
+        if( ingredientImageURL != null && !ingredientImageURL.equals("none") )
+            //ingredientImage.setImageResource(R.mipmap.am);
+            Picasso.with(convertView.getContext()).load(ingredientImageURL).resize(200,200).centerCrop().into(ingredientImage);
+        else {
+            ingredientImage.setImageResource(R.mipmap.food);
+        }
 
 //        if (URLorFile != null) {
 //            Log.i(URLorFile, URLorFile);

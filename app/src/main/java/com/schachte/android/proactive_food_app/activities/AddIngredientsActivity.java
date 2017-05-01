@@ -2,12 +2,16 @@ package com.schachte.android.proactive_food_app.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.Manifest;
 
 import com.google.zxing.Result;
 import com.schachte.android.proactive_food_app.R;
@@ -37,6 +41,13 @@ public class AddIngredientsActivity extends AppCompatActivity implements ZXingSc
         setContentView(R.layout.activity_ingredients);
         context = getApplicationContext();
         registerButtonListeners();
+
+        //Code from Stackoverflow to request camera permissions
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+            }
+        }
     }
 
     /**

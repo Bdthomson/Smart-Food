@@ -146,7 +146,19 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
         Set<String> preferredCuisines = Preferences.getInstance().getPreferenceStringSet("categories");
         List<String> cuisineList = new ArrayList<>(preferredCuisines);
         pantryData.setCuisinePreferences(cuisineList);
-        pantryData.setActivityLevel("Low");             //TODO: Figure out where this value will really come from
+
+        /*
+         * Get the step counts for today and our average up to this minute of the day for the
+         * past two weeks.  If I've walked less than I normally do at this time of the day
+         * I will lower the calorie of the recipes that are returned slightly to a 2000 calorie diet.
+         * If I've walked more the calorie restrictions will be based on a 2400 calorie diet
+         */
+        int stepCount = dal.getDailyStepCount(); // Steps logged today.
+        int averageStepCount = dal.getAverageForNow(); // Average steps logged by current local time.
+        if(stepCount < averageStepCount)
+            pantryData.setActivityLevel("Low");
+        else
+            pantryData.setActivityLevel("High");
 
         //If the user hasn't selected any
         if( mealCurrentlySelected == null )
