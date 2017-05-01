@@ -117,7 +117,7 @@ public final class SqlQueries {
     /*
      * DELETE queries
      */
-    public static final String DELETE_STORED_RECIPES = "DELETE FROM " + RECIPE_TABLE_NAME;
+    public static final String DELETE_STORED_RECIPES = "DELETE FROM " + RECIPE_TABLE_NAME + " WHERE " + RECIPE_FAVORITE + "='N';";
     public static final String DELETE_STORED_INGREDIENTS = "DELETE FROM " + INGREDIENT_TABLE_NAME;
 
 

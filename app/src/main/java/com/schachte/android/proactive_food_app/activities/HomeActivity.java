@@ -1,5 +1,14 @@
 package com.schachte.android.proactive_food_app.activities;
 
+/*
+ * Future Feature Ideas:
+ *  - Store all images in database after first load so that the app can completely work offline
+ *  - Improve on the "generalized" food ingredient stuff
+ *  - Ingredient page - able to take picture and add it
+ *  - Take into account BMI/BMR in the calorie range to get recipes
+ *  - Show what type of cuisine the recipe is
+ *  - Show what meal the recipe is for
+ */
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;

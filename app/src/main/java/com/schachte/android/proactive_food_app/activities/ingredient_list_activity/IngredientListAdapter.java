@@ -35,26 +35,27 @@ public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
         TextView secondTextView = (TextView) convertView.findViewById(R.id.secondLine);
         TextView thirdTextView = (TextView) convertView.findViewById(R.id.thirdLine);
 
-        ImageView recipeImage = (ImageView) convertView.findViewById(R.id.recipeImage);
-//        ImageView recipeImage = (ImageView) convertView.findViewById(R.id.food); //?
+        ImageView ingredientImage = (ImageView) convertView.findViewById(R.id.ingredientImage);
 
         mainText.setText(ingredient.getIngredientName());
         secondTextView.setText(ingredient.getIngredientGeneralName());
         thirdTextView.setText("");
 
-        String URLorFile = ingredient.getIngredientImageURL();
+        //TODO: Modify this to load from file system sometime
+        String ingredientImageURL = ingredient.getIngredientImageURL();
+        Picasso.with(convertView.getContext()).load(ingredientImageURL).resize(200,200).centerCrop().into(ingredientImage);
 
-        if (URLorFile != null) {
-            Log.i(URLorFile, URLorFile);
-            File f = new File(URLorFile);
-            Log.i("test", String.valueOf(f.exists()));
-            if ((f.exists() && !f.isDirectory()) ){
-                Log.i("yes", "yes");
-                Picasso.with(convertView.getContext()).load(f).resize(200,200).centerCrop().into(recipeImage);
-            } else if (isValidURL(URLorFile)) {
-                Picasso.with(convertView.getContext()).load(ingredient.getIngredientImageURL()).resize(200,200).centerCrop().into(recipeImage);
-            }
-        }
+//        if (URLorFile != null) {
+//            Log.i(URLorFile, URLorFile);
+//            File f = new File(URLorFile);
+//            Log.i("test", String.valueOf(f.exists()));
+//            if ((f.exists() && !f.isDirectory()) ){
+//                Log.i("yes", "yes");
+//                Picasso.with(convertView.getContext()).load(f).resize(200,200).centerCrop().into(recipeImage);
+//            } else if (isValidURL(URLorFile)) {
+//                Picasso.with(convertView.getContext()).load(ingredient.getIngredientImageURL()).resize(200,200).centerCrop().into(recipeImage);
+//            }
+//        }
 
         return convertView;
     }

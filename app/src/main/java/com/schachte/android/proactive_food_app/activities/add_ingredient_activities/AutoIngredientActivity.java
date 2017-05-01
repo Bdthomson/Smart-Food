@@ -57,7 +57,10 @@ public class AutoIngredientActivity extends AppCompatActivity {
 
         //Ensure that the network is running
         if (WebServices.isNetworkAvailable(this)) {
-            final String gtin_id = getIntent().getStringExtra("JSON_ID");
+            String gtin_id = getIntent().getStringExtra("JSON_ID");
+
+            while( gtin_id.length() < 13 )
+                gtin_id = "0" + gtin_id;
 
             imageView = (ImageView)findViewById(R.id.autoImageView);
             nameOfIngredient = (EditText)findViewById(R.id.autoTextView);
@@ -122,9 +125,13 @@ public class AutoIngredientActivity extends AppCompatActivity {
             String generalizedName = this.generalNameOfIngredient.getText().toString();
 
             // I think this is okay for now... - Dougherty?
+            // No this code gives me cancer.   - Spencer
             toAdd.setIngredientGeneralName(generalizedName);
 
+            //Wtf does this even do -Spencer
             toAdd.setIngredientId(0);
+
+            toAdd.setIngredientImageURL(ingredientURL);
 
             imageView.buildDrawingCache();
             Bitmap bitmap = imageView.getDrawingCache();
@@ -150,6 +157,7 @@ public class AutoIngredientActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
+            StringBuffer buffer = new StringBuffer();
 
             try {
                 URL url = new URL(params[0]);
@@ -160,14 +168,12 @@ public class AutoIngredientActivity extends AppCompatActivity {
 
                 reader = new BufferedReader(new InputStreamReader(stream));
 
-                StringBuffer buffer = new StringBuffer();
                 String line = "";
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line).append("\n");
                 }
 
-                return buffer.toString();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -185,7 +191,7 @@ public class AutoIngredientActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            return null;
+            return buffer.toString();
         }
 
         @Override

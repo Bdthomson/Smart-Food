@@ -111,7 +111,7 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
 
-        if( hour < 9 )
+        if( hour < 9 || hour > 21 )
             mealCurrentlySelected = MealDialog.Meal.Breakfast;
         else if( hour < 14 )
             mealCurrentlySelected = MealDialog.Meal.Lunch;
@@ -146,12 +146,12 @@ public class RecipeListActivity extends AppCompatActivity implements MealDialog.
         Set<String> preferredCuisines = Preferences.getInstance().getPreferenceStringSet("categories");
         List<String> cuisineList = new ArrayList<>(preferredCuisines);
         pantryData.setCuisinePreferences(cuisineList);
-//        pantryData.setActivityLevel("Low");             //TODO: Figure out where this value will really come from
+        pantryData.setActivityLevel("Low");             //TODO: Figure out where this value will really come from
 
         //If the user hasn't selected any
         if( mealCurrentlySelected == null )
             determineMealToSearch();
-//        pantryData.setMealPreference( mealCurrentlySelected.name() );
+        pantryData.setMealPreference( mealCurrentlySelected.name() );
 
         //Close to avoid locking issues
         dal.close();
