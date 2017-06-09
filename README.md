@@ -1,4 +1,4 @@
-# Proactive Food Application
+# Smart Food
 
 Spencer Smith
 
